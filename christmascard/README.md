@@ -2,7 +2,10 @@
 
 Remark that the schematic and PCB layout and the software driver are still work in progress and still have bugs both in the hardware and software.
 
+![DQcKnOpVwAAkGqP2](https://user-images.githubusercontent.com/9608088/111037348-ec69a380-8423-11eb-9f22-94f261a76e20.jpeg)
+
 # Motivation
+
 
 
 ## Installation
