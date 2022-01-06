@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name pam8403)(type Legacy)(uri /home/voldie/Downloads/pam8403.lib)(options "")(descr ""))
+  (lib (name Analog_DAC)(type Legacy)(uri ${KIPRJMOD}/Analog_DAC.lib)(options "")(descr ""))
+)
