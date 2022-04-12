@@ -18,10 +18,10 @@
 */
 #ifndef _TINY_BLINK_H_
 #define _TINY_BLINK_H_ 1
-#include<avr/io.h>
-#include<avr/interrupt.h>
-#include<avr/pgmspace.h>
-#include<avr/sleep.h>
+#include <avr/interrupt.h>
+#include <avr/io.h>
+#include <avr/pgmspace.h>
+#include <avr/sleep.h>
 
 /**
  * Pin Registers.
@@ -29,7 +29,7 @@
 #define SHIFT_PWM PB0	/*	OC0A - LED intensity regulator.	*/
 #define SHIFT_RCLK PB1	/*	INT0 - Clock inverse.	*/
 #define SHIFT_DIO PB2	/*	Data Input IO pin.	*/
-#define SHIFT_RSHIF PB3	/*	Shift clock.	*/
+#define SHIFT_RSHIF PB3 /*	Shift clock.	*/
 
 /**
  * Number of physical LEDs.
@@ -44,18 +44,18 @@
 /**
  * Internal frame and counter.
  */
-extern volatile uint16_t mframe;	/*	Current frame.	*/
-extern volatile int8_t counter;		/*	Current LED index in the frame.	*/
+extern volatile uint16_t mframe; /*	Current frame.	*/
+extern volatile int8_t counter;	 /*	Current LED index in the frame.	*/
 
 /**
  * Initialize the controller.
  */
-extern void init(void);
+extern void init();
 
 /**
  *
  */
-extern void clear_register(void);
+extern void clear_register();
 
 /**
  * Set PWM of the shift output pin.
@@ -80,6 +80,6 @@ extern void write_frame(const uint16_t frame);
 /**
  * Reset the frame to first key.
  */
-extern void frame_done(void);
+extern void frame_done();
 
 #endif

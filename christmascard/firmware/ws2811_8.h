@@ -21,18 +21,15 @@
 #include <avr/io.h>
 #include <util/delay_basic.h>
 
-
 #define WS2811_PORT PORTB
 
-struct rgb
-{
+struct rgb {
 
-    uint8_t green;
-    uint8_t red;
-    uint8_t blue;
-
+	uint8_t green;
+	uint8_t red;
+	uint8_t blue;
 };
 
-extern void ws2811_send( const void *values, uint16_t array_size, uint8_t bit);
+extern void ws2811_send(const void *values, uint16_t array_size, uint8_t bit);
 
 #endif /* WS2811_96_H_ */

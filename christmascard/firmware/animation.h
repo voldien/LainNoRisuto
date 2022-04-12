@@ -18,16 +18,16 @@
 */
 #ifndef _CC_ANIMATION_H_
 #define _CC_ANIMATION_H_ 1
-#include"christmascard.h"
-#include<stddef.h>
-#include<avr/pgmspace.h>
+#include "christmascard.h"
+#include <avr/pgmspace.h>
+#include <stddef.h>
 
 /**
  * Animations constants.
  */
-#define NRANIM 8		/*	Number of animations.	*/
-#define NRKEYFRAME 32	/*	Number of key frames.	*/
-#define RGBRES 3		/*	RGB LED resolutions.	*/
+#define NRANIM 8	  /*	Number of animations.	*/
+#define NRKEYFRAME 32 /*	Number of key frames.	*/
+#define RGBRES 3	  /*	RGB LED resolutions.	*/
 
 /**
  * WS2811 data structure.
@@ -89,12 +89,12 @@ extern volatile uint8_t g_curkeyframe;
 	x16, x17, x18, x19, x20, x21, x22,													\
 	x23, x24, x25, x26, x27, x28, x29, x30,x31, x32										\
 																						\
-}																						\
+}
 
 /**
  * Initialize animation.
  */
-extern void cc_init_animation(void);
+extern void cc_init_animation();
 
 /**
  * Get current key frame row and column values.
@@ -104,17 +104,16 @@ extern const uint8_t cc_get_curr_animation_keyframe(const uint8_t r, const uint8
 /**
  * Change to next key frame.
  */
-extern void cc_next_frame(void);
+extern void cc_next_frame();
 
 /**
  * Check if next animation is ready.
  */
-extern const uint8_t cc_next_animation_ready(void);
+extern const uint8_t cc_next_animation_ready();
 
 /**
  *	Reset and set next animation.
  */
-extern void cc_reset_for_next_animation(void);
-
+extern void cc_reset_for_next_animation();
 
 #endif

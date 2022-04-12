@@ -38,20 +38,20 @@ const struct animation_t PROGMEM ani[NRANIM] = {
 
 };
 
-const uint16_t cc_get_curr_next_animation_keyframe(void) {
+const uint16_t cc_get_curr_next_animation_keyframe() {
 
 	const uint8_t index = curaniindex;
 
 	/*	Get address and retrieve frame.	*/
 	const uint8_t offset = index;
-	const uint16_t* addr = (const uint16_t*) &ani[curanim].ani[offset];
+	const uint16_t *addr = (const uint16_t *)&ani[curanim].ani[offset];
 	const uint16_t p = pgm_read_word(addr);
 
 	/*	Get PWM address and PWM value.	*/
-	//const uint16_t* paddr = (const uint16_t*)NULL;
-	//uint8_t pwm = pgm_read_byte(paddr);
-	//pwm = GET_PWM_8VALUE(pwm, index);
-	//set_pwm(pwm);
+	// const uint16_t* paddr = (const uint16_t*)NULL;
+	// uint8_t pwm = pgm_read_byte(paddr);
+	// pwm = GET_PWM_8VALUE(pwm, index);
+	// set_pwm(pwm);
 
 	/*	Update animation.	*/
 	curaniindex++;
@@ -64,7 +64,7 @@ const uint16_t cc_get_curr_next_animation_keyframe(void) {
 	return p;
 }
 
-void reset_for_next_animation(void) {
+void reset_for_next_animation() {
 	curanim = (curanim + 1) % NRANIM;
 	curaniindex = 0;
 }

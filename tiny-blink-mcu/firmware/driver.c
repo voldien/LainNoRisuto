@@ -1,6 +1,6 @@
-#include"driver.h"
-#include"animation.h"
-#include<util/delay.h>
+#include "driver.h"
+#include "animation.h"
+#include <util/delay.h>
 
 volatile uint16_t mframe = 0xFFFF;
 volatile int8_t counter;
@@ -40,49 +40,42 @@ ISR(INT0_vect) {
 	counter--;
 }
 
-void write_frame(const uint16_t frame) {
-	mframe = frame;
-}
+void write_frame(const uint16_t frame) { mframe = frame; }
 
-void frame_done(void) {
-	counter = NRLED + 1;
-}
+void frame_done() { counter = NRLED + 1; }
 
-void set_pwm(const uint8_t pwm) {
-	OCR0A = LED_INTENSITY - pwm;
-}
+void set_pwm(const uint8_t pwm) { OCR0A = LED_INTENSITY - pwm; }
 
-void clear_register(void){
+void clear_register() {
 	write_frame(0x0);
 	frame_done();
 }
 
-void shift_clock_state(const uint8_t state){
+void shift_clock_state(const uint8_t state) {
 
-	if(state){
+	if (state) {
 		/*	Output source mode.
 		 */
 		DDRB |= (1 << SHIFT_RSHIF);
 		PORTB |= (1 << SHIFT_RSHIF);
-	}else{
+	} else {
 		/*	Low output by high impedance.
 		 */
 		DDRB |= (1 << SHIFT_RSHIF);
-		//DDRB &= ~(1 << SHIFT_RSHIF);
+		// DDRB &= ~(1 << SHIFT_RSHIF);
 		PORTB &= ~(1 << SHIFT_RSHIF);
 	}
 }
 
-void write_bit(const uint8_t state){
+void write_bit(const uint8_t state) {
 	const uint8_t bit = state & 0x1;
-	if (bit){
+	if (bit) {
 		/*
 		 * High - source output
 		 */
 		DDRB |= (1 << SHIFT_DIO);
 		PORTB |= (1 << SHIFT_DIO);
-	}
-	else{
+	} else {
 		/**
 		 *	Low - sink output.
 		 */
@@ -91,7 +84,7 @@ void write_bit(const uint8_t state){
 	}
 }
 
-void init(void) {
+void init() {
 
 	cli();
 
@@ -130,16 +123,16 @@ void init(void) {
 
 	shift_clock_state(0);
 
-	//sei();
-
+	// sei();
 }
 
-int main(void) {
+int main() {
 
 	DDRB = 0xff;
 	PORTB = 0xff;
 
-	while(1){}
+	while (1) {
+	}
 
 	/*	Init the controller.	*/
 	init();
@@ -155,7 +148,6 @@ int main(void) {
 			sleep_cpu();
 		}
 
-		
 		cli();
 
 		/*	Next animation frame.	*/
@@ -167,7 +159,7 @@ int main(void) {
 		/*	Enable next frame.	*/
 		frame_done();
 
-		//sei();
+		// sei();
 	}
 	return 0;
 }

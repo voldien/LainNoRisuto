@@ -1,11 +1,10 @@
-#include<avr/io.h>
+#include <avr/io.h>
 
 /**
  *	Fuses for the state of the microntroller through out
  *	its life time.
  */
-FUSES =
-{
+FUSES = {
 	.low = LFUSE_DEFAULT,
 	.high = HFUSE_DEFAULT,
 };

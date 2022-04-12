@@ -18,9 +18,9 @@
 */
 #ifndef _LED_BOARD_FIRMWARE_H_
 #define _LED_BOARD_FIRMWARE_H_ 1
-#include"animation.h"
-#include<stddef.h>
-#include<avr/pgmspace.h>
+#include "animation.h"
+#include <avr/pgmspace.h>
+#include <stddef.h>
 
 /**
  *	Global.
@@ -30,8 +30,8 @@
 /**
  * Constants.
  */
-#define LED_PIN PB0		/*	PWM.	*/
-#define BUTTON_PIN PB1	/*	INT0.	*/
+#define LED_PIN PB0	   /*	PWM.	*/
+#define BUTTON_PIN PB1 /*	INT0.	*/
 
 /**
  *
@@ -47,12 +47,11 @@ extern volatile uint16_t mitime;
 /**
  * Initialize the controller.
  */
-extern void init(void);
+extern void init();
 
 /**
  *
  */
 extern void set_ledpwm(const uint8_t pwm);
-
 
 #endif

@@ -41,27 +41,24 @@ const struct animation_t PROGMEM ani[NRANIM]  = {
 	CREATE_ANIMIATION(0, 2, 8, 15, 8, 2, 0, 0, 2, 8, 15, 8, 2, 0, 0, 0, 0, 2, 8, 15, 8, 2, 0, 0, 2, 8, 15, 8, 2, 0, 0, 0),
 };
 
-void init_animation(void){
+void init_animation() {
 	curanim = 0;
 	curaniindex = 0;
 }
 
-uint8_t intp(uint8_t a, uint8_t b, uint8_t t){
-	return a + (a - b);
-}
+uint8_t intp(uint8_t a, uint8_t b, uint8_t t) { return a + (a - b); }
 
-
-const uint8_t get_curr_next_animation_keyframe(void){
+const uint8_t get_curr_next_animation_keyframe() {
 
 	const uint8_t index = curaniindex;
 
 	const uint8_t offset = index / 2;
 
-	const uint16_t* addr = (const uint16_t*)&ani[curanim].ani[offset];
+	const uint16_t *addr = (const uint16_t *)&ani[curanim].ani[offset];
 	register uint8_t p = pgm_read_byte(addr);
 
 	/*	Extract value.	*/
-	if(index % 2 == 0)
+	if (index % 2 == 0)
 		p = (p >> LEDRES) & 0xF;
 	else
 		p = p & 0xF;
@@ -76,8 +73,7 @@ const uint8_t get_curr_next_animation_keyframe(void){
 	return p * factor + p;
 }
 
-
-void reset_for_next_animation(void){
+void reset_for_next_animation() {
 	curanim = (curanim + 1) % NRANIM;
 	curaniindex = 0;
 }

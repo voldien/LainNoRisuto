@@ -1,33 +1,31 @@
-#include"christmascard.h"
-#include"animation.h"
-#include<avr/boot.h>
-#include<avr/interrupt.h>
-#include<avr/power.h>
-#include<avr/io.h>
-#include<avr/common.h>
-#include<avr/builtins.h>
-#include<avr/wdt.h>
-#include<avr/sleep.h>
-#include<util/delay.h>
-#include<assert.h>
-#include"ws2811_8.h"
+#include "animation.h"
+#include "christmascard.h"
+#include "ws2811_8.h"
+#include <assert.h>
+#include <avr/boot.h>
+#include <avr/builtins.h>
+#include <avr/common.h>
+#include <avr/interrupt.h>
+#include <avr/io.h>
+#include <avr/power.h>
+#include <avr/sleep.h>
+#include <avr/wdt.h>
+#include <util/delay.h>
 
-ISR(INT0_vect) {
-	cc_reset_for_next_animation();
-}
+ISR(INT0_vect) { cc_reset_for_next_animation(); }
 
-void cc_init_nextanibutton(void){
+void cc_init_nextanibutton(void) {
 	/*	Output and enable pin for next button.	*/
 	PORTD |= BUTTON_NEXT;
 	DDRD |= BUTTON_NEXT;
 
 	/*	Enable interrupt.	*/
 	/*	External interrupt invoked on volt drop.	*/
-	MCUCR |= (1 << ISC00) | ( 1 << ISC01);
+	MCUCR |= (1 << ISC00) | (1 << ISC01);
 	GICR |= (1 << INT0);
 }
 
-void cc_init_ledcontrollers(void){
+void cc_init_ledcontrollers() {
 
 	/*	Output and enable pin for ws2811.	*/
 	DDRB |= WS2811_IN;
@@ -36,7 +34,7 @@ void cc_init_ledcontrollers(void){
 	ROWDPORT |= ROWALL;
 }
 
-void cc_init_time2ovf(void){
+void cc_init_time2ovf() {
 	/*
 	TIMSK |= ( 1 << TOIE2);
 	*/
@@ -47,42 +45,38 @@ void cc_init_time2ovf(void){
 	TCCR2 |= (1 << CS02);
 	TIFR = (1 << TOV2);
 	*/
-
 }
 
-void cc_set_row(const uint8_t r){
+void cc_set_row(const uint8_t r) {
 
 	/*	Set all rows to sink.	 */
 	ROWPORT &= ~ROWALL;
 	ROWDPORT |= ROWALL;
 
 	/*	Set specified row to source mode.	*/
-	if(r == 0){
+	if (r == 0) {
 		ROWPORT |= ROW0;
-	}
-	else if(r == 1){
+	} else if (r == 1) {
 		ROWPORT |= ROW1;
-	}
-	else if(r == 2){
+	} else if (r == 2) {
 		ROWPORT |= ROW2;
-	}
-	else if (r == 3){
+	} else if (r == 3) {
 		ROWPORT |= ROW3;
 	}
 }
 
-void cc_set_col(const uint8_t d[9]){
+void cc_set_col(const uint8_t d[9]) {
 
 	cli();
 	ws2811_send(d, 3, WS2811_PIN);
 	sei();
 }
 
-void cc_display_next_keyframe(void){
+void cc_display_next_keyframe() {
 	uint8_t i, j;
 
 	/*	*/
-	for(j = 0; j < NUMROWS; j++){
+	for (j = 0; j < NUMROWS; j++) {
 		uint8_t buf[9];
 
 		/*	Fetch row data.	*/
@@ -99,12 +93,12 @@ void cc_display_next_keyframe(void){
 	//_delay_us(15);
 }
 
-void cc_select_led_controller(void) {
+void cc_select_led_controller() {
 	DDRC |= (1 << PC6);
 	PORTC |= (1 << PC6);
 }
 
-void init(void) {
+void init() {
 	/*	Disable interrupt intill
 	 *	the initialization part is done.*/
 	cli();
@@ -134,7 +128,7 @@ void init(void) {
 	sei();
 }
 
-int main(void) {
+int main() {
 
 	init();
 
@@ -146,7 +140,6 @@ int main(void) {
 		/*	Refresh the LED n number of times.	*/
 		for (i = 0; i < it; i++) {
 			cc_display_next_keyframe();
-
 		}
 
 		/*	Change to next animation.*/

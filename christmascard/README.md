@@ -12,7 +12,7 @@ Remark that the schematic and PCB layout and the software driver are still work 
 
 
 # Motivation
-
+Create a pcb board that could act as a christmas card.
 
 
 ## Installation

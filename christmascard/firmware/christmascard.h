@@ -18,7 +18,7 @@
 */
 #ifndef _CHRISTMAS_CARD_H_
 #define _CHRISTMAS_CARD_H_ 1
-#include<stdio.h>
+#include <stdio.h>
 
 /**
  *	constant global attributes.
@@ -37,23 +37,23 @@
  *
  */
 #define BUTTON_NEXT (1 << PD2)
-#define WS2811_PIN	PB3
+#define WS2811_PIN PB3
 #define WS2811_IN (1 << WS2811_PIN)
 
 /**
  *	Animation and LED.
  */
-extern void cc_set_row(const uint8_t r);		/*	Set current enabled row.	*/
-extern void cc_set_col(const uint8_t* d);		/*	Update LED driver with 8 bytes for current row.	*/
-extern void cc_display_next_keyframe(void);		/*	Display next current key frame.	*/
-extern void cc_select_led_controller(void);		/*	Select LED controller.	*/
-extern void cc_select_flash_controller(void);	/*	Select Flash Controller.	*/
+extern void cc_set_row(const uint8_t r);	  /*	Set current enabled row.	*/
+extern void cc_set_col(const uint8_t *d);	  /*	Update LED driver with 8 bytes for current row.	*/
+extern void cc_display_next_keyframe(void);	  /*	Display next current key frame.	*/
+extern void cc_select_led_controller(void);	  /*	Select LED controller.	*/
+extern void cc_select_flash_controller(void); /*	Select Flash Controller.	*/
 
 /**
  *	Button, controller and timers.
  */
-extern void cc_init_nextanibutton(void);	/*	Initialize next animation button interrupt.	*/
-extern void cc_init_ledcontrollers(void);	/*	Initialize LED controller.	*/
-extern void cc_init_time2ovf(void);			/*	Enable timer overflow interrupt for update.	*/
+extern void cc_init_nextanibutton(void);  /*	Initialize next animation button interrupt.	*/
+extern void cc_init_ledcontrollers(void); /*	Initialize LED controller.	*/
+extern void cc_init_time2ovf(void);		  /*	Enable timer overflow interrupt for update.	*/
 
 #endif

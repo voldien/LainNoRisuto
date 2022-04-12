@@ -1,14 +1,13 @@
-#include"ledboard.h"
-#include<avr/lock.h>
-#include<avr/fuse.h>
-#include<avr/io.h>
+#include "ledboard.h"
+#include <avr/fuse.h>
+#include <avr/io.h>
+#include <avr/lock.h>
 
 /**
  *	Fuses for the state of the microntroller through out
  *	its life time.
  */
-FUSES =
-{
+FUSES = {
 	.low = (FUSE_CKSEL0 & FUSE_SUT0 & FUSE_CKDIV8 & FUSE_SPIEN),
 	.high = HFUSE_DEFAULT,
 };
