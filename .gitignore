@@ -408,3 +408,8 @@ TSWLatexianTemp*
 
 #
 *~
+
+#
+*.zip
+*.7z
+*.tar.gz
