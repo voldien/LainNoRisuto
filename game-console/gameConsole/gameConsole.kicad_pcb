@@ -324,7 +324,7 @@
 
   (footprint "Package_SO:SSOP-28_5.3x10.2mm_P0.65mm" (layer "F.Cu")
     (tstamp 00000000-0000-0000-0000-00006117dcf6)
-    (at 87.63 50.8)
+    (at 98 25.075)
     (descr "28-Lead Plastic Shrink Small Outline (SS)-5.30 mm Body [SSOP] (see Microchip Packaging Specification 00000049BS.pdf)")
     (tags "SSOP 0.65")
     (attr smd)
