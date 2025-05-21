@@ -7,7 +7,7 @@ set(AVR_UPLOADTOOL avrdude)
 set(AVR_PROGRAMMER arduino)
 set(AVR_UPLOADTOOL_PORT /dev/ttyUSB0)
 # AVR and fuses needs to be set
-set(AVR_MCU attiny13a) # atmega328p attiny13a
+set(AVR_MCU atmega328p) # atmega328p attiny13a
 set(AVR_H_FUSE 0xd9)
 set(AVR_L_FUSE 0xc3)
 

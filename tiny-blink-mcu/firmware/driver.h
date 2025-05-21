@@ -23,9 +23,7 @@
 #include <avr/pgmspace.h>
 #include <avr/sleep.h>
 #include <avr/wdt.h>
-#include <inttypes.h>
-#include <stdint.h>
-
+ 
 
 #define PUSH_BUTTON_REG PORTB
 #define PUSH_BUTTON_DREG DDRB
@@ -44,7 +42,7 @@
 
 #define SHIFT_DIO_REG PORTB /*	Data Input IO pin.	*/
 #define SHIFT_DIO_DREG DDRB /*	Data Input IO pin.	*/
-#define SHIFT_DIO PB4		/*	Data Input IO pin.	*/
+#define SHIFT_DIO_PIN PB4		/*	Data Input IO pin.	*/
 
 #define SHIFT_LATCH_REG PORTB
 #define SHIFT_LATCH_DREG DDRB
