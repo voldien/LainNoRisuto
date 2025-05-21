@@ -57,10 +57,10 @@ extern volatile uint8_t curaniindex;
  * Create single frame
  */
 #define CREATE_FRAME(x1)                                                                                               \
-	(((x1 & 0x1) << 15) | ((x1 & 0x2) << 14) | ((x1 & 0x4) << 13) | ((x1 & 0x8) << 12) | ((x1 & 0x10) << 11) |         \
-	 ((x1 & 0x20) << 10) | ((x1 & 0x40) << 9) | ((x1 & 0x80) << 8) | ((x1 & 0x100) << 7) | ((x1 & 0x200) << 6) |       \
-	 ((x1 & 0x400) << 5) | ((x1 & 0x800) << 4) | ((x1 & 0x1000) << 3) | ((x1 & 0x2000) << 2) | ((x1 & 0x4000) << 1) |  \
-	 ((x1 & 0x8000) << 0))
+	(((x1 & 0x1) << 0) | ((x1 & 0x2) << 1) | ((x1 & 0x4) << 2) | ((x1 & 0x8) << 3) | ((x1 & 0x10) << 4) |         \
+	 ((x1 & 0x20) << 5) | ((x1 & 0x40) << 6) | ((x1 & 0x80) << 7) | ((x1 & 0x100) << 8) | ((x1 & 0x200) << 9) |       \
+	 ((x1 & 0x400) << 10) | ((x1 & 0x800) << 11) | ((x1 & 0x1000) << 12) | ((x1 & 0x2000) << 13) | ((x1 & 0x4000) << 14) |  \
+	 ((x1 & 0x8000) << 15))
 
 /**
  * Create PWM value.
@@ -75,7 +75,7 @@ extern volatile uint8_t curaniindex;
 /**
  *
  */
-#define GET_PWM_8VALUE(x, index) GET_PWM_VALUE(x, index) * 8
+#define GET_PWM_8VALUE(x, index) GET_PWM_VALUE(x, index) * 8u
 
 /**
  *	Create macro for creating
@@ -98,11 +98,11 @@ extern volatile uint8_t curaniindex;
 /**
  * Get current animation key frame.
  */
-extern const uint16_t cc_get_curr_next_animation_keyframe(void);
+extern uint16_t cc_get_curr_next_animation_keyframe();
 
 /**
  *	Reset and set next animation.
  */
-extern void reset_for_next_animation(void);
+inline extern void reset_for_next_animation();
 
 #endif
