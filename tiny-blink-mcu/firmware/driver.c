@@ -7,17 +7,13 @@
 #include <avr/sleep.h>
 #include <util/delay.h>
 
-// FUSES = {
-// 	.low = FUSE_SUT0 | FUSE_CKSEL3 | FUSE_CKSEL2 | FUSE_CKSEL0,
-// 	.high = (FUSE_BOOTSZ0 & FUSE_BOOTSZ1 & FUSE_SPIEN),
-// 	.extended = EFUSE_DEFAULT,
-// };
+uint8_t push_counter_button = 0;
+uint8_t brightness;
+uint8_t play_mode = 0;
 
 // TODO: gamma correction
-// TODO: Define Each Signal Port Register and Index
-// PWM - OE Define Each Signal Port Register and Index
 
-inline uint8_t gamma_correction(uint8_t level) { return level; }
+inline uint8_t gamma_correction(const uint8_t level) { return level; }
 
 inline void shift_latch_state(const uint8_t state) {
 
@@ -35,6 +31,7 @@ inline void shift_latch_state(const uint8_t state) {
 }
 
 inline void shift_clock_state(const uint8_t state) {
+
 	if (state) {
 		/*	Output source mode.
 		 */
@@ -66,6 +63,17 @@ inline void write_bit(const uint8_t state) {
 	}
 }
 
+inline void shift_oe_state(const uint8_t state) {
+
+	if (state) {
+		SHIFT_OE_DREG |= (1 << SHIFT_OE_PIN);
+		SHIFT_OE_REG |= (1 << SHIFT_OE_PIN);
+	} else {
+		SHIFT_OE_DREG &= ~(1 << SHIFT_OE_PIN);
+		SHIFT_OE_REG &= ~(1 << SHIFT_OE_PIN);
+	}
+}
+
 void check_button_and_next(); //  __attribute__ ((naked));
 void check_button_and_next() {
 	const uint8_t button = !(PUSH_BUTTON_IREG & PUSH_BUTTON_PIN);
@@ -90,7 +98,6 @@ ISR(PCINT0_vect) {
 	}
 }
 
-uint8_t push_counter_button = 0;
 ISR(TIMER0_OVF_vect) {
 	const uint8_t button = (PUSH_BUTTON_IREG & PUSH_BUTTON_PIN);
 
@@ -99,13 +106,14 @@ ISR(TIMER0_OVF_vect) {
 		if (push_counter_button >= 2) {
 
 			/*	Setup Default Values.	*/
-			SHIFT_OE_DREG &= ~(1 << SHIFT_OE_PIN);
-			SHIFT_OE_REG &= ~(1 << SHIFT_OE_PIN);
+			shift_oe_state(0);
 
-			//set_sleep_mode(SLEEP_MODE_PWR_SAVE);
-			//wdt_disable();
-			//sleep_enable();
-			//sleep_mode();
+
+			/*	*/
+			// set_sleep_mode(SLEEP_MODE_PWR_SAVE);
+			// wdt_disable();
+			// sleep_enable();
+			// sleep_mode();
 		}
 	} else {
 		push_counter_button = 0;
@@ -113,40 +121,36 @@ ISR(TIMER0_OVF_vect) {
 }
 
 const uint16_t MAX_PWM_VALUE = 65535U;
-
 void set_pwm(const uint8_t pwm) { SHIFT_OE_PWM_REG = 0xFFFF - 0x10ff; }
 
 void init() {
 
 	cli();
 
-	/*TODO: prescular.	*/
+	/*	Set Prescular on the MCU to reduce power.	*/
 	clock_prescale_set(clock_div_128);
 
 	/*	*/
 	wdt_enable(WDTO_500MS);
 
+	/*	*/
 	power_adc_disable();
 
-	/*	*/
-	PUSH_BUTTON_DREG = 0;
-	// PUSH_BUTTON_DREG &= ~(0 << PUSH_BUTTON_REG);
+	/*	Setup Button Pin.	*/
 	PUSH_BUTTON_REG |= (0 << PUSH_BUTTON_REG);
 	PUSH_BUTTON_DREG |= (0 << PUSH_BUTTON_REG);
 
 	/*	Setup Default Values.	*/
-	SHIFT_OE_DREG |= (1 << SHIFT_OE_PIN);
-	SHIFT_OE_REG |= (1 << SHIFT_OE_PIN);
+	shift_oe_state(1);
 
+	/*	PWM - SHIFT OE.	*/
 	// TCCR1A = 1 << WGM11 | 1 << COM1A1 | 1 << COM1B1; // set on top, clear OC on compare match
 	// TCCR1B = 1 << CS10 | 1 << WGM12 | 1 << WGM13;	 // clk/1, mode 14 fast PWM
 	// ICR1 = 0xFFFF;
 
 	/*	Setup Timer Overflow.	*/
 	TCNT0 = 0;
-	TCCR0B = (1 << CS02) & (0 << CS01) | (1 << CS00) | (0 << WGM02);
-	// TCCR0B &= ~(1 << WGM02);
-	// TCCR0A &= ~((1 << WGM00) | (1 << WGM01));
+	TCCR0B = (1 << CS02) | (0 << CS01) | (1 << CS00) | (0 << WGM02);
 	TIMSK0 |= (1 << TOIE0);
 
 /*	Enable Pin Down Change.	*/
@@ -168,23 +172,23 @@ int main() {
 	/*	Init the controller.	*/
 	init();
 
-	_delay_loop_1(256);
+	_delay_loop_1(255u);
 
 	shift_latch_state(0);
 	shift_clock_state(0);
 
-	uint8_t brightness;
 	while (1) {
+
+		/*	*/
 		wdt_reset();
-
 		// set_pwm(gamma_correction(brightness));
+
 		/*	Next animation frame.	*/
-
-		uint16_t current_frame = cc_get_curr_next_animation_keyframe();
-
+		const uint16_t current_frame = cc_get_curr_next_animation_keyframe();
+		/*	*/
 		for (uint8_t i = 0; i < 15; i++) {
 
-			uint8_t bit = (current_frame) >> i;
+			const uint8_t bit = (current_frame) >> i;
 
 			/*	Write Data Signal.	*/
 			write_bit(bit);
@@ -201,6 +205,8 @@ int main() {
 
 		/*	*/
 		_delay_loop_1(32);
+
+		/*	Latch the current result in the shift buffer to the output buffer.	*/
 		shift_latch_state(1);
 		_delay_loop_1(128);
 

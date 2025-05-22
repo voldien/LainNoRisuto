@@ -24,7 +24,7 @@
 /**
  * Animation settings. Need to
  * be in a power of two for better
- * performance and lower OPC space.
+ * performance.
  */
 #define NRANIM 8
 #define NRANIMENTRY 32

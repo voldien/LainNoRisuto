@@ -16,6 +16,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
+#include <stdint.h>
 #ifndef _TINY_BLINK_H_
 #define _TINY_BLINK_H_ 1
 #include <avr/interrupt.h>
@@ -24,27 +25,44 @@
 #include <avr/sleep.h>
 #include <avr/wdt.h>
 
+/**
+ * Push Button Registers and Pin
+ *
+ */
 #define PUSH_BUTTON_REG PORTD
 #define PUSH_BUTTON_DREG DDRD
 #define PUSH_BUTTON_IREG PIND
 #define PUSH_BUTTON_PIN PD0
 
 /**
- * Pin Registers.
+ * Shift Registers Output Enabled
+ * Pin and Registers.
  */
-#define SHIFT_OE_REG PORTB /*	PWM.	*/
-#define SHIFT_OE_DREG DDRB /*	PWM.	*/
-#define SHIFT_OE_PIN PB2   /*	PWM.	*/
+#define SHIFT_OE_REG PORTB /*		*/
+#define SHIFT_OE_DREG DDRB /*		*/
+#define SHIFT_OE_PIN PB2   /*		*/
 #define SHIFT_OE_PWM_REG OCR0B
 
-#define SHIFT_RCLK_REG PORTB /*	INT0 - Clock inverse.	*/
-#define SHIFT_RCLK_DREG DDRB /*	INT0 - Clock inverse.	*/
-#define SHIFT_RCLK_PIN PB3	 /*	INT0 - Clock inverse.	*/
+/**
+ * Shift Register Shift Clock Pin
+ * and Registers
+ */
+#define SHIFT_RCLK_REG PORTB /*	 	*/
+#define SHIFT_RCLK_DREG DDRB /*	 	*/
+#define SHIFT_RCLK_PIN PB3	 /*	 	*/
 
-#define SHIFT_DIO_REG PORTB /*	Data Input IO pin.	*/
-#define SHIFT_DIO_DREG DDRB /*	Data Input IO pin.	*/
-#define SHIFT_DIO_PIN PB4	/*	Data Input IO pin.	*/
+/**
+ * Shift Registers Serial Data Pin
+ * and Registers
+ */
+#define SHIFT_DIO_REG PORTB /*		*/
+#define SHIFT_DIO_DREG DDRB /*		*/
+#define SHIFT_DIO_PIN PB4	/*		*/
 
+/**
+ * Shift Registers Latch (Flush Data to Output) Pin
+ * and Register
+ */
 #define SHIFT_LATCH_REG PORTB
 #define SHIFT_LATCH_DREG DDRB
 #define SHIFT_LATCH_PIN PB0 /*	Shift clock.	*/
@@ -60,36 +78,41 @@
 #define LED_INTENSITY 255
 
 /**
- * Internal frame and counter.
+ * @brief
+ *
  */
-extern volatile uint16_t mframe; /*	Current frame.	*/
-extern volatile int8_t counter;	 /*	Current LED index in the frame.	*/
+extern uint8_t play_mode;
+extern uint8_t push_counter_button;
+extern uint8_t brightness;
 
 /**
- * Initialize the controller.
+ *	Initialize the controller.
  */
 extern void init();
- 
+
 /**
- * Set PWM of the shift output pin.
+ *	Set PWM of the shift output pin.
  */
 extern void set_pwm(const uint8_t pwm);
 
 /**
- * @brief
+ * Set Latch Signal High (1) Low (0)
  */
 extern inline void shift_latch_state(const uint8_t state) __attribute__((always_inline));
 
 /**
- * @brief
- *
+ * Set Shift Clock Signal High (1) Low (0)
  */
 extern inline void shift_clock_state(const uint8_t state) __attribute__((always_inline));
 
-/**
- * @brief
- *
+/*
+ * Set Serial Data Signal High (1) Low (0)
  */
-extern inline void write_bit(const uint8_t state) __attribute__((always_inline));
+extern inline void write_bit(const uint8_t state_lsb) __attribute__((always_inline));
+
+/**
+ * 
+ */
+extern inline void shift_oe_state(const uint8_t state) __attribute__((always_inline));
 
 #endif

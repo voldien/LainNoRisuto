@@ -8,10 +8,12 @@ set(AVR_PROGRAMMER arduino)
 set(AVR_UPLOADTOOL_PORT /dev/ttyUSB0)
 # AVR and fuses needs to be set
 set(AVR_MCU atmega328p) # atmega328p attiny13a
+#TODO: based on the source file
 set(AVR_H_FUSE 0xd9)
 set(AVR_L_FUSE 0xc3)
 
 INCLUDE(generic-gcc-avr)
+avr_generate_fixed_targets()
  
 ##########################################################################
 # name your project
@@ -114,4 +116,5 @@ add_avr_executable(
    tiny-blink
    animation.c
    driver.c
+   fuse_lock.c
 )
