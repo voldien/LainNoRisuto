@@ -23,18 +23,19 @@
 #include <avr/pgmspace.h>
 #include <avr/sleep.h>
 #include <avr/wdt.h>
- 
 
-#define PUSH_BUTTON_REG PORTB
-#define PUSH_BUTTON_DREG DDRB
-#define PUSH_BUTTON_IREG PINB
-#define PUSH_BUTTON_PIN PB1
+#define PUSH_BUTTON_REG PORTD
+#define PUSH_BUTTON_DREG DDRD
+#define PUSH_BUTTON_IREG PIND
+#define PUSH_BUTTON_PIN PD0
+
 /**
  * Pin Registers.
  */
-#define SHIFT_OE_REG PORTB
-#define SHIFT_OE_DREG DDRB
-#define SHIFT_OE_PIN PB2 /*	OC0A - LED intensity regulator.	*/
+#define SHIFT_OE_REG PORTB /*	PWM.	*/
+#define SHIFT_OE_DREG DDRB /*	PWM.	*/
+#define SHIFT_OE_PIN PB2   /*	PWM.	*/
+#define SHIFT_OE_PWM_REG OCR0B
 
 #define SHIFT_RCLK_REG PORTB /*	INT0 - Clock inverse.	*/
 #define SHIFT_RCLK_DREG DDRB /*	INT0 - Clock inverse.	*/
@@ -42,7 +43,7 @@
 
 #define SHIFT_DIO_REG PORTB /*	Data Input IO pin.	*/
 #define SHIFT_DIO_DREG DDRB /*	Data Input IO pin.	*/
-#define SHIFT_DIO_PIN PB4		/*	Data Input IO pin.	*/
+#define SHIFT_DIO_PIN PB4	/*	Data Input IO pin.	*/
 
 #define SHIFT_LATCH_REG PORTB
 #define SHIFT_LATCH_DREG DDRB
@@ -68,43 +69,27 @@ extern volatile int8_t counter;	 /*	Current LED index in the frame.	*/
  * Initialize the controller.
  */
 extern void init();
-
-/**
- *
- */
-extern void clear_register();
-
+ 
 /**
  * Set PWM of the shift output pin.
  */
 extern void set_pwm(const uint8_t pwm);
 
 /**
- * @brief 
- * 
+ * @brief
  */
 extern inline void shift_latch_state(const uint8_t state) __attribute__((always_inline));
 
 /**
- * @brief 
- * 
+ * @brief
+ *
  */
 extern inline void shift_clock_state(const uint8_t state) __attribute__((always_inline));
 
 /**
- * @brief 
- * 
+ * @brief
+ *
  */
 extern inline void write_bit(const uint8_t state) __attribute__((always_inline));
-
-/**
- * Write frame to the shift register.
- */
-extern void write_frame(const uint16_t frame);
-
-/**
- * Reset the frame to first key.
- */
-extern void frame_done();
 
 #endif

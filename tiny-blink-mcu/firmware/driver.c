@@ -4,6 +4,7 @@
 #include <avr/cpufunc.h>
 #include <avr/interrupt.h>
 #include <avr/power.h>
+#include <avr/sleep.h>
 #include <util/delay.h>
 
 // FUSES = {
@@ -67,7 +68,7 @@ inline void write_bit(const uint8_t state) {
 
 void check_button_and_next(); //  __attribute__ ((naked));
 void check_button_and_next() {
-	const uint8_t button = (PUSH_BUTTON_IREG & PUSH_BUTTON_PIN);
+	const uint8_t button = !(PUSH_BUTTON_IREG & PUSH_BUTTON_PIN);
 	if (button) {
 		reset_for_next_animation();
 	}
@@ -76,31 +77,44 @@ void check_button_and_next() {
 /**
  * On reversed clock voltage change.
  */
+#ifdef __AVR_ATmega328P__
+ISR(PCINT2_vect) {
+#else
 ISR(PCINT0_vect) {
-	/*	*/
-	const uint8_t button = (PUSH_BUTTON_IREG & PUSH_BUTTON_PIN);
+#endif
+	const uint8_t button = !(PUSH_BUTTON_IREG & PUSH_BUTTON_PIN);
+
 	if (button) {
 		curanim = (curanim + 1) % NRANIM;
 		curaniindex = 0;
 	}
-	// check_button_and_next();
 }
 
-uint8_t push_button = 0;
+uint8_t push_counter_button = 0;
 ISR(TIMER0_OVF_vect) {
 	const uint8_t button = (PUSH_BUTTON_IREG & PUSH_BUTTON_PIN);
 
 	if (button) {
-		push_button++;
-		if (push_button == 2) {
-			set_sleep_mode(SLEEP_MODE_IDLE);
+		push_counter_button++;
+		if (push_counter_button >= 2) {
+
+			/*	Setup Default Values.	*/
+			SHIFT_OE_DREG &= ~(1 << SHIFT_OE_PIN);
+			SHIFT_OE_REG &= ~(1 << SHIFT_OE_PIN);
+
+			//set_sleep_mode(SLEEP_MODE_PWR_SAVE);
+			//wdt_disable();
+			//sleep_enable();
+			//sleep_mode();
 		}
 	} else {
-		push_button = 0;
+		push_counter_button = 0;
 	}
 }
 
-void set_pwm(const uint8_t pwm) { OCR0A = LED_INTENSITY - pwm; }
+const uint16_t MAX_PWM_VALUE = 65535U;
+
+void set_pwm(const uint8_t pwm) { SHIFT_OE_PWM_REG = 0xFFFF - 0x10ff; }
 
 void init() {
 
@@ -108,42 +122,42 @@ void init() {
 
 	/*TODO: prescular.	*/
 	clock_prescale_set(clock_div_128);
+
+	/*	*/
 	wdt_enable(WDTO_500MS);
 
 	power_adc_disable();
 
-	/**
-	 * All port output source mode.
-	 * SHIFT_DIO_PIN, SHIFT_CLR output IO.
-	 *
-	 * SHIFT_RCLK_PIN input IO.
-	 * SHIFT_PMW output sink mode.
-	 */
-	SHIFT_OE_REG |= (1 << SHIFT_RCLK_PIN);
-	SHIFT_RCLK_REG &= ~(0 << SHIFT_RCLK_PIN);
-	SHIFT_DIO_REG &= ~(0 << SHIFT_DIO_PIN);
-	SHIFT_LATCH_REG &= ~(0 << SHIFT_RCLK_PIN);
+	/*	*/
+	PUSH_BUTTON_DREG = 0;
+	// PUSH_BUTTON_DREG &= ~(0 << PUSH_BUTTON_REG);
+	PUSH_BUTTON_REG |= (0 << PUSH_BUTTON_REG);
+	PUSH_BUTTON_DREG |= (0 << PUSH_BUTTON_REG);
 
-	// TODO:
-	DDRB = (0 << SHIFT_RCLK_PIN) | (0 << SHIFT_DIO_PIN) | (0 << SHIFT_LATCH_PIN) | (1 << SHIFT_OE_PIN);
+	/*	Setup Default Values.	*/
+	SHIFT_OE_DREG |= (1 << SHIFT_OE_PIN);
+	SHIFT_OE_REG |= (1 << SHIFT_OE_PIN);
 
-	/**
-	 * PWM - pulse with modulation.
-	 * Override OCA1 pin and toggle output.
-	 * Fast PWM mode
-	 * Clock divisor 8.
-	 */
-	//TCCR0A = (0 << COM0A1) | (1 << COM0A0) | (0 << WGM01) | (1 << WGM00);
-	//TCCR0B = (0 << CS02) | (0 << CS01) | (0 << CS00) | (1 << WGM02);
+	// TCCR1A = 1 << WGM11 | 1 << COM1A1 | 1 << COM1B1; // set on top, clear OC on compare match
+	// TCCR1B = 1 << CS10 | 1 << WGM12 | 1 << WGM13;	 // clk/1, mode 14 fast PWM
+	// ICR1 = 0xFFFF;
 
-	// GIMSK0 = (1 << INT0);
-	// MCUCR |= (1 << ISC01) | (1 << ISC00);
+	/*	Setup Timer Overflow.	*/
+	TCNT0 = 0;
+	TCCR0B = (1 << CS02) & (0 << CS01) | (1 << CS00) | (0 << WGM02);
+	// TCCR0B &= ~(1 << WGM02);
+	// TCCR0A &= ~((1 << WGM00) | (1 << WGM01));
+	TIMSK0 |= (1 << TOIE0);
 
-	/*	Enable Pin Down Change.	*/
-	// PCICR |= (1 << PCIE0);	 /*	*/
-	// PCMSK0 |= (1 << PCINT0); /*	*/
+/*	Enable Pin Down Change.	*/
+#ifdef __AVR_ATmega328P__
+	PCICR |= (1 << PCIE2);	  /*	Enable PIN interrupt 0	*/
+	PCMSK2 |= (1 << PCINT16); /*	Mask PIN to Listen on to invoke Interrupt.*/
+#elif defined(__AVR_ATtiny13A__)
+	GIMSK |= (1 << INT0) | (1 << PCIE);
+	MCUCR |= (1 << ISC01) | (1 << ISC00);
+#endif
 
-	// sleep_enable();
 	sei();
 }
 
@@ -159,13 +173,14 @@ int main() {
 	shift_latch_state(0);
 	shift_clock_state(0);
 
-	uint16_t testCount = 0;
+	uint8_t brightness;
 	while (1) {
 		wdt_reset();
 
+		// set_pwm(gamma_correction(brightness));
 		/*	Next animation frame.	*/
 
-		uint16_t current_frame =  cc_get_curr_next_animation_keyframe();
+		uint16_t current_frame = cc_get_curr_next_animation_keyframe();
 
 		for (uint8_t i = 0; i < 15; i++) {
 
@@ -193,7 +208,6 @@ int main() {
 		shift_latch_state(0);
 		_delay_loop_1(128);
 
-		testCount++;
 		continue;
 	}
 }
