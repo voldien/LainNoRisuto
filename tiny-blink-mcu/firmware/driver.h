@@ -77,6 +77,8 @@
  */
 #define LED_INTENSITY 255
 
+
+#define PLAY_MODE_OUT_ENABLED 0x1
 /**
  * @brief
  *
@@ -94,6 +96,8 @@ extern void init();
  *	Set PWM of the shift output pin.
  */
 extern void set_pwm(const uint8_t pwm);
+
+extern inline uint8_t push_buton_pressed() __attribute__((always_inline));
 
 /**
  * Set Latch Signal High (1) Low (0)

@@ -5,11 +5,12 @@
 #include <avr/interrupt.h>
 #include <avr/power.h>
 #include <avr/sleep.h>
+#include <stdint.h>
 #include <util/delay.h>
 
 uint8_t push_counter_button = 0;
 uint8_t brightness;
-uint8_t play_mode = 0;
+uint8_t play_mode = PLAY_MODE_OUT_ENABLED;
 
 // TODO: gamma correction
 
@@ -66,20 +67,17 @@ inline void write_bit(const uint8_t state) {
 inline void shift_oe_state(const uint8_t state) {
 
 	if (state) {
-		SHIFT_OE_DREG |= (1 << SHIFT_OE_PIN);
 		SHIFT_OE_REG |= (1 << SHIFT_OE_PIN);
 	} else {
-		SHIFT_OE_DREG &= ~(1 << SHIFT_OE_PIN);
+		//SHIFT_OE_DREG |= (1 << SHIFT_OE_PIN);
 		SHIFT_OE_REG &= ~(1 << SHIFT_OE_PIN);
 	}
 }
 
-void check_button_and_next(); //  __attribute__ ((naked));
-void check_button_and_next() {
-	const uint8_t button = !(PUSH_BUTTON_IREG & PUSH_BUTTON_PIN);
-	if (button) {
-		reset_for_next_animation();
-	}
+inline uint8_t push_buton_pressed() {
+	/*	High => Not Pressed.	*/
+	/*	Low => Pressed.	*/
+	return (PUSH_BUTTON_IREG & (1 << PUSH_BUTTON_PIN)) == 0;
 }
 
 /**
@@ -90,7 +88,7 @@ ISR(PCINT2_vect) {
 #else
 ISR(PCINT0_vect) {
 #endif
-	const uint8_t button = !(PUSH_BUTTON_IREG & PUSH_BUTTON_PIN);
+	const uint8_t button = push_buton_pressed();
 
 	if (button) {
 		curanim = (curanim + 1) % NRANIM;
@@ -99,24 +97,26 @@ ISR(PCINT0_vect) {
 }
 
 ISR(TIMER0_OVF_vect) {
-	const uint8_t button = (PUSH_BUTTON_IREG & PUSH_BUTTON_PIN);
+
+	const uint8_t button = push_buton_pressed();
 
 	if (button) {
 		push_counter_button++;
-		if (push_counter_button >= 2) {
+		if (push_counter_button == 2) {
 
-			/*	Setup Default Values.	*/
-			shift_oe_state(0);
+			/*	Swap Output Mode.	*/
+			shift_oe_state(!(play_mode & PLAY_MODE_OUT_ENABLED));
+			play_mode ^= PLAY_MODE_OUT_ENABLED;
 
+			_delay_loop_1(32u);
 
 			/*	*/
-			// set_sleep_mode(SLEEP_MODE_PWR_SAVE);
-			// wdt_disable();
-			// sleep_enable();
-			// sleep_mode();
+			set_sleep_mode(SLEEP_MODE_PWR_SAVE);
+			wdt_disable();
+			sleep_mode();
 		}
 	} else {
-		push_counter_button = 0;
+		push_counter_button = 0; /*	Reset Counter.	*/
 	}
 }
 
@@ -135,12 +135,17 @@ void init() {
 
 	/*	*/
 	power_adc_disable();
+	power_timer1_disable();
+	power_timer2_disable();
+	power_usart0_disable();
 
 	/*	Setup Button Pin.	*/
-	PUSH_BUTTON_REG |= (0 << PUSH_BUTTON_REG);
-	PUSH_BUTTON_DREG |= (0 << PUSH_BUTTON_REG);
+	MCUCR &= ~(1 << PUD);	/*	Use internal pull up resistor */
+	PUSH_BUTTON_REG |= (1 << PUSH_BUTTON_REG);
+	PUSH_BUTTON_DREG &= ~(1 << PUSH_BUTTON_REG);
 
-	/*	Setup Default Values.	*/
+	/*	Enable Output By Default.	*/
+	SHIFT_OE_DREG |= (1 << SHIFT_OE_PIN);
 	shift_oe_state(1);
 
 	/*	PWM - SHIFT OE.	*/
