@@ -35,7 +35,7 @@
 #define PUSH_BUTTON_PIN PB1
 
 /**
- * Shift Registers Output Enabled
+ * Shift Registers Output Enabled (SNx4HC595)
  * Pin and Registers.
  */
 #define SHIFT_OE_REG PORTB /*		*/
@@ -44,15 +44,15 @@
 #define SHIFT_OE_PWM_REG OCR0B
 
 /**
- * Shift Register Shift Clock Pin
- * and Registers
+ * Shift Register Shift Clock Pin (SNx4HC595)
+ * and Registers (SRCLR)
  */
 #define SHIFT_RCLK_REG PORTB /*	 	*/
 #define SHIFT_RCLK_DREG DDRB /*	 	*/
 #define SHIFT_RCLK_PIN PB3	 /*	 	*/
 
 /**
- * Shift Registers Serial Data Pin
+ * Shift Registers Serial Data Pin (SNx4HC595)
  * and Registers
  */
 #define SHIFT_DIO_REG PORTB /*		*/
@@ -60,8 +60,8 @@
 #define SHIFT_DIO_PIN PB4	/*		*/
 
 /**
- * Shift Registers Latch (Flush Data to Output) Pin
- * and Register
+ * Shift Registers Latch (Flush Data to Output) Pin (SNx4HC595)
+ * and Register (RCLK)
  */
 #define SHIFT_LATCH_REG PORTB
 #define SHIFT_LATCH_DREG DDRB
