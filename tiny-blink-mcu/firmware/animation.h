@@ -39,19 +39,12 @@ struct animation_t {
 };
 
 /**
- * Animation pulse width modulation.
- */
-struct animation_pwm_t {
-	uint8_t pwm[NRANIMENTRY / 2]; /*	PWM modulation for each frame of 4 bit resolution.	*/
-};
-
-/**
  * Animation chunk and controller
  * variables.
  */
 extern const struct animation_t PROGMEM ani[NRANIM];
-extern volatile uint8_t curanim;
-extern volatile uint8_t curaniindex;
+extern uint8_t curanim;
+extern uint8_t curaniindex;
 
 /**
  * Create single frame
@@ -103,6 +96,6 @@ extern uint16_t cc_get_curr_next_animation_keyframe();
 /**
  *	Reset and set next animation.
  */
-inline extern void reset_for_next_animation();
+extern inline void reset_for_next_animation() __attribute__((always_inline));
 
 #endif

@@ -1,8 +1,9 @@
 #include"animation.h"
+#include "driver.h"
 #include <stdint.h>
 
-volatile uint8_t curanim = 0;
-volatile uint8_t curaniindex = 0;
+uint8_t curanim = 0;
+uint8_t curaniindex = 0;
 
 /*	Animation.	*/
 const struct animation_t PROGMEM ani[NRANIM] = {
@@ -49,7 +50,7 @@ uint16_t cc_get_curr_next_animation_keyframe() {
 	curaniindex %= NRANIMENTRY;
 
 	/*	Next animation.	*/
-	if (curaniindex == 0) {
+	if (curaniindex == 0 && (play_mode & PLAY_MODE_AUTO_NEXT_ANIMATION)) {
 		reset_for_next_animation();
 	}
 
