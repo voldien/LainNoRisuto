@@ -10501,9 +10501,9 @@ SparkFun BigTime Watch Kit&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
 <label x="398.78" y="147.32" size="1.778" layer="95" rot="R270" xref="yes"/>
 </segment>
 <segment>
+<pinref part="IC3" gate="A" pin="SCK"/>
 <wire x1="599.44" y1="231.14" x2="599.44" y2="236.22" width="0.1524" layer="91"/>
 <label x="599.44" y="236.22" size="1.778" layer="95" rot="R90" xref="yes"/>
-<pinref part="IC3" gate="A" pin="SCK"/>
 </segment>
 <segment>
 <pinref part="IC4" gate="A" pin="SCK"/>
