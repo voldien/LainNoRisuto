@@ -62,11 +62,11 @@ extern volatile uint16_t s1;
 /**
  * Compute next random number
  */
-extern void lfsr_pngr(void);
+extern void lfsr_pngr();
 
 /**
  * Compute next seed value.
  */
-extern void next_seed0(void);
+extern void next_seed0();
 
 #endif

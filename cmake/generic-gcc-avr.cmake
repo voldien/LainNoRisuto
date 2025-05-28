@@ -171,6 +171,7 @@ function(add_avr_executable EXECUTABLE_NAME)
    set(hex_file ${EXECUTABLE_NAME}${MCU_TYPE_FOR_FILENAME}.hex)
    set(lst_file ${EXECUTABLE_NAME}${MCU_TYPE_FOR_FILENAME}.lst)
    set(map_file ${EXECUTABLE_NAME}${MCU_TYPE_FOR_FILENAME}.map)
+   set(fuse_file ${EXECUTABLE_NAME}${MCU_TYPE_FOR_FILENAME}.fuse)
    set(eeprom_image ${EXECUTABLE_NAME}${MCU_TYPE_FOR_FILENAME}-eeprom.hex)
 
    set (${EXECUTABLE_NAME}_ELF_TARGET ${elf_file} PARENT_SCOPE)

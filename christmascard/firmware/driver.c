@@ -14,7 +14,7 @@
 
 ISR(INT0_vect) { cc_reset_for_next_animation(); }
 
-void cc_init_nextanibutton(void) {
+void cc_init_nextanibutton() {
 	/*	Output and enable pin for next button.	*/
 	PORTD |= BUTTON_NEXT;
 	DDRD |= BUTTON_NEXT;

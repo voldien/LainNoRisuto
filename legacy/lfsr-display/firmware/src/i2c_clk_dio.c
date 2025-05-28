@@ -11,7 +11,7 @@
 #define DIODDRR DDRB
 #define DIOPORTR PORTB
 
-void dio_init(void) {
+void dio_init() {
 
 	/*	Default pin states.	*/
 	DIOPORTR |= (gclk | gdio); /*	Enable ports.	*/
@@ -63,7 +63,7 @@ void dio_writeb(const uint8_t b) {
 	dio_delay();
 }
 
-void dio_start(void) {
+void dio_start() {
 
 	/*	Enable data pin output.	*/
 	/*	dio output	*/
@@ -71,7 +71,7 @@ void dio_start(void) {
 	dio_delay();
 }
 
-void dio_stop(void) {
+void dio_stop() {
 
 	/*	DIO output.	*/
 	DIODDRR |= gdio;
@@ -86,7 +86,7 @@ void dio_stop(void) {
 	dio_delay();
 }
 
-void dio_delay(void) {
+void dio_delay() {
 
 	uint8_t y;
 	const uint8_t sleep = 0xFF;

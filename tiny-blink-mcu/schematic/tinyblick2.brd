@@ -1034,6 +1034,26 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="19.25" y1="27.625" x2="18.7875" y2="28.0875" width="0.2032" layer="16"/>
 <wire x1="18.75" y1="28.125" x2="18.75" y2="31.2" width="0.2032" layer="16"/>
 <wire x1="10.1" y1="25.15" x2="10.1" y2="21.05" width="0.2032" layer="16"/>
+<wire x1="24.1" y1="26.15" x2="28.351040625" y2="28.351040625" width="0" layer="19" extent="1-16"/>
+<wire x1="17.5" y1="32.85" x2="18.626059375" y2="32.395175" width="0" layer="19" extent="1-1"/>
+<wire x1="23.373278125" y1="31.675296875" x2="18.65" y2="31.3" width="0" layer="19" extent="1-16"/>
+<wire x1="22.045" y1="20.4" x2="20.875" y2="25.875" width="0" layer="19" extent="16-16"/>
+<wire x1="31.675296875" y1="23.365278125" x2="32" y2="21.5" width="0" layer="19" extent="1-16"/>
+<wire x1="23.4" y1="16.85" x2="21.945" y2="20.3" width="0" layer="19" extent="1-16"/>
+<wire x1="31.675296875" y1="11.62471875" x2="31.1" y2="10.4" width="0" layer="19" extent="1-1"/>
+<wire x1="32.85" y1="17.1465125" x2="29.35" y2="16.2" width="0" layer="19" extent="1-16"/>
+<wire x1="28.351040625" y1="6.63895625" x2="31.1" y2="10.4" width="0" layer="19" extent="1-1"/>
+<wire x1="23.373278125" y1="3.3147" x2="28.351040625" y2="6.63895625" width="0" layer="19" extent="1-1"/>
+<wire x1="17.5" y1="2.15" x2="23.373278125" y2="3.3147" width="0" layer="19" extent="1-1"/>
+<wire x1="15.6" y1="2.8" x2="17.5" y2="2.15" width="0" layer="19" extent="1-16"/>
+<wire x1="3.3147" y1="11.62471875" x2="3.8" y2="10" width="0" layer="19" extent="1-1"/>
+<wire x1="11.62471875" y1="3.3147" x2="13.9" y2="2.8" width="0" layer="19" extent="1-1"/>
+<wire x1="6.63895625" y1="6.63895625" x2="5.81" y2="10.18" width="0" layer="19" extent="1-16"/>
+<wire x1="2.15" y1="17.5" x2="3.3147" y2="11.62471875" width="0" layer="19" extent="1-1"/>
+<wire x1="3.3147" y1="23.365278125" x2="2.15" y2="17.5" width="0" layer="19" extent="1-1"/>
+<wire x1="11.62471875" y1="31.675296875" x2="17.5" y2="32.85" width="0" layer="19" extent="1-1"/>
+<wire x1="7.701675" y1="28.673184375" x2="11.62471875" y2="31.675296875" width="0" layer="19" extent="1-1"/>
+<wire x1="6.63895625" y1="28.351040625" x2="7.701675" y2="28.673184375" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="VCC">
 <contactref element="VCC" pad="1"/>

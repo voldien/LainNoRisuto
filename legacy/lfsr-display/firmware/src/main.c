@@ -20,7 +20,7 @@ void lfsr_pngr() {
 	s0 %= 10000;
 }
 
-void next_seed0(void) {
+void next_seed0() {
 	s0 = s1 % 10000;
 	eeprom_write_word(&seed.s0, s0);
 }

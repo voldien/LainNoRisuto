@@ -16,7 +16,7 @@ ISR(INT0_vect) {
 	cc_reset_for_next_animation();
 }
 
-void cc_init_nextanibutton(void){
+void cc_init_nextanibutton(){
 	/*	Output and enable pin for next button.	*/
 	PORTD |= BUTTON_NEXT;
 	DDRD |= BUTTON_NEXT;
@@ -27,7 +27,7 @@ void cc_init_nextanibutton(void){
 	GICR |= (1 << INT0);
 }
 
-void cc_init_ledcontrollers(void){
+void cc_init_ledcontrollers(){
 
 	/*	Output and enable pin for ws2811.	*/
 	DDRB |= WS2811_IN;
@@ -36,7 +36,7 @@ void cc_init_ledcontrollers(void){
 	ROWDPORT |= ROWALL;
 }
 
-void cc_init_time2ovf(void){
+void cc_init_time2ovf(){
 	/*
 	TIMSK |= ( 1 << TOIE2);
 	*/
@@ -78,7 +78,7 @@ void cc_set_col(const uint8_t d[9]){
 	sei();
 }
 
-void cc_display_next_keyframe(void){
+void cc_display_next_keyframe(){
 	uint8_t i, j;
 
 	/*	*/
@@ -99,12 +99,12 @@ void cc_display_next_keyframe(void){
 	//_delay_us(15);
 }
 
-void cc_select_led_controller(void) {
+void cc_select_led_controller() {
 	DDRC |= (1 << PC6);
 	PORTC |= (1 << PC6);
 }
 
-void init(void) {
+void init() {
 	/*	Disable interrupt intill
 	 *	the initialization part is done.*/
 	cli();
@@ -134,7 +134,7 @@ void init(void) {
 	sei();
 }
 
-int main(void) {
+int main() {
 
 	init();
 

@@ -24,7 +24,7 @@
 /**
  * Display current s0 value to the display.
  */
-extern void ledSegmentDisplayDecNumber(void);
+extern void ledSegmentDisplayDecNumber();
 
 /**
  * Send LED segment set to the display via

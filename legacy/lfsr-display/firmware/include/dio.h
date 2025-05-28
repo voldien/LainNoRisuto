@@ -8,7 +8,7 @@
 /**
  * Initialize DIO protocol.
  */
-extern void dio_init(void);
+extern void dio_init();
 
 /**
  *
@@ -23,16 +23,16 @@ extern void dio_writeb(const uint8_t b);
 /**
  *	Start communication.
  */
-extern void dio_start(void);
+extern void dio_start();
 
 /**
  *	Stop communiation.
  */
-extern void dio_stop(void);
+extern void dio_stop();
 
 /**
  *
  */
-extern void dio_delay(void);
+extern void dio_delay();
 
 #endif
