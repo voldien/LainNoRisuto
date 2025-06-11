@@ -7,14 +7,14 @@
  * be used is an argument to this function. This allows a single instance of this function
  * to control up to 8 separate channels.
  */
-void ws2811_send(const void *values, uint16_t array_size, uint8_t bit) {
+void ws2811_send(const void *values, const uint16_t array_size, const uint8_t bit) {
 	const uint8_t mask = _BV(bit);
-	uint8_t low_val = WS2811_PORT & (~mask);
-	uint8_t high_val = WS2811_PORT | mask;
-	uint16_t size = array_size * sizeof(struct rgb); // size in bytes
+	const uint8_t low_val = WS2811_PORT & (~mask);
+	const uint8_t high_val = WS2811_PORT | mask;
+	const uint16_t size = array_size * sizeof(struct rgb); // size in bytes
 
 	// reset the controllers by pulling the data line low
-	uint8_t bitcount = 7;
+	const uint8_t bitcount = 7;
 	WS2811_PORT = low_val;
 	_delay_loop_1(107); // at 3 clocks per iteration, this is 320 ticks or 40us at 8Mhz
 
@@ -67,11 +67,11 @@ void ws2811_send(const void *values, uint16_t array_size, uint8_t bit) {
 				 "                                                \n" // We're done.
 				 :													  /* no output */
 				 :													  /* inputs */
-				 [ dataptr ] "e"(values),							  // pointer to grb values
-				 [ upreg ] "r"(high_val),  // register that contains the "up" value for the output port (constant)
-				 [ downreg ] "r"(low_val), // register that contains the "down" value for the output port (constant)
-				 [ bytes ] "w"(size),	   // number of bytes to send
-				 [ bits ] "d"(bitcount),   // number of bits/2
-				 [ portout ] "I"(_SFR_IO_ADDR(WS2811_PORT)) // The port to use
+				 [dataptr] "e"(values),								  // pointer to grb values
+				 [upreg] "r"(high_val),	 // register that contains the "up" value for the output port (constant)
+				 [downreg] "r"(low_val), // register that contains the "down" value for the output port (constant)
+				 [bytes] "w"(size),		 // number of bytes to send
+				 [bits] "d"(bitcount),	 // number of bits/2
+				 [portout] "I"(_SFR_IO_ADDR(WS2811_PORT)) // The port to use
 	);
 }

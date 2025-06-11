@@ -14,27 +14,27 @@
 
 ISR(INT0_vect) { cc_reset_for_next_animation(); }
 
-void cc_init_nextanibutton() {
+inline void cc_init_nextanibutton() {
 	/*	Output and enable pin for next button.	*/
-	PORTD |= BUTTON_NEXT;
-	DDRD |= BUTTON_NEXT;
+	//PORTB |= BUTTON_NEXT;
+	//DDRB |= BUTTON_NEXT;
 
 	/*	Enable interrupt.	*/
 	/*	External interrupt invoked on volt drop.	*/
-	MCUCR |= (1 << ISC00) | (1 << ISC01);
-	GICR |= (1 << INT0);
+	//MCUCR |= (1 << ISC00) | (1 << ISC01);
+	//GICR |= (1 << INT0);
 }
 
-void cc_init_ledcontrollers() {
+inline void cc_init_ledcontrollers() {
 
 	/*	Output and enable pin for ws2811.	*/
-	DDRB |= WS2811_IN;
+	//DDRB |= WS2811_IN;
 
 	/*	Output rows.	*/
-	ROWDPORT |= ROWALL;
+	//ROWDPORT |= ROWALL;
 }
 
-void cc_init_time2ovf() {
+inline void cc_init_time2ovf() {
 	/*
 	TIMSK |= ( 1 << TOIE2);
 	*/
@@ -94,8 +94,8 @@ void cc_display_next_keyframe() {
 }
 
 void cc_select_led_controller() {
-	DDRC |= (1 << PC6);
-	PORTC |= (1 << PC6);
+	DDRA |= (1 << PA6);
+	PORTA |= (1 << PA6);
 }
 
 void init() {

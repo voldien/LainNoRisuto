@@ -9,7 +9,7 @@ void cc_init_animation() {
 	g_curkeyframe = 0;
 }
 
-const uint8_t cc_get_curr_animation_keyframe(const uint8_t r, const uint8_t c) {
+uint8_t cc_get_curr_animation_keyframe(const uint8_t r, const uint8_t c) {
 
 	const uint8_t keyframe = g_curkeyframe;
 
@@ -49,7 +49,8 @@ void cc_next_frame() {
 
 const uint8_t cc_next_animation_ready() { return g_curkeyframe == (NRKEYFRAME - 1); }
 
-void cc_reset_for_next_animation() {
+
+inline void cc_reset_for_next_animation() {
 	cli();
 	curanim = (curanim + 1) % NRANIM;
 	g_curkeyframe = 0;

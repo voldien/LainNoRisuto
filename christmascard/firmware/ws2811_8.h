@@ -30,6 +30,6 @@ struct rgb {
 	uint8_t blue;
 };
 
-extern void ws2811_send(const void *values, uint16_t array_size, uint8_t bit);
+extern void ws2811_send(const void *values, const uint16_t array_size, const uint8_t bit);
 
 #endif /* WS2811_96_H_ */

@@ -58,10 +58,10 @@ extern volatile uint8_t g_curkeyframe;
 #define COLORRES 0x1F
 #define CREATE_RGB_VALUE(b, g, r)											\
 {																			\
-	(((r & COLORRES) >> 0) | ((g & COLORRES) << COLORBIT)) & 0xFF,			\
-	((((g & COLORRES) >> 2) & 0b11) | ((b & COLORRES) << 2)) & 0xFF			\
+	(((r & COLORRES) >> 0u) | ((g & COLORRES) << COLORBIT)) & 0xFF,			\
+	((((g & COLORRES) >> 2u) & 0b11) | ((b & COLORRES) << 2u)) & 0xFF		\
 																			\
-}																			\
+}																			
 
 
 /*	Create single animation frame.	*/
@@ -99,7 +99,7 @@ extern void cc_init_animation();
 /**
  * Get current key frame row and column values.
  */
-extern const uint8_t cc_get_curr_animation_keyframe(const uint8_t r, const uint8_t c);
+extern uint8_t cc_get_curr_animation_keyframe(const uint8_t r, const uint8_t c);
 
 /**
  * Change to next key frame.
@@ -114,6 +114,6 @@ extern const uint8_t cc_next_animation_ready();
 /**
  *	Reset and set next animation.
  */
-extern void cc_reset_for_next_animation();
+extern inline void cc_reset_for_next_animation() __attribute__((always_inline));
 
 #endif

@@ -23,13 +23,13 @@
 /**
  *	constant global attributes.
  */
-#define ROW0 (1 << PB2)
-#define ROW1 (1 << PB1)
-#define ROW2 (1 << PB5)
-#define ROW3 (1 << PB4)
+#define ROW0 (1 << PA2)
+#define ROW1 (1 << PA1)
+#define ROW2 (1 << PA5)
+#define ROW3 (1 << PA4)
 #define ROWALL (ROW0 | ROW1 | ROW2 | ROW3)
-#define ROWPORT PORTB
-#define ROWDPORT DDRB
+#define ROWPORT PORTA
+#define ROWDPORT DDRA
 #define NUMROWS 4
 #define NUMCOL 8
 
@@ -52,8 +52,8 @@ extern void cc_select_flash_controller(); /*	Select Flash Controller.	*/
 /**
  *	Button, controller and timers.
  */
-extern void cc_init_nextanibutton();  /*	Initialize next animation button interrupt.	*/
-extern void cc_init_ledcontrollers(); /*	Initialize LED controller.	*/
-extern void cc_init_time2ovf();		  /*	Enable timer overflow interrupt for update.	*/
+extern inline void cc_init_nextanibutton() __attribute__((always_inline));  /*	Initialize next animation button interrupt.	*/
+extern inline void cc_init_ledcontrollers() __attribute__((always_inline)); /*	Initialize LED controller.	*/
+extern inline void cc_init_time2ovf() __attribute__((always_inline));		  /*	Enable timer overflow interrupt for update.	*/
 
 #endif

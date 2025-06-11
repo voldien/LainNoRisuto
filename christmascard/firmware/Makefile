@@ -21,8 +21,8 @@ SIZEDUMMY := sizedummy
 FLASH_IMAGE := driver.hex
 EEPROM_IMAGE := driver.eep
 LIBS :=
-MCU := atmega8
-CFLAGS = -Wall -g3 -gstabs -Os -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=8000000UL -DVERSION=\"$(VERSION)\"
+MCU := attiny84a
+CFLAGS = -Wall -g3 -gstabs -Os -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=attiny84a -DF_CPU=8000000UL -DVERSION=\"$(VERSION)\"
 AVRDUDE := avrdude
 PROG := usbasp # Default programmer
 
@@ -40,7 +40,7 @@ all: driver.elf secondary-outputs
 
 driver.elf : $(OBJS)
 	@echo 'Building target: $@'
-	avr-gcc -Wl,-Map,driver.map -mmcu=atmega8 -o driver.elf $(OBJS) $(LIBS)
+	avr-gcc -Wl,-Map,driver.map -mmcu=attiny84a -o driver.elf $(OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 
 driver.lss: driver.elf
