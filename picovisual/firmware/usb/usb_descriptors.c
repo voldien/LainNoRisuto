@@ -43,21 +43,26 @@ enum {
 	STRID_MANUFACTURER,
 	STRID_PRODUCT,
 	STRID_SERIAL,
+#if CFG_TUD_VIDEO == 1
 	STRID_UVC_CONTROL,
 	STRID_UVC_STREAMING,
+#endif
+	STRID_CDC_CONTROL,
+	STRID_CDC_STREAMING,
 };
 
 // array of pointer to string descriptors
 char const *string_desc_arr[] = {
 	(const char[]){0x09, 0x04}, // 0: is supported language is English (0x0409)
-	"Voldie",					// 1: Manufacturer
-	"PicoGraphic",			// 2: Product
+	"Neko",						// 1: Manufacturer
+	"PicoGraphic",				// 2: Product
 	"123456",					// 3: Serials, should use chip ID
-	"Video Stream",			// 4: CDC Interface
-	"CDC",				// 4: CDC Interface
-	"TinyUSB MSC",				// 5: MSC Interface
-	"TinyUSB MSC",				// 5: MSC Interface
-	"TinyUSB MSC",				// 5: MSC Interface
+#if CFG_TUD_VIDEO == 1
+	"Video Control", //
+	"Video Stream",	 //
+#endif
+	"CDC",		//
+	"CDC Data", //
 };
 
 static uint16_t desc_str[32];
@@ -132,9 +137,9 @@ tusb_desc_device_t const desc_device = {
 	.bDescriptorType = TUSB_DESC_DEVICE, /*  */
 	.bcdUSB = USB_BCD,					 /*  */
 
-	.bDeviceClass = 0x00,					   /*  */
-	.bDeviceSubClass = 0x00,				   /*  */
-	.bDeviceProtocol = 0x00,				   /*  */
+	.bDeviceClass = 0,						   /*  */
+	.bDeviceSubClass = MISC_SUBCLASS_COMMON,   /*  */
+	.bDeviceProtocol = MISC_PROTOCOL_IAD,	   /*  */
 	.bMaxPacketSize0 = CFG_TUD_ENDPOINT0_SIZE, /*  */
 
 	.idVendor = USB_VID,  /*  */
@@ -194,7 +199,7 @@ uint8_t const *tud_descriptor_device_cb(void) { return (uint8_t const *)&desc_de
 //---------------------------------------
 
 /* Time stamp base clock. It is a deprecated parameter. */
-#define UVC_CLOCK_FREQUENCY 27000000
+#define UVC_CLOCK_FREQUENCY 30000000
 
 /* video capture path */
 #define UVC_ENTITY_CAP_INPUT_TERMINAL 0x01
@@ -228,9 +233,6 @@ typedef struct TU_ATTR_PACKED {
 	tusb_desc_video_control_camera_terminal_t camera_terminal;
 	tusb_desc_video_control_output_terminal_t output_terminal;
 } uvc_control_desc_t;
-
-/* Windows support YUY2 and NV12
- * https://docs.microsoft.com/en-us/windows-hardware/drivers/stream/usb-video-class-driver-overview */
 
 typedef struct TU_ATTR_PACKED {
 	tusb_desc_interface_t itf;
@@ -357,14 +359,7 @@ const uvc_cfg_desc_t __in_flash()
 									   .bmaControls = {0}},
 							.format =
 								{
-#if USE_MJPEG
-									.bLength = sizeof(tusb_desc_video_format_mjpeg_t),
-									.bDescriptorType = TUSB_DESC_CS_INTERFACE,
-									.bDescriptorSubType = VIDEO_CS_ITF_VS_FORMAT_MJPEG,
-									.bFormatIndex = 1, // 1-based index
-									.bNumFrameDescriptors = 1,
-									.bmFlags = 0,
-#else
+
 									.bLength = sizeof(tusb_desc_video_format_uncompressed_t),
 									.bDescriptorType = TUSB_DESC_CS_INTERFACE,
 									.bDescriptorSubType = VIDEO_CS_ITF_VS_FORMAT_UNCOMPRESSED,
@@ -372,38 +367,32 @@ const uvc_cfg_desc_t __in_flash()
 									.bNumFrameDescriptors = 1,
 									.guidFormat = {TUD_VIDEO_GUID_YUY2},
 									.bBitsPerPixel = 16,
-#endif
+
 									.bDefaultFrameIndex = 1,
 									.bAspectRatioX = 0,
 									.bAspectRatioY = 0,
 									.bmInterlaceFlags = 0,
 									.bCopyProtect = 0},
-							.frame =
-								{
-#if USE_MJPEG
-									.bLength = sizeof(tusb_desc_video_frame_mjpeg_continuous_t),
-									.bDescriptorType = TUSB_DESC_CS_INTERFACE,
-									.bDescriptorSubType = VIDEO_CS_ITF_VS_FRAME_MJPEG,
-#else
-									.bLength = sizeof(tusb_desc_video_frame_uncompressed_continuous_t),
-									.bDescriptorType = TUSB_DESC_CS_INTERFACE,
-									.bDescriptorSubType = VIDEO_CS_ITF_VS_FRAME_UNCOMPRESSED,
-#endif
-									.bFrameIndex = 1, // 1-based index
-									.bmCapabilities = 0,
-									.wWidth = FRAME_WIDTH,
-									.wHeight = FRAME_HEIGHT,
-									.dwMinBitRate = FRAME_WIDTH * FRAME_HEIGHT * 16 * 1,
-									.dwMaxBitRate = FRAME_WIDTH * FRAME_HEIGHT * 16 * FRAME_RATE,
-									.dwMaxVideoFrameBufferSize = FRAME_WIDTH * FRAME_HEIGHT * (16 / 8),
-									.dwDefaultFrameInterval = 10000000 / FRAME_RATE,
-									.bFrameIntervalType = 0, // continuous
-									.dwFrameInterval =
-										{
-											10000000 / FRAME_RATE, // min
-											10000000,			   // max
-											10000000 / FRAME_RATE  // step
-										}},
+							.frame = {.bLength = sizeof(tusb_desc_video_frame_uncompressed_continuous_t),
+									  .bDescriptorType = TUSB_DESC_CS_INTERFACE,
+									  .bDescriptorSubType = VIDEO_CS_ITF_VS_FRAME_UNCOMPRESSED,
+
+									  /*	*/
+									  .bFrameIndex = 1, // 1-based index
+									  .bmCapabilities = 0,
+									  .wWidth = FRAME_WIDTH,
+									  .wHeight = FRAME_HEIGHT,
+									  .dwMinBitRate = FRAME_WIDTH * FRAME_HEIGHT * 16 * 1,
+									  .dwMaxBitRate = FRAME_WIDTH * FRAME_HEIGHT * 16 * FRAME_RATE,
+									  .dwMaxVideoFrameBufferSize = FRAME_WIDTH * FRAME_HEIGHT * (16 / 8),
+									  .dwDefaultFrameInterval = 10000000 / FRAME_RATE,
+									  .bFrameIntervalType = 0, // continuous
+									  .dwFrameInterval =
+										  {
+											  10000000 / FRAME_RATE, // min
+											  10000000,				 // max
+											  10000000 / FRAME_RATE	 // step
+										  }},
 							.color = {.bLength = sizeof(tusb_desc_video_streaming_color_matching_t),
 									  .bDescriptorType = TUSB_DESC_CS_INTERFACE,
 									  .bDescriptorSubType = VIDEO_CS_ITF_VS_COLORFORMAT,

@@ -128,11 +128,8 @@ extern "C" {
 /*	video streaming endpoint buffer size	*/
 #define CFG_TUD_VIDEO_STREAMING_EP_BUFSIZE 256
 
-// use bulk endpoint for streaming interface
+/*  use bulk endpoint for streaming interface   */
 #define CFG_TUD_VIDEO_STREAMING_BULK 0
-
-#define CFG_EXAMPLE_VIDEO_READONLY
-#define CFG_EXAMPLE_VIDEO_DISABLE_MJPEG
 
 #ifdef __cplusplus
 }
