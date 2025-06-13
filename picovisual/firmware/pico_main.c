@@ -1,6 +1,13 @@
 #include "graphic_math.h"
+#include "graphic_pico_def.h"
 #include "pico/util/queue.h"
+#include <hardware/gpio.h>
+#include <hardware/structs/io_bank0.h>
 #include <stdint.h>
+
+#include "hardware/irq.h"
+#include "hardware/pwm.h"
+#include "pico/time.h"
 
 #include "drivers/ili9341.h"
 #include "engine_usb.h"
@@ -13,16 +20,18 @@
 #include "pico/multicore.h"
 
 #include "device/usbd.h"
-#include "usb/usb_cdc.h"
-#include "usb/usb_descriptors.h"
 #include "usb/usb_video.h"
 
 #include "bsp/board.h"
 #include "bsp/board_api.h"
 #include "hardware/clocks.h"
-#include "hardware/uart.h"
 #include "hardware/watchdog.h"
 #include "tusb.h"
+
+bool repeating_timer_callback(__unused struct repeating_timer *t) {
+	watchdog_update();
+	return true;
+}
 
 // Perform initialisation
 int pico_led_init() {
@@ -58,9 +67,27 @@ void InitializeDisplay(uint16_t color) {
 
 	LCD_initDisplay();
 	LCD_setRotation(TFT_ROTATION);
-	GFX_setClearColor(BACKGROUND);
-	GFX_clearScreen();
+	GFX_fillScreen(BACKGROUND);
 	GFX_flush();
+
+	gpio_set_function(TFT_LED, GPIO_FUNC_PWM);
+	// Figure out which slice we just connected to the LED pin
+	uint slice_num = pwm_gpio_to_slice_num(TFT_LED);
+
+	// Mask our slice's IRQ output into the PWM block's single interrupt line,
+	// and register our interrupt handler
+	pwm_clear_irq(slice_num);
+	pwm_set_irq_enabled(slice_num, true);
+	// irq_set_exclusive_handler(PWM_DEFAULT_IRQ_NUM(), on_pwm_wrap);
+	// irq_set_enabled(PWM_DEFAULT_IRQ_NUM(), true);
+
+	// Get some sensible defaults for the slice configuration. By default, the
+	// counter is allowed to wrap over its maximum range (0 to 2**16-1)
+	pwm_config config = pwm_get_default_config();
+	// Set divider, reduces counter clock to sysclock/this value
+	pwm_config_set_clkdiv(&config, 4.f);
+	// Load the configuration into our PWM slice, and set it running.
+	pwm_init(slice_num, &config, true);
 }
 
 void core1_entry() {
@@ -74,12 +101,11 @@ void core1_entry() {
 	}
 }
 
-bool repeating_timer_callback(__unused struct repeating_timer *t) {
-	watchdog_update();
-	return true;
-}
+#define GPIO_BUTTON0_PIN 15
 
-void init_engine() {
+void gpio_callback(uint gpio, uint32_t events) { gpio_get(GPIO_BUTTON0_PIN); }
+
+void init_everything() {
 
 	/*	*/
 	set_sys_clock_khz(PLL_SYS_KHZ, true);
@@ -97,6 +123,12 @@ void init_engine() {
 	}
 
 	tud_task();
+
+	/*	Setup Buttons.	*/
+	gpio_init(GPIO_BUTTON0_PIN);
+	gpio_set_dir(GPIO_BUTTON0_PIN, false);
+	gpio_set_function(GPIO_BUTTON0_PIN, GPIO_FUNC_NULL);
+	gpio_set_irq_enabled_with_callback(GPIO_BUTTON0_PIN, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &gpio_callback);
 
 	/*	*/
 	{
@@ -138,18 +170,19 @@ void welcome_screen() {
 int main() {
 
 	/*	Init Internal Console Backend.	*/
-	init_engine();
+	init_everything();
 
+	/*	*/
 	welcome_screen();
 
+	/*	*/
 	while (true) {
 
+		/*	Run Current Select Visual.	*/
+		begin_next_frame();
 		mandelbrot(0, GFX_getHeight() / 2);
-
 		GFX_flush();
-
-		//
-		watchdog_update();
+		end_next_frame();
 
 		// TODO: Move
 		waitForDMA();

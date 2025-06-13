@@ -1,7 +1,7 @@
+#include <stdint.h>
 #ifndef _PICO_VISUAL_GRAPHIC_
 #define _PICO_VISUAL_GRAPHIC_ 1
 #include "graphic_math.h"
-#include "graphic_pico_def.h"
 #include <pico.h>
 
 /*  VIDEO Settings */
@@ -31,7 +31,13 @@ typedef struct game_of_life_settings_t {
 	float ci;
 } GameOfLifeSettings;
 
+enum PicoVisual {
+	PICO_VISUAL_MANDELBROT = 1,
+	PICO_VISUAL_GAME_OF_LIFE = 2,
+};
+
 typedef struct settings_t {
+	uint16_t current_visual;
 	union {
 		MandelBrotSettings mandel;
 		GameOfLifeSettings gof;
@@ -40,10 +46,17 @@ typedef struct settings_t {
 
 extern VisualSettings __not_in_flash() pico_visual_settings;
 
+extern void begin_next_frame();
+extern void end_next_frame();
+
 /*
  *
  */
 extern void game_of_life(uint32_t y_start, uint32_t y_end);
+
+/*
+ *
+ */
 extern void mandelbrot(uint32_t y_start, uint32_t y_end);
 
 #endif

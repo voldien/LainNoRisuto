@@ -24,20 +24,22 @@ void engine_update_usb() {
 	tud_task_ext(1, false);
 
 	cdc_task();
-	
+
 	video_task(NULL);
 }
 
 void tud_mount_cb() {
 	/*	*/
+	// TODO: LED
 }
 
 // Invoked when device is unmounted
 void tud_umount_cb() {
-	/*	Init USB to listen to as a joystick.	*/
 
 	/*	Init USB to use Storage.	*/
 	printf("TUD Umount");
+
+	// TODO: LED
 }
 
 // Invoked when usb bus is suspended
@@ -46,8 +48,10 @@ void tud_umount_cb() {
 void tud_suspend_cb(bool remote_wakeup_en) {
 	(void)remote_wakeup_en;
 	printf("TUD Suspend");
-	
+
 	tud_remote_wakeup();
+
+	// TODO: LED
 }
 
 // Invoked when usb bus is resumed
@@ -55,4 +59,6 @@ void tud_resume_cb() {
 	printf("TUD continue");
 
 	//	blink_interval_ms = tud_mounted() ? BLINK_MOUNTED : BLINK_NOT_MOUNTED;
+
+	// TODO: LED
 }

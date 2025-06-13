@@ -1,4 +1,13 @@
+#
+
+## Build Instruction
 
 ```bash
-picotool load -v -x virtual-console-home/gameconsole.uf2
+cmake -DPICO_BOARD=pico DPICO_PLATFORM=rp2350 ..
+```
+
+## Upload Instruction
+
+```bash
+picotool load -v -x firmware/pico-visual.uf2 
 ```

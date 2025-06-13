@@ -8,11 +8,27 @@
 uint8_t __uninitialized_ram() scratchpad[2 * (FRAME_WIDTH * FRAME_HEIGHT) / 8];
 
 VisualSettings __not_in_flash() pico_visual_settings = {
+	.current_visual = PICO_VISUAL_MANDELBROT,
+
 	.v_settings.mandel.nrSamples = 16,
 	.v_settings.mandel.c = -2,
 	.v_settings.mandel.ci = -2,
 	.v_settings.mandel.zoom = 2,
 };
+
+void begin_next_frame() {
+	/*	*/
+}
+void end_next_frame() { current_buffer = (current_buffer + 1) % FRAME_BUFFER_COUNT; }
+
+static inline uint16_t get_cell_value(const uint16_t x, const uint16_t y, const uint16_t width, const uint16_t height) {
+
+	const uint16_t memory_offset = ((x / 8) * width) + (y / 8);
+
+	const uint16_t bit_offset = y % 8;
+
+	return (scratchpad[memory_offset] & (1 << bit_offset)) >> bit_offset;
+}
 
 void game_of_life(uint32_t y_start, uint32_t y_end) {
 
@@ -29,9 +45,9 @@ void game_of_life(uint32_t y_start, uint32_t y_end) {
 	const uint16_t KernelAliveMatrix[9] = {1, 1, 1, 1, 0, 1, 1, 1, 1};
 
 	/*	Custom color for each possible neighbor combination.	*/
-	const uint16_t color[9] = {GFX_RGB565(0, 0, 0), GFX_RGB565(0, 0, 0), GFX_RGB565(0, 0, 0),
-							   GFX_RGB565(0, 0, 0), GFX_RGB565(0, 0, 0), GFX_RGB565(0, 0, 0),
-							   GFX_RGB565(0, 0, 0), GFX_RGB565(0, 0, 0), GFX_RGB565(0, 0, 0)};
+	const uint16_t color[9] = {GFX_RGB565(0, 0, 0),	  GFX_RGB565(0, 255, 0), GFX_RGB565(0, 255, 0),
+							   GFX_RGB565(0, 255, 0), GFX_RGB565(0, 255, 0), GFX_RGB565(0, 255, 0),
+							   GFX_RGB565(0, 255, 0), GFX_RGB565(0, 255, 0), GFX_RGB565(0, 0, 0)};
 
 	uint16_t sum = 0;
 	const uvec2_16 image_size = {FRAME_WIDTH, FRAME_HEIGHT};
@@ -40,8 +56,7 @@ void game_of_life(uint32_t y_start, uint32_t y_end) {
 		for (volatile int16_t y_index = y_start; y_index < y_end; y_index++) {
 
 			const ivec2_16 pixel_coords = {x_index, y_index};
-
-			const uint32_t current_cell = gof[2];
+			const uint32_t current_cell = get_cell_value(x_index, y_index, image_size[0], image_size[1]);
 
 			/*	*/
 			for (int16_t y = -1; y <= 1; y++) {
@@ -51,29 +66,24 @@ void game_of_life(uint32_t y_start, uint32_t y_end) {
 
 					/*	index  (x + 1) + ((y + 1) * 3);	*/
 					const ivec2_16 one = {1, 1};
-
 					const uvec2_16 no = (uvec2_16)__sadd16((uint32_t)kernel_offset, (uint32_t)one);
-
 					const uvec2_16 _1_3 = {1, 3};
 					const uint32_t lut_index = __smuad((uint32_t)no, (uint32_t)_1_3);
 
 					/*	Compute neighbor cell, wrap around edge.	*/
-
 					ivec2_16 offsetCordinate = (ivec2_16)__sadd16((int32_t)pixel_coords, (int32_t)kernel_offset);
 					offsetCordinate[0] %= w;
 					offsetCordinate[1] %= h;
 
-					uint16_t kernel_cell = gof[offsetCordinate[0] + offsetCordinate[1]];
-
-					// image_size; // (pixel_coords + offset); // % imageSize(previousCellsTexture);
-					// min(imageLoad(previousCellsTexture, offsetCordinate).r, 1) *
+					uint16_t kernel_cell =
+						get_cell_value(offsetCordinate[0], offsetCordinate[1], image_size[0], image_size[1]);
 
 					sum += kernel_cell * KernelAliveMatrix[lut_index];
 				}
 			}
 
 			/*	Compute if cell is alive.	*/
-			const uint IsDeadCell = current_cell; //  uint(step(float(cell), 0.5));
+			const uint IsDeadCell = current_cell == 0 ? 1 : 0;
 
 			/*	Sum of cell alive state and dead cell state.	*/
 			const uint result = (GOFLUT[sum] * current_cell) + ((uint32_t)GOFLUTDEAD[sum] * IsDeadCell);
