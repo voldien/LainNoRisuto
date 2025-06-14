@@ -2,8 +2,9 @@
 #define _PICO_GRAPHIC_MATH_H_ 1
 #include <arm_acle.h>
 
-typedef int8_t ivec4_8 __attribute__((__vector_size__(4)));	  /*	*/
-typedef int16_t ivec2_16 __attribute__((__vector_size__(4))); /*	*/
+
+typedef int8_t ivec4_8 __attribute__((__vector_size__(4)));	   /*	*/
+typedef int16_t ivec2_16 __attribute__((__vector_size__(4)));  /*	*/
 typedef uint16_t uvec2_16 __attribute__((__vector_size__(4))); /*	*/
 
 typedef float hpmvec2f __attribute__((__vector_size__(8))); /*	*/

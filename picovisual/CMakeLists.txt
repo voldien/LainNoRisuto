@@ -6,9 +6,6 @@ SET(PICO_SDK_FETCH_FROM_GIT ON)
 SET(PICOTOOL_FETCH_FROM_GIT_PATH ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-SET(PICO_BOARD pico)
-SET(PICO_PLATFORM rp2040)
-
 # == DO NOT EDIT THE FOLLOWING LINES for the Raspberry Pi Pico VS Code Extension to work ==
 if(WIN32)
     set(USERHOME $ENV{USERPROFILE})
@@ -20,15 +17,15 @@ set(toolchainVersion 14_2_Rel1)
 set(picotoolVersion 2.1.1)
 set(picoVscode ${USERHOME}/.pico-sdk/cmake/pico-vscode.cmake)
 if (EXISTS ${picoVscode})
-    include(${picoVscode})
+    INCLUDE(${picoVscode})
 endif()
 
 SET(PICO_DISASM_OBJDUMP_ARGS "-Sg")
 set(PICO_BOARD pico CACHE STRING "Board type")
 
-include(cmake/pico_sdk_import.cmake)
+INCLUDE(cmake/pico_sdk_import.cmake)
 
-PROJECT(GameConsole CXX C ASM)
+PROJECT(PicoGraphicVisual CXX C ASM)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
@@ -45,8 +42,8 @@ IF(CMAKE_BUILD_TYPE MATCHES Release)
 ENDIF(CMAKE_BUILD_TYPE MATCHES Release)
 
 IF(CMAKE_BUILD_TYPE MATCHES RelWithDebInfo)
-   SET(CMAKE_C_FLAGS_RELWITHDEBINFO "-Os -g3")# -save-temps -g3 -gdwarf-3 -gstrict-dwarf")
-   SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-Os -g3")# -save-temps -g3 -gdwarf-3 -gstrict-dwarf")
+   SET(CMAKE_C_FLAGS_RELWITHDEBINFO "-Os -g3") 
+   SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-Os -g3")
 ENDIF(CMAKE_BUILD_TYPE MATCHES RelWithDebInfo)
 
 IF(CMAKE_BUILD_TYPE MATCHES Debug)
@@ -58,4 +55,4 @@ ENDIF(CMAKE_BUILD_TYPE MATCHES Debug)
 ##############################
 #
 ##############################
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/firmware)
+ADD_SUBDIRECTORY(${CMAKE_CURRENT_SOURCE_DIR}/firmware)

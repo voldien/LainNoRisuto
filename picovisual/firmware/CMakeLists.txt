@@ -26,7 +26,6 @@ target_include_directories(pico-visual PUBLIC
 		${CMAKE_CURRENT_LIST_DIR}
 )
 
-
 pico_enable_stdio_usb(pico-visual 0)
 pico_enable_stdio_uart(pico-visual 1)
 
@@ -42,9 +41,9 @@ target_link_libraries(pico-visual PUBLIC
     pico_float
 	pico_unique_id
 	hardware_adc
+	hardware_pwm
 	hardware_spi
 	hardware_dma
-    hardware_pio
 	pico_multicore
 )
 

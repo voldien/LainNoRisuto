@@ -1,11 +1,11 @@
 
 #include <stdint.h>
 
-#include "usb/usb_video.h"
 #include "bsp/board_api.h"
 #include "gfx/gfx.h"
 #include "picovisual.h"
 #include "pix_format.h"
+#include "usb/usb_video.h"
 #include <pico/flash.h>
 
 //--------------------------------------------------------------------+
@@ -13,7 +13,7 @@
 //--------------------------------------------------------------------+
 static uint16_t frame_num = 0;
 static uint16_t tx_busy = 0;
-static uint16_t interval_ms = 1000 / FRAME_RATE;
+static uint16_t interval_ms = 1000 / FRAME_RATE; // TODO: change to micro
 
 static void video_send_frame() {
 	static unsigned start_ms = 0;
@@ -34,8 +34,8 @@ static void video_send_frame() {
 		uint16_t *current = GFX_getFrameBuffer((current_buffer + 1) % FRAME_BUFFER_COUNT);
 
 		uint16_t scan_line[FRAME_HEIGHT];
-		for (uint16_t x = 0; x < FRAME_WIDTH; x++) {
-			VP8RGB2yuv(&current[x * FRAME_HEIGHT], FRAME_HEIGHT, scan_line);
+		for (uint16_t x_index = 0; x_index < FRAME_WIDTH; x_index++) {
+			VP8RGB2yuy(&current[x_index * FRAME_HEIGHT], FRAME_HEIGHT, (uint8_t *)scan_line);
 
 			tud_video_n_frame_xfer(0, 0, (void *)(uintptr_t)&scan_line, sizeof(scan_line));
 		}

@@ -2,6 +2,7 @@
 #include "drivers/ili9341.h"
 #include "gfx/gfx.h"
 #include <pico.h>
+#include <pico/divider.h>
 #include <stddef.h>
 #include <stdint.h>
 
@@ -16,9 +17,7 @@ VisualSettings __not_in_flash() pico_visual_settings = {
 	.v_settings.mandel.zoom = 2,
 };
 
-void begin_next_frame() {
-	/*	*/
-}
+void begin_next_frame() { /*	*/ }
 void end_next_frame() { current_buffer = (current_buffer + 1) % FRAME_BUFFER_COUNT; }
 
 static inline uint16_t get_cell_value(const uint16_t x, const uint16_t y, const uint16_t width, const uint16_t height) {
@@ -30,12 +29,14 @@ static inline uint16_t get_cell_value(const uint16_t x, const uint16_t y, const 
 	return (scratchpad[memory_offset] & (1 << bit_offset)) >> bit_offset;
 }
 
-void game_of_life(uint32_t y_start, uint32_t y_end) {
+#pragma GCC optimize("O3")
+void game_of_life(uint16_t y_start, uint16_t y_end) {
 
 	const uint16_t w = GFX_getWidth();
 	const uint16_t h = GFX_getHeight();
 
-	uint8_t *gof = scratchpad;
+	const uint8_t *gof = &scratchpad[current_buffer * ((FRAME_WIDTH * FRAME_HEIGHT) / 8)];
+	uint8_t *dst_gof;
 
 	/*	Cell Alive lookup table.	*/
 	const uint16_t GOFLUT[9] = {0, 0, 1, 1, 0, 0, 0, 0, 0};
@@ -52,8 +53,8 @@ void game_of_life(uint32_t y_start, uint32_t y_end) {
 	uint16_t sum = 0;
 	const uvec2_16 image_size = {FRAME_WIDTH, FRAME_HEIGHT};
 
-	for (volatile int16_t x_index = 0; x_index < w; x_index++) {
-		for (volatile int16_t y_index = y_start; y_index < y_end; y_index++) {
+	for (int16_t x_index = 0; x_index < w; x_index++) {
+		for (int16_t y_index = y_start; y_index < y_end; y_index++) {
 
 			const ivec2_16 pixel_coords = {x_index, y_index};
 			const uint32_t current_cell = get_cell_value(x_index, y_index, image_size[0], image_size[1]);
@@ -72,8 +73,8 @@ void game_of_life(uint32_t y_start, uint32_t y_end) {
 
 					/*	Compute neighbor cell, wrap around edge.	*/
 					ivec2_16 offsetCordinate = (ivec2_16)__sadd16((int32_t)pixel_coords, (int32_t)kernel_offset);
-					offsetCordinate[0] %= w;
-					offsetCordinate[1] %= h;
+					offsetCordinate[0] = to_remainder_u32(divmod_u32u32(offsetCordinate[0], w)); // %= w;
+					offsetCordinate[1] = (divmod_u32u32(offsetCordinate[1], h));
 
 					uint16_t kernel_cell =
 						get_cell_value(offsetCordinate[0], offsetCordinate[1], image_size[0], image_size[1]);
@@ -91,19 +92,22 @@ void game_of_life(uint32_t y_start, uint32_t y_end) {
 			const uint16_t finalColor = color[sum];
 
 			gfxFramebuffer[(y_index * w) + x_index] = finalColor;
+			// TODO: write dst_gof[]
 
 			/*	*/
 		}
 	}
 }
 
-void mandelbrot(uint32_t y_start, uint32_t y_end) {
+#pragma GCC optimize("O3")
+void mandelbrot(uint16_t y_start, uint16_t y_end) {
 
 	const uint16_t w = GFX_getWidth();
 	const uint16_t h = GFX_getHeight();
 
 	MandelBrotSettings *mandel_settings = &pico_visual_settings.v_settings.mandel;
 
+	/*	*/
 	mandel_settings->c += 0.0001f;
 	mandel_settings->ci += 0.0001f;
 
@@ -115,8 +119,7 @@ void mandelbrot(uint32_t y_start, uint32_t y_end) {
 	for (volatile int16_t x_index = 0; x_index < w; x_index++) {
 		for (volatile int16_t y_index = y_start; y_index < y_end; y_index++) {
 
-			for (uint16_t chunk = 0; chunk < 4; chunk++) {
-			}
+			 
 
 			/*  */
 			const vec2 uv = {x_index * wInverse, y_index * hInverse};

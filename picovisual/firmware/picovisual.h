@@ -1,8 +1,9 @@
-#include <stdint.h>
 #ifndef _PICO_VISUAL_GRAPHIC_
 #define _PICO_VISUAL_GRAPHIC_ 1
 #include "graphic_math.h"
 #include <pico.h>
+#include <pico/util/queue.h>
+#include <stdint.h>
 
 /*  VIDEO Settings */
 #define FRAME_WIDTH 320lu
@@ -52,11 +53,11 @@ extern void end_next_frame();
 /*
  *
  */
-extern void game_of_life(uint32_t y_start, uint32_t y_end);
+extern void game_of_life(uint16_t y_start, uint16_t y_end);
 
 /*
  *
  */
-extern void mandelbrot(uint32_t y_start, uint32_t y_end);
+extern void mandelbrot(uint16_t y_start, uint16_t y_end);
 
 #endif
