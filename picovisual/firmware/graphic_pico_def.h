@@ -17,4 +17,8 @@
 #define BACKGROUND 0x1052
 #define FOREGROUND 0x73BF
 
+#ifdef PICO_RP2040
+#define PLL_SYS_KHZ (133 * 1000)
+#else
 #define PLL_SYS_KHZ (150 * 1000)
+#endif 

@@ -1,5 +1,4 @@
 #include "usb/usb_cdc.h"
-#include "bsp/board_api.h"
 #include "tusb.h"
 
 //--------------------------------------------------------------------+
@@ -35,6 +34,10 @@ void cdc_task() {
 }
 
 #if CFG_TUD_CDC == 1
+//--------------------------------------------------------------------+
+// Device callbacks
+//--------------------------------------------------------------------+
+
 
 // Invoked when cdc when line state changed e.g connected/disconnected
 void tud_cdc_line_state_cb(uint8_t itf, bool dtr, bool rts) {

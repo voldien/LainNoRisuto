@@ -257,16 +257,21 @@ typedef struct TU_ATTR_PACKED {
 } uvc_streaming_desc_t;
 
 typedef struct TU_ATTR_PACKED {
+
 	tusb_desc_configuration_t config;
 	tusb_desc_interface_assoc_t iad;
+
+	#if CFG_TUD_VIDEO == 1
 	uvc_control_desc_t video_control;
 	uvc_streaming_desc_t video_streaming;
+	#endif
 
 	/*	*/
 	uint8_t cdc_config[TUD_CDC_DESC_LEN];
 } uvc_cfg_desc_t;
 
 const uvc_cfg_desc_t __in_flash()
+
 	desc_fs_configuration = {
 		.config = {.bLength = sizeof(tusb_desc_configuration_t),
 				   .bDescriptorType = TUSB_DESC_CONFIGURATION,
@@ -277,6 +282,7 @@ const uvc_cfg_desc_t __in_flash()
 				   .iConfiguration = 0,
 				   .bmAttributes = TU_BIT(7),
 				   .bMaxPower = 100 / 2},
+#if CFG_TUD_VIDEO == 1
 		.iad = {.bLength = sizeof(tusb_desc_interface_assoc_t),
 				.bDescriptorType = TUSB_DESC_INTERFACE_ASSOCIATION,
 
@@ -427,7 +433,7 @@ const uvc_cfg_desc_t __in_flash()
 								   .wMaxPacketSize = CFG_TUD_VIDEO_STREAMING_BULK ? 64
 																				  : CFG_TUD_VIDEO_STREAMING_EP_BUFSIZE,
 								   .bInterval = 1}},
-
+#endif
 		.cdc_config = {TUD_CDC_DESCRIPTOR(ITF_NUM_CDC, 4, EPNUM_CDC_NOTIF, 8, EPNUM_CDC_OUT, EPNUM_CDC_IN, 64)},
 	};
 

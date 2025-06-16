@@ -6,11 +6,11 @@
 #include <stdint.h>
 
 /*  VIDEO Settings */
-#define FRAME_WIDTH 320lu
-#define FRAME_HEIGHT 240lu
+#define FRAME_WIDTH 240lu
+#define FRAME_HEIGHT 320lu
 #define FRAME_RATE 60u
 #define PIXEL_DEPTH 16lu
-#define FRAME_BUFFER_COUNT 2lu
+#define FRAME_BUFFER_COUNT 1lu
 #define PIXEL_SIZE (PIXEL_DEPTH / 8)
 
 extern uint8_t __uninitialized_ram() scratchpad[2 * (FRAME_WIDTH * FRAME_HEIGHT) / 8];
@@ -53,7 +53,7 @@ extern void end_next_frame();
 /*
  *
  */
-extern void game_of_life(uint16_t y_start, uint16_t y_end);
+extern void game_of_life(const uint16_t y_start, const uint16_t y_end);
 
 /*
  *

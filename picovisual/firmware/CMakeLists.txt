@@ -4,6 +4,12 @@
 OPTION(USB_USE_CDC OFF)
 OPTION(USB_USE_VIDEO OFF)
 
+add_definitions("-ftree-vectorize")
+#add_definitions("-fpack-struct")
+# add_definitions("-fshort-enums")
+# add_definitions("-funsigned-char")
+# add_definitions("-funsigned-bitfields")
+
 FILE(GLOB SOURCE_FILES 
 	${CMAKE_CURRENT_SOURCE_DIR}/drivers/*.c
 	${CMAKE_CURRENT_SOURCE_DIR}/gfx/*.c
@@ -29,6 +35,8 @@ target_include_directories(pico-visual PUBLIC
 pico_enable_stdio_usb(pico-visual 0)
 pico_enable_stdio_uart(pico-visual 1)
 
+#pico_embed_pt_in_binary(${CMAKE_PROJECT_NAME} "${CMAKE_CURRENT_LIST_DIR}/pt.json")
+
 #
 pico_set_program_name(pico-visual "Visual")
 pico_set_program_version(pico-visual "0.1")
@@ -37,7 +45,9 @@ pico_set_program_version(pico-visual "0.1")
 target_link_libraries(pico-visual PUBLIC
 	pico_stdlib
 	tinyusb_device tinyusb_board
-    
+
+	cmsis_core
+
     pico_float
 	pico_unique_id
 	hardware_adc

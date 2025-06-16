@@ -1,10 +1,21 @@
 #ifndef _PICO_GRAPHIC_MATH_H_
 #define _PICO_GRAPHIC_MATH_H_ 1
+
+#include "cmsis_compiler.h"
 #include <arm_acle.h>
 
+#ifndef __SADD16
+#define __SADD16(x,y) {x[0] + y[0], x[1] + y[1]}
+#endif
+
+#ifndef __SMUAD
+#define __SMUAD(x,y) { (x[0] * y[0]) + (x[1] * y[1])}
+#endif
 
 typedef int8_t ivec4_8 __attribute__((__vector_size__(4)));	   /*	*/
 typedef int16_t ivec2_16 __attribute__((__vector_size__(4)));  /*	*/
+typedef int32_t ivec2_32 __attribute__((__vector_size__(8)));  /*	*/
+
 typedef uint16_t uvec2_16 __attribute__((__vector_size__(4))); /*	*/
 
 typedef float hpmvec2f __attribute__((__vector_size__(8))); /*	*/
@@ -28,6 +39,7 @@ inline static void squareImaginary(const vec2 *number, vec2 *result) {
 	*result = tmp;
 }
 
-inline static float dot(const vec2 *a, const vec2 *b) { return (a->x * b->x) + (a->y * b->y); }
+inline static int32_t dot_ivec2(const ivec2_32 a, const ivec2_32 b) { return (a[0] * b[0]) + (a[1] * b[1]); }
+inline static float dot_vec2(const vec2 *a, const vec2 *b) { return (a->x * b->x) + (a->y * b->y); }
 
 #endif

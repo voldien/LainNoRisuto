@@ -1,5 +1,5 @@
-#include "malloc.h"
 #include "pico/stdlib.h"
+#include "picovisual.h"
 #include "stdarg.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,8 +7,8 @@
 
 #include "gfx.h"
 
-#define GFX_BLACK 0x0000
-#define GFX_WHITE 0xFFFF
+uint16_t GFX_getWidth() { return FRAME_WIDTH; }
+uint16_t GFX_getHeight() { return FRAME_HEIGHT; }
 
 uint16_t current_buffer = 0;
 const uint32_t frame_size = FRAME_WIDTH * FRAME_HEIGHT * PIXEL_SIZE;
@@ -31,12 +31,9 @@ extern void LCD_WriteBitmap(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint
 	}
 #endif
 
-
-
 void GFX_flush() {
 
-	LCD_WriteBitmap(0, 0, GFX_getHeight(), GFX_getHeight(), gfxFramebuffer);
-
+	LCD_WriteBitmap(0, 0, GFX_getWidth(), GFX_getHeight(), GFX_getCurrentFrameBuffer());
 	gfxFbUpdated = false;
 }
 
@@ -46,19 +43,18 @@ void GFX_Update() {
 	}
 }
 
+void GFX_fillScreen(const uint16_t color) { GFX_fillRect(0, 0, FRAME_WIDTH, FRAME_HEIGHT, color); }
 
-void GFX_fillScreen(const uint16_t color) { GFX_fillRect(0, 0, GFX_getHeight(), GFX_getHeight(), color); }
+#pragma GCC optimize("O3")
+void GFX_fillRect(uint16_t x, uint16_t y, const uint16_t width, const uint16_t height, const uint16_t color) {
+	gfxFbUpdated = true;
 
-#pragma GCC optimize ("O3")
-void GFX_fillRect(int16_t x, int16_t y, const int16_t w, const int16_t h, const uint16_t color) {
+	// TODO: optionally, using a DMA.
+	for (uint16_t y_index = x; y_index < height; y_index++) {
 
-	//TODO: optionally, using a DMA.
-	for (int16_t y_index = y; y_index < h; y_index++) {
-		for (int16_t x_index = x; x_index < w; x_index++) {
+		for (uint16_t x_index = y; x_index < width; x_index++) {
 
-			gfxFramebuffer[(y_index * GFX_getHeight()) + x_index] = color;
+			gfxFramebuffer[(y_index * GFX_getWidth()) + x_index] = color;
 		}
 	}
-
-	gfxFbUpdated = true;
 }

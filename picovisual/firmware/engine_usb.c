@@ -22,9 +22,7 @@ void init_engine_usb() {
 
 void engine_update_usb() {
 	tud_task_ext(1, false);
-
 	cdc_task();
-
 	video_task(NULL);
 }
 

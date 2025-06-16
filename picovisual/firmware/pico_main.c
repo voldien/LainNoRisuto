@@ -20,6 +20,7 @@
 #include "pico/multicore.h"
 
 #include "device/usbd.h"
+#include "usb/usb_cdc.h"
 #include "usb/usb_video.h"
 
 #include "bsp/board.h"
@@ -70,31 +71,32 @@ void InitializeDisplay(uint16_t color) {
 	GFX_fillScreen(BACKGROUND);
 	GFX_flush();
 
-	gpio_set_function(TFT_LED, GPIO_FUNC_PWM);
-	// Figure out which slice we just connected to the LED pin
-	uint slice_num = pwm_gpio_to_slice_num(TFT_LED);
-
-	// Mask our slice's IRQ output into the PWM block's single interrupt line,
-	// and register our interrupt handler
-	pwm_clear_irq(slice_num);
-	pwm_set_irq_enabled(slice_num, true);
-	// irq_set_exclusive_handler(PWM_DEFAULT_IRQ_NUM(), on_pwm_wrap);
-	// irq_set_enabled(PWM_DEFAULT_IRQ_NUM(), true);
-
-	// Get some sensible defaults for the slice configuration. By default, the
-	// counter is allowed to wrap over its maximum range (0 to 2**16-1)
-	pwm_config config = pwm_get_default_config();
-	// Set divider, reduces counter clock to sysclock/this value
-	pwm_config_set_clkdiv(&config, 4.f);
-	// Load the configuration into our PWM slice, and set it running.
-	pwm_init(slice_num, &config, true);
+	// gpio_set_function(TFT_LED, GPIO_FUNC_PWM);
+	//// Figure out which slice we just connected to the LED pin
+	// uint slice_num = pwm_gpio_to_slice_num(TFT_LED);
+	//
+	//// Mask our slice's IRQ output into the PWM block's single interrupt line,
+	//// and register our interrupt handler
+	// pwm_clear_irq(slice_num);
+	// pwm_set_irq_enabled(slice_num, true);
+	//// irq_set_exclusive_handler(PWM_DEFAULT_IRQ_NUM(), on_pwm_wrap);
+	//// irq_set_enabled(PWM_DEFAULT_IRQ_NUM(), true);
+	//
+	//// Get some sensible defaults for the slice configuration. By default, the
+	//// counter is allowed to wrap over its maximum range (0 to 2**16-1)
+	// pwm_config config = pwm_get_default_config();
+	//// Set divider, reduces counter clock to sysclock/this value
+	// pwm_config_set_clkdiv(&config, 4.f);
+	//// Load the configuration into our PWM slice, and set it running.
+	// pwm_init(slice_num, &config, true);
 }
 
 void core1_entry() {
+
 	while (1) {
 
 		mandelbrot(GFX_getHeight() / 2, GFX_getHeight());
-		game_of_life(GFX_getHeight() / 2, GFX_getHeight());
+		// game_of_life(GFX_getHeight() / 2, GFX_getHeight());
 
 		engine_update_usb();
 		// sleep_ms(5);
@@ -105,6 +107,7 @@ void core1_entry() {
 
 void gpio_callback(uint gpio, uint32_t events) { gpio_get(GPIO_BUTTON0_PIN); }
 
+struct repeating_timer timer;
 void init_everything() {
 
 	/*	*/
@@ -116,8 +119,24 @@ void init_everything() {
 	board_init();
 
 	/*	*/
-	tusb_init();
+	{
+		if (watchdog_enable_caused_reboot()) {
+			printf("Rebooted by Watchdog!\n");
+
+		} else {
+			printf("Clean boot\n");
+		}
+
+		watchdog_enable(-500, 1);
+		watchdog_update();
+
+		/* setup alarm for watchdog. */
+		add_repeating_timer_ms(-250, repeating_timer_callback, NULL, &timer);
+	}
+
 	/*	*/
+	tusb_init();
+	/* */
 	if (board_init_after_tusb) {
 		board_init_after_tusb();
 	}
@@ -130,22 +149,7 @@ void init_everything() {
 	gpio_set_function(GPIO_BUTTON0_PIN, GPIO_FUNC_NULL);
 	gpio_set_irq_enabled_with_callback(GPIO_BUTTON0_PIN, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &gpio_callback);
 
-	/*	*/
-	{
-		if (watchdog_enable_caused_reboot()) {
-			printf("Rebooted by Watchdog!\n");
-
-		} else {
-			printf("Clean boot\n");
-		}
-		watchdog_update();
-
-		/* setup alarm for watchdog. */
-		struct repeating_timer timer;
-		add_repeating_timer_ms(-75, repeating_timer_callback, NULL, &timer);
-	}
-
-	int rc = pico_led_init();
+	// int rc = pico_led_init();
 
 	InitializeDisplay(BACKGROUND);
 
@@ -153,14 +157,18 @@ void init_everything() {
 }
 
 void welcome_screen() {
-	const int w = GFX_getWidth();
-	const int h = GFX_getHeight();
+
+	GFX_fillScreen(0);
+
+	puts("Welcome Display display...");
+	const int width = GFX_getWidth();
+	const int height = GFX_getHeight();
 
 	/*	*/
-	for (volatile int16_t x_index = 0; x_index < w; x_index++) {
-		for (volatile int16_t y_index = 0; y_index < h; y_index++) {
+	for (int16_t x_index = 0; x_index < width; x_index++) {
+		for (int16_t y_index = 0; y_index < height; y_index++) {
 			/*	*/
-			gfxFramebuffer[(y_index * w) + x_index] = GFX_RGB565(0, 0, 0);
+			gfxFramebuffer[(y_index * width) + x_index] = GFX_RGB565(0, 0, 0);
 		}
 	}
 
@@ -178,14 +186,12 @@ int main() {
 	/*	*/
 	while (true) {
 
+		printf("frame");
 		/*	Run Current Select Visual.	*/
 		begin_next_frame();
 		mandelbrot(0, GFX_getHeight() / 2);
 		GFX_flush();
 		end_next_frame();
-
-		// TODO: Move
-		waitForDMA();
 	}
 
 	return 0;

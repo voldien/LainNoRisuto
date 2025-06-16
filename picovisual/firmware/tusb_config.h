@@ -103,7 +103,12 @@ extern "C" {
 
 //------------- CLASS -------------//
 #define CFG_TUD_CDC 1
+
+#ifdef PICO_RP2040
+#define CFG_TUD_VIDEO 0
+#elif defined(PICO_RP2350)
 #define CFG_TUD_VIDEO 1
+#endif
 
 #include "usb/usb_descriptors.h"
 
