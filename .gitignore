@@ -454,3 +454,7 @@ build*/
 *.zip
 *.7z
 *.tar.gz
+pico-sdk/
+CMakeFiles/
+*.ld
+.cache/
