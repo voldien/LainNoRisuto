@@ -3,13 +3,19 @@ cmake_minimum_required(VERSION 2.8)
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../cmake" )
 
 SET(AVR_UPLOADTOOL avrdude)
-SET(AVR_PROGRAMMER arduino)
+SET(AVR_PROGRAMMER usbasp)
 SET(AVR_UPLOADTOOL_PORT /dev/ttyUSB0)
 # AVR and fuses needs to be SET
 SET(AVR_MCU attiny13a) # atmega328p attiny13a attiny25
 #TODO: based on the source file
-SET(AVR_H_FUSE 0xd9)
-SET(AVR_L_FUSE 0xc3)
+
+# Atmega328P Fuses
+#SET(AVR_H_FUSE 0xd9)
+#SET(AVR_L_FUSE 0xc3)
+
+# Attiny13A Fuses
+SET(AVR_H_FUSE 0xDF)
+SET(AVR_L_FUSE 0x73)
 
 INCLUDE(generic-gcc-avr)
 avr_generate_fixed_targets()

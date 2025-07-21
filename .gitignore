@@ -458,3 +458,5 @@ pico-sdk/
 CMakeFiles/
 *.ld
 .cache/
+*.cmake
+CMakeCache.txt

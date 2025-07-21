@@ -56,40 +56,26 @@ extern volatile uint8_t g_curkeyframe;
  */
 #define COLORBIT 5
 #define COLORRES 0x1F
-#define CREATE_RGB_VALUE(b, g, r)											\
-{																			\
-	(((r & COLORRES) >> 0u) | ((g & COLORRES) << COLORBIT)) & 0xFF,			\
-	((((g & COLORRES) >> 2u) & 0b11) | ((b & COLORRES) << 2u)) & 0xFF		\
-																			\
-}																			
-
+#define CREATE_RGB_VALUE(b, g, r)                                                                                      \
+	{                                                                                                                  \
+		(((r & COLORRES) >> 0u) | ((g & COLORRES) << COLORBIT)) & 0xFF,                                                \
+			((((g & COLORRES) >> 2u) & 0b11) | ((b & COLORRES) << 2u)) & 0xFF                                          \
+	}
 
 /*	Create single animation frame.	*/
-#define CREATE_RGBK_KEY_FRAME(x1,x2,x3,x4,x5,x6,x7,x8,						\
-							x9,x10,x11,x12)									\
-{																			\
-	x1, x2, x3,																\
-	x4, x5, x6,																\
-	x7, x8, x9,																\
-	x10,x11, x12															\
-}																			\
-
+#define CREATE_RGBK_KEY_FRAME(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12)                                       \
+	{ x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12 }
 
 /**
  * Create animation.
  */
-#define CREATE_ANIMATION(x1,x2,x3,x4,x5,x6,x7,x8,										\
-						x9,x10,x11,x12,x13,x14,x15,x16,									\
-						x17,x18,x19,x20,x21,x22,x23,x24,								\
-						x25,x26,x27,x28,x29,x30,x31,x32)								\
-{																						\
-																						\
-	x1, x2, x3, x4, x5, x6, x7, x8,														\
-	x9, x10,x11, x12, x13, x14, x15,													\
-	x16, x17, x18, x19, x20, x21, x22,													\
-	x23, x24, x25, x26, x27, x28, x29, x30,x31, x32										\
-																						\
-}
+#define CREATE_ANIMATION(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20,    \
+						 x21, x22, x23, x24, x25, x26, x27, x28, x29, x30, x31, x32)                                   \
+	{                                                                                                                  \
+                                                                                                                       \
+		x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22, x23, x24, \
+			x25, x26, x27, x28, x29, x30, x31, x32                                                                     \
+	}
 
 /**
  * Initialize animation.
@@ -114,6 +100,6 @@ extern const uint8_t cc_next_animation_ready();
 /**
  *	Reset and set next animation.
  */
-extern inline void cc_reset_for_next_animation() __attribute__((always_inline));
+extern void cc_reset_for_next_animation();
 
 #endif

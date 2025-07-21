@@ -3,7 +3,7 @@
 <eagle version="9.6.2">
 <drawing>
 <settings>
-<setting alwaysvectorfont="yes"/>
+<setting alwaysvectorfont="no"/>
 <setting keepoldvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
@@ -3497,8 +3497,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <contactref element="IC5" pad="4"/>
 <polygon width="0.254" layer="16">
 <vertex x="-1.136846875" y="50.751278125"/>
-<vertex x="70.953153125" y="50.501278125"/>
-<vertex x="70.953153125" y="-1.568721875"/>
+<vertex x="51.153153125" y="50.56994375"/>
+<vertex x="51.153153125" y="-1.50005625"/>
 <vertex x="-1.136846875" y="-1.318721875"/>
 </polygon>
 <contactref element="D1" pad="2"/>
