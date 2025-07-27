@@ -8826,7 +8826,7 @@ SparkFun BigTime Watch Kit&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
 <part name="U$2" library="SparkFun" deviceset="ATTINY13" device="SOIC"/>
 <part name="+3V15" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND23" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="C10" library="adafruit" deviceset="C-US" device="C0603" value="10nF"/>
+<part name="C10" library="adafruit" deviceset="C-US" device="C0603" value="100nF"/>
 <part name="GND24" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V16" library="supply1" deviceset="+3V3" device=""/>
 <part name="C12" library="adafruit" deviceset="C-US" device="C0603" value="10nF"/>
@@ -8857,11 +8857,11 @@ SparkFun BigTime Watch Kit&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
 <attribute name="NAME" x="481.076" y="175.768" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="483.235" y="175.768" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="5V" gate="G$1" x="444.5" y="162.56" smashed="yes" rot="R270">
-<attribute name="NAME" x="446.3542" y="163.703" size="1.778" layer="95" rot="R270"/>
+<instance part="5V" gate="G$1" x="401.32" y="210.82" smashed="yes" rot="R270">
+<attribute name="NAME" x="403.1742" y="211.963" size="1.778" layer="95" rot="R270"/>
 </instance>
-<instance part="GND" gate="G$1" x="436.88" y="162.56" smashed="yes" rot="R270">
-<attribute name="NAME" x="438.7342" y="163.703" size="1.778" layer="95" rot="R270"/>
+<instance part="GND" gate="G$1" x="393.7" y="210.82" smashed="yes" rot="R270">
+<attribute name="NAME" x="395.5542" y="211.963" size="1.778" layer="95" rot="R270"/>
 </instance>
 <instance part="R2" gate="G$1" x="477.52" y="167.64" smashed="yes" rot="R90">
 <attribute name="NAME" x="476.0214" y="163.83" size="1.778" layer="95" rot="R90"/>
@@ -8926,11 +8926,11 @@ SparkFun BigTime Watch Kit&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
 <instance part="P+2" gate="VCC" x="378.46" y="248.92" smashed="yes" rot="R90">
 <attribute name="VALUE" x="381" y="246.38" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="GND5" gate="1" x="436.88" y="152.4" smashed="yes">
-<attribute name="VALUE" x="434.34" y="149.86" size="1.778" layer="96"/>
+<instance part="GND5" gate="1" x="393.7" y="200.66" smashed="yes">
+<attribute name="VALUE" x="391.16" y="198.12" size="1.778" layer="96"/>
 </instance>
-<instance part="P+4" gate="VCC" x="444.5" y="152.4" smashed="yes" rot="R180">
-<attribute name="VALUE" x="447.04" y="154.94" size="1.778" layer="96" rot="R270"/>
+<instance part="P+4" gate="VCC" x="401.32" y="200.66" smashed="yes" rot="R180">
+<attribute name="VALUE" x="403.86" y="203.2" size="1.778" layer="96" rot="R270"/>
 </instance>
 <instance part="C2" gate="G$1" x="439.42" y="243.84" smashed="yes">
 <attribute name="NAME" x="440.436" y="244.475" size="1.778" layer="95"/>
@@ -9081,67 +9081,67 @@ SparkFun BigTime Watch Kit&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
 <attribute name="SHEET" x="619.76" y="80.01" size="2.54" layer="94"/>
 <attribute name="DRAWING_NAME" x="551.18" y="97.79" size="2.54" layer="94"/>
 </instance>
-<instance part="J1" gate="G$1" x="515.62" y="134.62" smashed="yes" rot="R180">
-<attribute name="NAME" x="515.62" y="125.095" size="1.778" layer="95" rot="R180"/>
-<attribute name="VALUE" x="515.62" y="138.43" size="1.778" layer="96" rot="R180"/>
+<instance part="J1" gate="G$1" x="439.42" y="210.82" smashed="yes" rot="R180">
+<attribute name="NAME" x="439.42" y="201.295" size="1.778" layer="95" rot="R180"/>
+<attribute name="VALUE" x="439.42" y="214.63" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="GND21" gate="1" x="528.32" y="134.62" smashed="yes" rot="R90">
-<attribute name="VALUE" x="530.86" y="132.08" size="1.778" layer="96" rot="R90"/>
+<instance part="GND21" gate="1" x="452.12" y="210.82" smashed="yes" rot="R90">
+<attribute name="VALUE" x="454.66" y="208.28" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="P+1" gate="VCC" x="533.4" y="132.08" smashed="yes" rot="R270">
-<attribute name="VALUE" x="530.86" y="134.62" size="1.778" layer="96"/>
+<instance part="P+1" gate="VCC" x="457.2" y="208.28" smashed="yes" rot="R270">
+<attribute name="VALUE" x="454.66" y="210.82" size="1.778" layer="96"/>
 </instance>
-<instance part="U$2" gate="G$1" x="492.76" y="96.52" smashed="yes">
-<attribute name="VALUE" x="480.06" y="86.36" size="1.778" layer="96"/>
-<attribute name="NAME" x="480.06" y="106.68" size="1.778" layer="95"/>
+<instance part="U$2" gate="G$1" x="421.64" y="154.94" smashed="yes">
+<attribute name="VALUE" x="408.94" y="144.78" size="1.778" layer="96"/>
+<attribute name="NAME" x="408.94" y="165.1" size="1.778" layer="95"/>
 </instance>
-<instance part="+3V15" gate="G$1" x="474.98" y="109.22" smashed="yes">
-<attribute name="VALUE" x="472.44" y="104.14" size="1.778" layer="96" rot="R90"/>
+<instance part="+3V15" gate="G$1" x="403.86" y="167.64" smashed="yes">
+<attribute name="VALUE" x="401.32" y="162.56" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="GND23" gate="1" x="474.98" y="86.36" smashed="yes">
-<attribute name="VALUE" x="472.44" y="83.82" size="1.778" layer="96"/>
+<instance part="GND23" gate="1" x="403.86" y="144.78" smashed="yes">
+<attribute name="VALUE" x="401.32" y="142.24" size="1.778" layer="96"/>
 </instance>
-<instance part="C10" gate="G$1" x="492.76" y="114.3" smashed="yes" rot="R90">
-<attribute name="NAME" x="492.125" y="115.316" size="1.778" layer="95" rot="R90"/>
-<attribute name="VALUE" x="496.951" y="115.316" size="1.778" layer="96" rot="R90"/>
+<instance part="C10" gate="G$1" x="421.64" y="172.72" smashed="yes" rot="R90">
+<attribute name="NAME" x="421.005" y="173.736" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="425.831" y="173.736" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="GND24" gate="1" x="502.92" y="114.3" smashed="yes" rot="R90">
-<attribute name="VALUE" x="505.46" y="111.76" size="1.778" layer="96" rot="R90"/>
+<instance part="GND24" gate="1" x="431.8" y="172.72" smashed="yes" rot="R90">
+<attribute name="VALUE" x="434.34" y="170.18" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="+3V16" gate="G$1" x="485.14" y="114.3" smashed="yes" rot="R90">
-<attribute name="VALUE" x="490.22" y="111.76" size="1.778" layer="96" rot="R180"/>
+<instance part="+3V16" gate="G$1" x="414.02" y="172.72" smashed="yes" rot="R90">
+<attribute name="VALUE" x="419.1" y="170.18" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="C12" gate="G$1" x="530.86" y="215.9" smashed="yes" rot="R180">
-<attribute name="NAME" x="529.844" y="215.265" size="1.778" layer="95" rot="R180"/>
-<attribute name="VALUE" x="529.844" y="220.091" size="1.778" layer="96" rot="R180"/>
+<instance part="C12" gate="G$1" x="543.56" y="210.82" smashed="yes" rot="R180">
+<attribute name="NAME" x="542.544" y="210.185" size="1.778" layer="95" rot="R180"/>
+<attribute name="VALUE" x="542.544" y="215.011" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="GND19" gate="1" x="530.86" y="205.74" smashed="yes">
-<attribute name="VALUE" x="528.32" y="203.2" size="1.778" layer="96"/>
+<instance part="GND19" gate="1" x="543.56" y="200.66" smashed="yes">
+<attribute name="VALUE" x="541.02" y="198.12" size="1.778" layer="96"/>
 </instance>
-<instance part="GND2" gate="1" x="406.4" y="109.22" smashed="yes" rot="R270">
-<attribute name="VALUE" x="403.86" y="111.76" size="1.778" layer="96" rot="R270"/>
+<instance part="GND2" gate="1" x="393.7" y="91.44" smashed="yes" rot="R270">
+<attribute name="VALUE" x="391.16" y="93.98" size="1.778" layer="96" rot="R270"/>
 </instance>
-<instance part="R1" gate="G$1" x="441.96" y="121.92" smashed="yes" rot="R90">
-<attribute name="NAME" x="440.4614" y="118.11" size="1.778" layer="95" rot="R90"/>
-<attribute name="VALUE" x="445.262" y="118.11" size="1.778" layer="96" rot="R90"/>
+<instance part="R1" gate="G$1" x="429.26" y="104.14" smashed="yes" rot="R90">
+<attribute name="NAME" x="427.7614" y="100.33" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="432.562" y="100.33" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="+3V2" gate="G$1" x="441.96" y="134.62" smashed="yes">
-<attribute name="VALUE" x="439.42" y="129.54" size="1.778" layer="96" rot="R90"/>
+<instance part="+3V2" gate="G$1" x="429.26" y="116.84" smashed="yes">
+<attribute name="VALUE" x="426.72" y="111.76" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="S1" gate="G$1" x="431.8" y="109.22" smashed="yes">
-<attribute name="NAME" x="431.8" y="110.744" size="1.778" layer="95" font="vector" align="bottom-center"/>
-<attribute name="VALUE" x="431.8" y="113.792" size="1.778" layer="96" font="vector" align="top-center"/>
+<instance part="S1" gate="G$1" x="419.1" y="91.44" smashed="yes">
+<attribute name="NAME" x="419.1" y="92.964" size="1.778" layer="95" font="vector" align="bottom-center"/>
+<attribute name="VALUE" x="419.1" y="96.012" size="1.778" layer="96" font="vector" align="top-center"/>
 </instance>
-<instance part="LED17" gate="G$1" x="396.24" y="187.96" smashed="yes">
-<attribute name="NAME" x="399.796" y="183.388" size="1.778" layer="95" rot="R90"/>
-<attribute name="VALUE" x="401.955" y="183.388" size="1.778" layer="96" rot="R90"/>
+<instance part="LED17" gate="G$1" x="497.84" y="134.62" smashed="yes" rot="R270">
+<attribute name="NAME" x="493.268" y="131.064" size="1.778" layer="95"/>
+<attribute name="VALUE" x="493.268" y="128.905" size="1.778" layer="96"/>
 </instance>
-<instance part="R10" gate="G$1" x="396.24" y="172.72" smashed="yes" rot="R90">
-<attribute name="NAME" x="394.7414" y="168.91" size="1.778" layer="95" rot="R90"/>
-<attribute name="VALUE" x="399.542" y="168.91" size="1.778" layer="96" rot="R90"/>
+<instance part="R10" gate="G$1" x="482.6" y="134.62" smashed="yes">
+<attribute name="NAME" x="478.79" y="136.1186" size="1.778" layer="95"/>
+<attribute name="VALUE" x="478.79" y="131.318" size="1.778" layer="96"/>
 </instance>
-<instance part="GND3" gate="1" x="396.24" y="162.56" smashed="yes">
-<attribute name="VALUE" x="393.7" y="160.02" size="1.778" layer="96"/>
+<instance part="GND3" gate="1" x="472.44" y="134.62" smashed="yes" rot="R270">
+<attribute name="VALUE" x="469.9" y="137.16" size="1.778" layer="96" rot="R270"/>
 </instance>
 </instances>
 <busses>
@@ -9240,7 +9240,7 @@ SparkFun BigTime Watch Kit&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
 <net name="VCC" class="0">
 <segment>
 <pinref part="5V" gate="G$1" pin="P"/>
-<wire x1="444.5" y1="160.02" x2="444.5" y2="154.94" width="0.1524" layer="91"/>
+<wire x1="401.32" y1="208.28" x2="401.32" y2="203.2" width="0.1524" layer="91"/>
 <pinref part="P+4" gate="VCC" pin="VCC"/>
 </segment>
 <segment>
@@ -9250,14 +9250,14 @@ SparkFun BigTime Watch Kit&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
 </segment>
 <segment>
 <pinref part="J1" gate="G$1" pin="VBUS"/>
-<wire x1="518.16" y1="132.08" x2="530.86" y2="132.08" width="0.1524" layer="91"/>
+<wire x1="441.96" y1="208.28" x2="454.66" y2="208.28" width="0.1524" layer="91"/>
 <pinref part="P+1" gate="VCC" pin="VCC"/>
 </segment>
 </net>
 <net name="GND" class="0">
 <segment>
 <pinref part="GND" gate="G$1" pin="P"/>
-<wire x1="436.88" y1="160.02" x2="436.88" y2="154.94" width="0.1524" layer="91"/>
+<wire x1="393.7" y1="208.28" x2="393.7" y2="203.2" width="0.1524" layer="91"/>
 <pinref part="GND5" gate="1" pin="GND"/>
 </segment>
 <segment>
@@ -9374,41 +9374,41 @@ SparkFun BigTime Watch Kit&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
 </segment>
 <segment>
 <pinref part="J1" gate="G$1" pin="GND"/>
-<wire x1="518.16" y1="134.62" x2="525.78" y2="134.62" width="0.1524" layer="91"/>
+<wire x1="441.96" y1="210.82" x2="449.58" y2="210.82" width="0.1524" layer="91"/>
 <pinref part="GND21" gate="1" pin="GND"/>
 </segment>
 <segment>
 <pinref part="U$2" gate="G$1" pin="GND"/>
-<wire x1="477.52" y1="91.44" x2="474.98" y2="91.44" width="0.1524" layer="91"/>
-<wire x1="474.98" y1="91.44" x2="474.98" y2="88.9" width="0.1524" layer="91"/>
+<wire x1="406.4" y1="149.86" x2="403.86" y2="149.86" width="0.1524" layer="91"/>
+<wire x1="403.86" y1="149.86" x2="403.86" y2="147.32" width="0.1524" layer="91"/>
 <pinref part="GND23" gate="1" pin="GND"/>
 </segment>
 <segment>
 <pinref part="C10" gate="G$1" pin="2"/>
-<wire x1="497.84" y1="114.3" x2="500.38" y2="114.3" width="0.1524" layer="91"/>
+<wire x1="426.72" y1="172.72" x2="429.26" y2="172.72" width="0.1524" layer="91"/>
 <pinref part="GND24" gate="1" pin="GND"/>
 </segment>
 <segment>
 <pinref part="C12" gate="G$1" pin="1"/>
 <pinref part="GND19" gate="1" pin="GND"/>
-<wire x1="530.86" y1="213.36" x2="530.86" y2="208.28" width="0.1524" layer="91"/>
+<wire x1="543.56" y1="208.28" x2="543.56" y2="203.2" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<wire x1="426.72" y1="109.22" x2="408.94" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="414.02" y1="91.44" x2="396.24" y2="91.44" width="0.1524" layer="91"/>
 <pinref part="GND2" gate="1" pin="GND"/>
 <pinref part="S1" gate="G$1" pin="1"/>
 </segment>
 <segment>
 <pinref part="R10" gate="G$1" pin="1"/>
 <pinref part="GND3" gate="1" pin="GND"/>
-<wire x1="396.24" y1="167.64" x2="396.24" y2="165.1" width="0.1524" layer="91"/>
+<wire x1="477.52" y1="134.62" x2="474.98" y2="134.62" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RCLK" class="0">
 <segment>
 <pinref part="U$2" gate="G$1" pin="PB1(MISO)"/>
-<wire x1="505.46" y1="101.6" x2="520.7" y2="101.6" width="0.1524" layer="91"/>
-<label x="520.7" y="101.6" size="1.778" layer="95" xref="yes"/>
+<wire x1="434.34" y1="160.02" x2="449.58" y2="160.02" width="0.1524" layer="91"/>
+<label x="449.58" y="160.02" size="1.778" layer="95" xref="yes"/>
 </segment>
 <segment>
 <pinref part="IC3" gate="A" pin="SCK"/>
@@ -9483,18 +9483,18 @@ SparkFun BigTime Watch Kit&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
 </segment>
 <segment>
 <pinref part="U$2" gate="G$1" pin="VCC"/>
-<wire x1="477.52" y1="104.14" x2="474.98" y2="104.14" width="0.1524" layer="91"/>
-<wire x1="474.98" y1="104.14" x2="474.98" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="406.4" y1="162.56" x2="403.86" y2="162.56" width="0.1524" layer="91"/>
+<wire x1="403.86" y1="162.56" x2="403.86" y2="165.1" width="0.1524" layer="91"/>
 <pinref part="+3V15" gate="G$1" pin="+3V3"/>
 </segment>
 <segment>
 <pinref part="C10" gate="G$1" pin="1"/>
-<wire x1="490.22" y1="114.3" x2="487.68" y2="114.3" width="0.1524" layer="91"/>
+<wire x1="419.1" y1="172.72" x2="416.56" y2="172.72" width="0.1524" layer="91"/>
 <pinref part="+3V16" gate="G$1" pin="+3V3"/>
 </segment>
 <segment>
 <pinref part="R1" gate="G$1" pin="2"/>
-<wire x1="441.96" y1="127" x2="441.96" y2="132.08" width="0.1524" layer="91"/>
+<wire x1="429.26" y1="109.22" x2="429.26" y2="114.3" width="0.1524" layer="91"/>
 <pinref part="+3V2" gate="G$1" pin="+3V3"/>
 </segment>
 </net>
@@ -9542,8 +9542,8 @@ SparkFun BigTime Watch Kit&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
 </segment>
 <segment>
 <pinref part="U$2" gate="G$1" pin="PB2(SCK/ADC1)"/>
-<wire x1="505.46" y1="99.06" x2="510.54" y2="99.06" width="0.1524" layer="91"/>
-<label x="510.54" y="99.06" size="1.778" layer="95" xref="yes"/>
+<wire x1="434.34" y1="157.48" x2="439.42" y2="157.48" width="0.1524" layer="91"/>
+<label x="439.42" y="157.48" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="N$9" class="0">
@@ -9685,8 +9685,8 @@ SparkFun BigTime Watch Kit&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
 <net name="LATCH" class="0">
 <segment>
 <pinref part="U$2" gate="G$1" pin="PB3(ADC3)"/>
-<wire x1="505.46" y1="96.52" x2="520.7" y2="96.52" width="0.1524" layer="91"/>
-<label x="520.7" y="96.52" size="1.778" layer="95" xref="yes"/>
+<wire x1="434.34" y1="154.94" x2="449.58" y2="154.94" width="0.1524" layer="91"/>
+<label x="449.58" y="154.94" size="1.778" layer="95" xref="yes"/>
 </segment>
 <segment>
 <pinref part="IC4" gate="A" pin="RCK"/>
@@ -9701,15 +9701,15 @@ SparkFun BigTime Watch Kit&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
 </segment>
 <segment>
 <pinref part="C12" gate="G$1" pin="2"/>
-<wire x1="530.86" y1="220.98" x2="530.86" y2="226.06" width="0.1524" layer="91"/>
-<label x="530.86" y="226.06" size="1.778" layer="95" rot="R90" xref="yes"/>
+<wire x1="543.56" y1="215.9" x2="543.56" y2="220.98" width="0.1524" layer="91"/>
+<label x="543.56" y="220.98" size="1.778" layer="95" rot="R90" xref="yes"/>
 </segment>
 </net>
 <net name="PWM" class="0">
 <segment>
 <pinref part="U$2" gate="G$1" pin="PB0(MOSI)"/>
-<wire x1="505.46" y1="104.14" x2="510.54" y2="104.14" width="0.1524" layer="91"/>
-<label x="510.54" y="104.14" size="1.778" layer="95" xref="yes"/>
+<wire x1="434.34" y1="162.56" x2="439.42" y2="162.56" width="0.1524" layer="91"/>
+<label x="439.42" y="162.56" size="1.778" layer="95" xref="yes"/>
 </segment>
 <segment>
 <pinref part="IC4" gate="A" pin="G"/>
@@ -9725,36 +9725,36 @@ SparkFun BigTime Watch Kit&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
 <net name="NRES" class="0">
 <segment>
 <pinref part="U$2" gate="G$1" pin="PB5(NRES)"/>
-<wire x1="505.46" y1="91.44" x2="508" y2="91.44" width="0.1524" layer="91"/>
-<label x="508" y="91.44" size="1.778" layer="95" xref="yes"/>
+<wire x1="434.34" y1="149.86" x2="436.88" y2="149.86" width="0.1524" layer="91"/>
+<label x="436.88" y="149.86" size="1.778" layer="95" xref="yes"/>
 </segment>
 <segment>
 <pinref part="LED17" gate="G$1" pin="A"/>
-<wire x1="396.24" y1="190.5" x2="396.24" y2="198.12" width="0.1524" layer="91"/>
-<label x="396.24" y="198.12" size="1.778" layer="95" rot="R90" xref="yes"/>
+<wire x1="500.38" y1="134.62" x2="508" y2="134.62" width="0.1524" layer="91"/>
+<label x="508" y="134.62" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="PB4" class="0">
 <segment>
 <pinref part="U$2" gate="G$1" pin="PB4(ADC2)"/>
-<wire x1="505.46" y1="93.98" x2="515.62" y2="93.98" width="0.1524" layer="91"/>
-<label x="515.62" y="93.98" size="1.778" layer="95" xref="yes"/>
+<wire x1="434.34" y1="152.4" x2="444.5" y2="152.4" width="0.1524" layer="91"/>
+<label x="444.5" y="152.4" size="1.778" layer="95" xref="yes"/>
 </segment>
 <segment>
-<label x="452.12" y="109.22" size="1.778" layer="95" xref="yes"/>
+<label x="439.42" y="91.44" size="1.778" layer="95" xref="yes"/>
 <pinref part="R1" gate="G$1" pin="1"/>
-<wire x1="441.96" y1="109.22" x2="452.12" y2="109.22" width="0.1524" layer="91"/>
-<wire x1="441.96" y1="116.84" x2="441.96" y2="109.22" width="0.1524" layer="91"/>
-<junction x="441.96" y="109.22"/>
+<wire x1="429.26" y1="91.44" x2="439.42" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="429.26" y1="99.06" x2="429.26" y2="91.44" width="0.1524" layer="91"/>
+<junction x="429.26" y="91.44"/>
 <pinref part="S1" gate="G$1" pin="2"/>
-<wire x1="441.96" y1="109.22" x2="436.88" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="429.26" y1="91.44" x2="424.18" y2="91.44" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$2" class="0">
 <segment>
 <pinref part="LED17" gate="G$1" pin="C"/>
 <pinref part="R10" gate="G$1" pin="2"/>
-<wire x1="396.24" y1="182.88" x2="396.24" y2="177.8" width="0.1524" layer="91"/>
+<wire x1="492.76" y1="134.62" x2="487.68" y2="134.62" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

@@ -49,7 +49,7 @@
  */
 #define SHIFT_RCLK_REG PORTB /*	 	*/
 #define SHIFT_RCLK_DREG DDRB /*	 	*/
-#define SHIFT_RCLK_PIN PB3	 /*	 	*/
+#define SHIFT_RCLK_PIN PB1	 /*	 	*/
 
 /**
  * Shift Registers Serial Data Pin (SNx4HC595)
@@ -65,7 +65,7 @@
  */
 #define SHIFT_LATCH_REG PORTB
 #define SHIFT_LATCH_DREG DDRB
-#define SHIFT_LATCH_PIN PB1 /*	Shift clock.	*/
+#define SHIFT_LATCH_PIN PB3 /*	Shift clock.	*/
 
 /**
  * Number of physical LEDs.
@@ -76,8 +76,6 @@
  * Default intensity value [0, 255].
  */
 #define LED_INTENSITY 255
-
-#define SPEED_FACTOR 3
 
 /**
  * @brief Control the Running Mode of

@@ -26,7 +26,7 @@
  * be in a power of two for better
  * performance.
  */
-#define NRANIM 8
+#define NRANIM 4
 #define NRANIMENTRY 32
 #define PWMRESOLUTION 4
 

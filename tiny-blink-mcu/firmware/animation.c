@@ -22,20 +22,20 @@ const struct animation_t PROGMEM ani[NRANIM] = {
 	CREATE_ANIMIATION(0x0u, 0x1u, 0x11u, 0x111u, 0x1111u, 0x3333u, 0x7777u, 0xFFFFu, 0x7777u, 0x3333u, 0x1111u, 0x2222u, 0x4444u,
 			0x0u, 0x1111u, 0x0, 0x2222u, 0x0, 0x1111u, 0x0, 0x2222u, 0x3333u, 0x7777u, 0xFFFFu, 0xEEEEu, 0xCCCCu, 0x8888u, 0x0, 0xFFFFu, 0x0, 0xFFFFu, 0x0),
 
-	/*	Ring collect.	*/
-	CREATE_ANIMIATION(0x0, 0x1, 0x2, 0x4, 0x8, 0x0, 14, 15, 14, 12, 10, 8, 6, 4, 2, 0, 0, 2, 4, 8, 10, 12, 14, 15, 14, 12, 10, 8, 6,
-					  4, 2, 0),
+	// /*	Ring collect.	*/
+	// CREATE_ANIMIATION(0x0, 0x1, 0x2, 0x4, 0x8, 0x0, 14, 15, 14, 12, 10, 8, 6, 4, 2, 0, 0, 2, 4, 8, 10, 12, 14, 15, 14, 12, 10, 8, 6,
+	// 				  4, 2, 0),
 
-	/*	Ring collect.	*/
-	CREATE_ANIMIATION(0x0, 0x1, 0x2, 0x4, 0x8, 0x0, 14, 15, 14, 12, 10, 8, 6, 4, 2, 0, 0, 2, 4, 8, 10, 12, 14, 15, 14, 12, 10, 8, 6,
-					  4, 2, 0),
+	// /*	Ring collect.	*/
+	// CREATE_ANIMIATION(0x0, 0x1, 0x2, 0x4, 0x8, 0x0, 14, 15, 14, 12, 10, 8, 6, 4, 2, 0, 0, 2, 4, 8, 10, 12, 14, 15, 14, 12, 10, 8, 6,
+	// 				  4, 2, 0),
 
-	/*	Ring collect.	*/
-	CREATE_ANIMIATION(0x0, 0x1, 0x2, 0x4, 0x8, 0x0, 14, 15, 14, 12, 10, 8, 6, 4, 2, 0, 0, 2, 4, 8, 10, 12, 14, 15, 14, 12, 10, 8, 6,
-					  4, 2, 0),
-	/*	Ring collect.	*/
-	CREATE_ANIMIATION(0x0, 0x1, 0x2, 0x4, 0x8, 0x0, 14, 15, 14, 12, 10, 8, 6, 4, 2, 0, 0, 2, 4, 8, 10, 12, 14, 15, 14, 12, 10, 8, 6,
-					  4, 2, 0),
+	// /*	Ring collect.	*/
+	// CREATE_ANIMIATION(0x0, 0x1, 0x2, 0x4, 0x8, 0x0, 14, 15, 14, 12, 10, 8, 6, 4, 2, 0, 0, 2, 4, 8, 10, 12, 14, 15, 14, 12, 10, 8, 6,
+	// 				  4, 2, 0),
+	// /*	Ring collect.	*/
+	// CREATE_ANIMIATION(0x0, 0x1, 0x2, 0x4, 0x8, 0x0, 14, 15, 14, 12, 10, 8, 6, 4, 2, 0, 0, 2, 4, 8, 10, 12, 14, 15, 14, 12, 10, 8, 6,
+	// 				  4, 2, 0),
 };
 
 uint16_t cc_get_curr_next_animation_keyframe() {

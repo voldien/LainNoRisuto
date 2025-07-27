@@ -14220,7 +14220,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="U$10" library="SparkFun" deviceset="5V" device=""/>
 <part name="GND2" library="SparkFun" deviceset="GND" device=""/>
 <part name="U$11" library="SparkFun" deviceset="5V" device=""/>
-<part name="C3" library="rcl" deviceset="C-EU" device="C0603"/>
+<part name="C3" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="U$12" library="SparkFun" deviceset="5V" device=""/>
 <part name="U$13" library="SparkFun" deviceset="5V" device=""/>
 <part name="IC1" library="adafruit" deviceset="WS2811" device="-SOP8"/>
@@ -14244,7 +14244,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="GND16" library="SparkFun" deviceset="GND" device=""/>
 <part name="R7" library="adafruit" deviceset="R-US_" device="R0603" value="33"/>
 <part name="R8" library="adafruit" deviceset="R-US_" device="R0603" value="33"/>
-<part name="C6" library="rcl" deviceset="C-EU" device="C0603"/>
+<part name="C6" library="rcl" deviceset="C-EU" device="C0603" value="10nF"/>
 <part name="GND3" library="SparkFun" deviceset="GND" device=""/>
 </parts>
 <sheets>

@@ -10,6 +10,7 @@
 #include <util/delay.h>
 
 const uint8_t EEMEM brightness = 255;
+
 uint8_t push_counter_button = 0;
 uint8_t play_mode = PLAY_MODE_OUT_ENABLED | PLAY_MODE_AUTO_NEXT_ANIMATION;
 
@@ -94,12 +95,12 @@ ISR(PCINT0_vect) {
 #endif
 	const uint8_t button = push_buton_pressed();
 
-	if (button) {
-		/*	If disabled, Enable */
-		if (!(play_mode & PLAY_MODE_OUT_ENABLED)) {
-			playmode_toggle_output();
-		}
-	}
+	// if (button) {
+	// 	/*	If disabled, Enable */
+	// 	if (!(play_mode & PLAY_MODE_OUT_ENABLED)) {
+	// 		playmode_toggle_output();
+	// 	}
+	// }
 
 	if (button) {
 		curanim = (curanim + 1) % NRANIM;
@@ -140,7 +141,9 @@ ISR(TIM0_OVF_vect) {
 inline void init() {
 
 	/*	Set Prescular on the MCU to reduce power.	*/
+#ifdef __AVR_ATmega328P__
 	clock_prescale_set(clock_div_128);
+#endif
 
 /*	*/
 #ifdef __AVR_ATmega328P__
@@ -154,11 +157,12 @@ inline void init() {
 	MCUCR &= ~(1 << PUD);
 
 	/*	Setup Button Pin.	*/
-	PUSH_BUTTON_REG |= (1 << PUSH_BUTTON_REG);	 /*	Set High to Enable Pull Resistor Mode.*/
-	PUSH_BUTTON_DREG &= ~(1 << PUSH_BUTTON_REG); /*	Input Mode.	*/
+	PUSH_BUTTON_REG |= (1 << PUSH_BUTTON_PIN);	 /*	Set High to Enable Pull Resistor Mode.*/
+	PUSH_BUTTON_DREG &= ~(1 << PUSH_BUTTON_PIN); /*	Input Mode.	*/
 
-	/*	Enable Output By Default.	*/
+	/*	Set Shift output enable as output (source).	*/
 	SHIFT_OE_DREG |= (1 << SHIFT_OE_PIN);
+	/*	Enable Output By Default.	*/
 	shift_oe_state(1);
 
 	/*	PWM - SHIFT OE.	*/ // NOTE: optionally
@@ -176,8 +180,9 @@ inline void init() {
 	PCICR |= (1 << PCIE2);	  /*	Enable PIN interrupt 0	*/
 	PCMSK2 |= (1 << PCINT16); /*	Mask PIN to Listen on to invoke Interrupt.*/
 #elif defined(__AVR_ATtiny13A__)
-	GIMSK |= (1 << INT0) | (1 << PCIE);
-	MCUCR |= (1 << ISC01) | (1 << ISC00);
+	GIMSK |= (1 << PCIE);
+	// MCUCR |= (1 << ISC01) | (1 << ISC00);
+	PCMSK |= (1 << PCINT4);
 #endif
 
 	sei();
@@ -187,6 +192,8 @@ int main() {
 
 	/*	Init the controller.	*/
 	init();
+
+	const uint8_t delay_factor = 16;
 
 	// shift_latch_state(0);
 	// shift_clock_state(0);
@@ -208,27 +215,27 @@ int main() {
 
 			/*	Write Data Signal.	*/
 			write_bit(bit);
-			_delay_loop_1(64);
+			_delay_loop_2(64 * 1);
 
 			/*	Shift Clock to shift the current BIts.	*/
 			shift_clock_state(1);
-			_delay_loop_1(32);
+			_delay_loop_2(32 * 1);
 
 			/*	Shift Clock Low -> */
 			shift_clock_state(0);
-			_delay_loop_1(32);
+			_delay_loop_2(32 * 1);
 		}
 
 		/*	*/
-		_delay_loop_1(32);
+		_delay_loop_2(32 * delay_factor);
 
 		/*	Latch the current result in the shift buffer to the output buffer.	*/
 		shift_latch_state(1);
-		_delay_loop_1(128);
+		_delay_loop_2(128 * delay_factor);
 
 		/*	Latch Low to stop reading from the shift buffer.	*/
 		shift_latch_state(0);
-		_delay_loop_1(128);
+		_delay_loop_2(128 * delay_factor);
 
 		continue;
 	}

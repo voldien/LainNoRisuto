@@ -238,8 +238,8 @@ function(add_avr_executable EXECUTABLE_NAME)
    add_custom_target(
       upload_${EXECUTABLE_NAME}
       ${AVR_UPLOADTOOL} ${AVR_UPLOADTOOL_BASE_OPTIONS} ${AVR_UPLOADTOOL_OPTIONS}
-         -U flash:w:${hex_file}
-         -P ${AVR_UPLOADTOOL_PORT}
+         -U flash:w:${hex_file}:a
+         -P ${AVR_UPLOADTOOL_PORT} -v -v
       DEPENDS ${hex_file}
       COMMENT "Uploading ${hex_file} to ${AVR_MCU} using ${AVR_PROGRAMMER}"
    )
@@ -379,8 +379,9 @@ function(avr_generate_fixed_targets)
    add_custom_target(
       get_fuses
       ${AVR_UPLOADTOOL} ${AVR_UPLOADTOOL_BASE_OPTIONS} -P ${AVR_UPLOADTOOL_PORT} -n
-         -U lfuse:r:-:b
-         -U hfuse:r:-:b
+         -U lfuse:r:-:h
+         -U hfuse:r:-:h
+         -U lock:r:-:h
       COMMENT "Get fuses from ${AVR_MCU}"
    )
    
@@ -390,6 +391,7 @@ function(avr_generate_fixed_targets)
       ${AVR_UPLOADTOOL} ${AVR_UPLOADTOOL_BASE_OPTIONS} -P ${AVR_UPLOADTOOL_PORT}
          -U lfuse:w:${AVR_L_FUSE}:m
          -U hfuse:w:${AVR_H_FUSE}:m
+         -U lock:w:0xff:m
          COMMENT "Setup: High Fuse: ${AVR_H_FUSE} Low Fuse: ${AVR_L_FUSE}"
    )
    
