@@ -1,0 +1,1390 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 2
+Title "LED MATRIX DRIVER"
+Date ""
+Rev "1"
+Comp "CodeIntrinisic"
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L power:+5V #PWR039
+U 1 1 6123FD31
+P 10850 3550
+F 0 "#PWR039" H 10850 3400 50  0001 C CNN
+F 1 "+5V" H 10865 3723 50  0000 C CNN
+F 2 "" H 10850 3550 50  0001 C CNN
+F 3 "" H 10850 3550 50  0001 C CNN
+	1    10850 3550
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR041
+U 1 1 6123FF36
+P 10600 3850
+F 0 "#PWR041" H 10600 3600 50  0001 C CNN
+F 1 "GND" H 10605 3677 50  0000 C CNN
+F 2 "" H 10600 3850 50  0001 C CNN
+F 3 "" H 10600 3850 50  0001 C CNN
+	1    10600 3850
+	0    -1   -1   0   
+$EndComp
+$Comp
+L 74xx:74LS595 U2
+U 1 1 6126E8C1
+P 4550 2800
+F 0 "U2" H 4550 3581 50  0000 C CNN
+F 1 "74LS595" H 4550 3490 50  0000 C CNN
+F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 4550 2800 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74ls595" H 4550 2800 50  0001 C CNN
+	1    4550 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Polyfuse F1
+U 1 1 61273043
+P 10550 3550
+F 0 "F1" H 10638 3596 50  0000 L CNN
+F 1 "Polyfuse" H 10638 3505 50  0000 L CNN
+F 2 "Fuse:Fuse_1206_3216Metric" H 10600 3350 50  0001 L CNN
+F 3 "~" H 10550 3550 50  0001 C CNN
+	1    10550 3550
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:D_Zener D257
+U 1 1 61273AB3
+P 10200 3700
+F 0 "D257" H 10200 3916 50  0000 C CNN
+F 1 "D_Zener" H 10200 3825 50  0000 C CNN
+F 2 "Diode_SMD:D_0603_1608Metric" H 10200 3700 50  0001 C CNN
+F 3 "~" H 10200 3700 50  0001 C CNN
+	1    10200 3700
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR03
+U 1 1 6134275F
+P 4200 1750
+F 0 "#PWR03" H 4200 1500 50  0001 C CNN
+F 1 "GND" H 4205 1577 50  0000 C CNN
+F 2 "" H 4200 1750 50  0001 C CNN
+F 3 "" H 4200 1750 50  0001 C CNN
+	1    4200 1750
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR026
+U 1 1 6135A173
+P 4550 3600
+F 0 "#PWR026" H 4550 3350 50  0001 C CNN
+F 1 "GND" H 4555 3427 50  0000 C CNN
+F 2 "" H 4550 3600 50  0001 C CNN
+F 3 "" H 4550 3600 50  0001 C CNN
+	1    4550 3600
+	1    0    0    -1  
+$EndComp
+Text GLabel 3700 2600 0    50   Input ~ 0
+SCK
+Text GLabel 3900 2400 0    50   Input ~ 0
+SERROW
+Text GLabel 3700 3000 0    50   Input ~ 0
+OE
+Text GLabel 5450 2400 2    50   Input ~ 0
+ROW0
+Wire Wire Line
+	4950 2400 5450 2400
+Wire Wire Line
+	4150 3000 3700 3000
+Wire Wire Line
+	3700 2600 4150 2600
+Wire Wire Line
+	4150 2400 3900 2400
+Text GLabel 5450 2500 2    50   Input ~ 0
+ROW1
+Wire Wire Line
+	4950 2500 5450 2500
+Text GLabel 5450 2600 2    50   Input ~ 0
+ROW2
+Wire Wire Line
+	4950 2600 5450 2600
+Text GLabel 5450 2700 2    50   Input ~ 0
+ROW3
+Wire Wire Line
+	4950 2700 5450 2700
+Text GLabel 5450 2800 2    50   Input ~ 0
+ROW4
+Wire Wire Line
+	4950 2800 5450 2800
+Text GLabel 5450 2900 2    50   Input ~ 0
+ROW5
+Wire Wire Line
+	4950 2900 5450 2900
+Text GLabel 5450 3000 2    50   Input ~ 0
+ROW6
+Wire Wire Line
+	4950 3000 5450 3000
+Text GLabel 5450 3100 2    50   Input ~ 0
+ROW7
+Wire Wire Line
+	4950 3100 5450 3100
+Text GLabel 5450 3300 2    50   Input ~ 0
+ROWSEQ
+$Comp
+L power:VCC #PWR014
+U 1 1 626F69A8
+P 4550 2100
+F 0 "#PWR014" H 4550 1950 50  0001 C CNN
+F 1 "VCC" H 4567 2273 50  0000 C CNN
+F 2 "" H 4550 2100 50  0001 C CNN
+F 3 "" H 4550 2100 50  0001 C CNN
+	1    4550 2100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4550 2100 4550 2200
+$Comp
+L power:VCC #PWR04
+U 1 1 62E099D0
+P 4900 1750
+F 0 "#PWR04" H 4900 1600 50  0001 C CNN
+F 1 "VCC" H 4917 1923 50  0000 C CNN
+F 2 "" H 4900 1750 50  0001 C CNN
+F 3 "" H 4900 1750 50  0001 C CNN
+	1    4900 1750
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4950 3300 5450 3300
+Wire Wire Line
+	4550 3500 4550 3600
+$Comp
+L power:VCC #PWR016
+U 1 1 6352CD4F
+P 4050 2700
+F 0 "#PWR016" H 4050 2550 50  0001 C CNN
+F 1 "VCC" H 4067 2873 50  0000 C CNN
+F 2 "" H 4050 2700 50  0001 C CNN
+F 3 "" H 4050 2700 50  0001 C CNN
+	1    4050 2700
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4050 2700 4150 2700
+Text GLabel 3750 2900 0    50   Input ~ 0
+CLR
+Wire Wire Line
+	3750 2900 4150 2900
+$Comp
+L Device:C C2
+U 1 1 639F9E96
+P 4550 1750
+F 0 "C2" V 4298 1750 50  0000 C CNN
+F 1 "C" V 4389 1750 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 4588 1600 50  0001 C CNN
+F 3 "~" H 4550 1750 50  0001 C CNN
+	1    4550 1750
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4700 1750 4900 1750
+Wire Wire Line
+	4200 1750 4400 1750
+$Comp
+L 74xx:74LS595 U1
+U 1 1 641507CE
+P 1950 2800
+F 0 "U1" H 1950 3581 50  0000 C CNN
+F 1 "74LS595" H 1950 3490 50  0000 C CNN
+F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 1950 2800 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74ls595" H 1950 2800 50  0001 C CNN
+	1    1950 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR01
+U 1 1 641507D4
+P 1600 1700
+F 0 "#PWR01" H 1600 1450 50  0001 C CNN
+F 1 "GND" H 1605 1527 50  0000 C CNN
+F 2 "" H 1600 1700 50  0001 C CNN
+F 3 "" H 1600 1700 50  0001 C CNN
+	1    1600 1700
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR025
+U 1 1 641507DA
+P 1950 3600
+F 0 "#PWR025" H 1950 3350 50  0001 C CNN
+F 1 "GND" H 1955 3427 50  0000 C CNN
+F 2 "" H 1950 3600 50  0001 C CNN
+F 3 "" H 1950 3600 50  0001 C CNN
+	1    1950 3600
+	1    0    0    -1  
+$EndComp
+Text GLabel 1100 2600 0    50   Input ~ 0
+SCK
+Text GLabel 1300 2400 0    50   Input ~ 0
+ROWSEQ
+Text GLabel 1100 3000 0    50   Input ~ 0
+OE
+Text GLabel 2850 2400 2    50   Input ~ 0
+ROW8
+Wire Wire Line
+	2350 2400 2850 2400
+Wire Wire Line
+	1550 3000 1100 3000
+Wire Wire Line
+	1100 2600 1550 2600
+Wire Wire Line
+	1550 2400 1300 2400
+Text GLabel 2850 2500 2    50   Input ~ 0
+ROW9
+Wire Wire Line
+	2350 2500 2850 2500
+Text GLabel 2850 2600 2    50   Input ~ 0
+ROW10
+Wire Wire Line
+	2350 2600 2850 2600
+Text GLabel 2850 2700 2    50   Input ~ 0
+ROW11
+Wire Wire Line
+	2350 2700 2850 2700
+Text GLabel 2850 2800 2    50   Input ~ 0
+ROW12
+Wire Wire Line
+	2350 2800 2850 2800
+Text GLabel 2850 2900 2    50   Input ~ 0
+ROW13
+Wire Wire Line
+	2350 2900 2850 2900
+Text GLabel 2850 3000 2    50   Input ~ 0
+ROW14
+Wire Wire Line
+	2350 3000 2850 3000
+Text GLabel 2850 3100 2    50   Input ~ 0
+ROW15
+Wire Wire Line
+	2350 3100 2850 3100
+$Comp
+L power:VCC #PWR013
+U 1 1 641507F7
+P 1950 2100
+F 0 "#PWR013" H 1950 1950 50  0001 C CNN
+F 1 "VCC" H 1967 2273 50  0000 C CNN
+F 2 "" H 1950 2100 50  0001 C CNN
+F 3 "" H 1950 2100 50  0001 C CNN
+	1    1950 2100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1950 2100 1950 2200
+$Comp
+L power:VCC #PWR02
+U 1 1 641507FE
+P 2300 1700
+F 0 "#PWR02" H 2300 1550 50  0001 C CNN
+F 1 "VCC" H 2317 1873 50  0000 C CNN
+F 2 "" H 2300 1700 50  0001 C CNN
+F 3 "" H 2300 1700 50  0001 C CNN
+	1    2300 1700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1950 3500 1950 3600
+$Comp
+L power:VCC #PWR015
+U 1 1 64150806
+P 1450 2700
+F 0 "#PWR015" H 1450 2550 50  0001 C CNN
+F 1 "VCC" H 1467 2873 50  0000 C CNN
+F 2 "" H 1450 2700 50  0001 C CNN
+F 3 "" H 1450 2700 50  0001 C CNN
+	1    1450 2700
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	1450 2700 1550 2700
+Text GLabel 1150 2900 0    50   Input ~ 0
+CLR
+Wire Wire Line
+	1150 2900 1550 2900
+$Comp
+L Device:C C1
+U 1 1 6415080F
+P 1950 1700
+F 0 "C1" V 1698 1700 50  0000 C CNN
+F 1 "C" V 1789 1700 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 1988 1550 50  0001 C CNN
+F 3 "~" H 1950 1700 50  0001 C CNN
+	1    1950 1700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2100 1700 2300 1700
+Wire Wire Line
+	1600 1700 1800 1700
+$Comp
+L 74xx:74LS595 U4
+U 1 1 64A552C0
+P 4300 6100
+F 0 "U4" H 4300 6881 50  0000 C CNN
+F 1 "74LS595" H 4300 6790 50  0000 C CNN
+F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 4300 6100 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74ls595" H 4300 6100 50  0001 C CNN
+	1    4300 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR029
+U 1 1 64A552C6
+P 3950 5050
+F 0 "#PWR029" H 3950 4800 50  0001 C CNN
+F 1 "GND" H 3955 4877 50  0000 C CNN
+F 2 "" H 3950 5050 50  0001 C CNN
+F 3 "" H 3950 5050 50  0001 C CNN
+	1    3950 5050
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR042
+U 1 1 64A552CC
+P 4300 6900
+F 0 "#PWR042" H 4300 6650 50  0001 C CNN
+F 1 "GND" H 4305 6727 50  0000 C CNN
+F 2 "" H 4300 6900 50  0001 C CNN
+F 3 "" H 4300 6900 50  0001 C CNN
+	1    4300 6900
+	1    0    0    -1  
+$EndComp
+Text GLabel 3450 5900 0    50   Input ~ 0
+SCK
+Text GLabel 3650 5700 0    50   Input ~ 0
+SERCOL
+Text GLabel 3450 6300 0    50   Input ~ 0
+OE
+Text GLabel 5200 5700 2    50   Input ~ 0
+COL0
+Wire Wire Line
+	4700 5700 5200 5700
+Wire Wire Line
+	3900 6300 3450 6300
+Wire Wire Line
+	3450 5900 3900 5900
+Wire Wire Line
+	3900 5700 3650 5700
+Text GLabel 5200 5800 2    50   Input ~ 0
+COL1
+Wire Wire Line
+	4700 5800 5200 5800
+Text GLabel 5200 5900 2    50   Input ~ 0
+COL2
+Wire Wire Line
+	4700 5900 5200 5900
+Text GLabel 5200 6000 2    50   Input ~ 0
+COL3
+Wire Wire Line
+	4700 6000 5200 6000
+Text GLabel 5200 6100 2    50   Input ~ 0
+COL4
+Wire Wire Line
+	4700 6100 5200 6100
+Text GLabel 5200 6200 2    50   Input ~ 0
+COL5
+Wire Wire Line
+	4700 6200 5200 6200
+Text GLabel 5200 6300 2    50   Input ~ 0
+COL6
+Wire Wire Line
+	4700 6300 5200 6300
+Text GLabel 5200 6400 2    50   Input ~ 0
+COL7
+Wire Wire Line
+	4700 6400 5200 6400
+Text GLabel 5200 6600 2    50   Input ~ 0
+COLSEQ
+$Comp
+L power:VCC #PWR032
+U 1 1 64A552E9
+P 4300 5400
+F 0 "#PWR032" H 4300 5250 50  0001 C CNN
+F 1 "VCC" H 4317 5573 50  0000 C CNN
+F 2 "" H 4300 5400 50  0001 C CNN
+F 3 "" H 4300 5400 50  0001 C CNN
+	1    4300 5400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4300 5400 4300 5500
+$Comp
+L power:VCC #PWR030
+U 1 1 64A552F0
+P 4650 5050
+F 0 "#PWR030" H 4650 4900 50  0001 C CNN
+F 1 "VCC" H 4667 5223 50  0000 C CNN
+F 2 "" H 4650 5050 50  0001 C CNN
+F 3 "" H 4650 5050 50  0001 C CNN
+	1    4650 5050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4700 6600 5200 6600
+Wire Wire Line
+	4300 6800 4300 6900
+$Comp
+L power:VCC #PWR036
+U 1 1 64A552F8
+P 3800 6000
+F 0 "#PWR036" H 3800 5850 50  0001 C CNN
+F 1 "VCC" H 3817 6173 50  0000 C CNN
+F 2 "" H 3800 6000 50  0001 C CNN
+F 3 "" H 3800 6000 50  0001 C CNN
+	1    3800 6000
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	3800 6000 3900 6000
+Text GLabel 3500 6200 0    50   Input ~ 0
+CLR
+Wire Wire Line
+	3500 6200 3900 6200
+$Comp
+L Device:C C4
+U 1 1 64A55301
+P 4300 5050
+F 0 "C4" V 4048 5050 50  0000 C CNN
+F 1 "C" V 4139 5050 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 4338 4900 50  0001 C CNN
+F 3 "~" H 4300 5050 50  0001 C CNN
+	1    4300 5050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4450 5050 4650 5050
+Wire Wire Line
+	3950 5050 4150 5050
+$Comp
+L 74xx:74LS595 U3
+U 1 1 64A55309
+P 1750 5950
+F 0 "U3" H 1750 6731 50  0000 C CNN
+F 1 "74LS595" H 1750 6640 50  0000 C CNN
+F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 1750 5950 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74ls595" H 1750 5950 50  0001 C CNN
+	1    1750 5950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR027
+U 1 1 64A5530F
+P 1400 4900
+F 0 "#PWR027" H 1400 4650 50  0001 C CNN
+F 1 "GND" H 1405 4727 50  0000 C CNN
+F 2 "" H 1400 4900 50  0001 C CNN
+F 3 "" H 1400 4900 50  0001 C CNN
+	1    1400 4900
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR040
+U 1 1 64A55315
+P 1750 6750
+F 0 "#PWR040" H 1750 6500 50  0001 C CNN
+F 1 "GND" H 1755 6577 50  0000 C CNN
+F 2 "" H 1750 6750 50  0001 C CNN
+F 3 "" H 1750 6750 50  0001 C CNN
+	1    1750 6750
+	1    0    0    -1  
+$EndComp
+Text GLabel 900  5750 0    50   Input ~ 0
+SCK
+Text GLabel 1100 5550 0    50   Input ~ 0
+COLSEQ
+Text GLabel 900  6150 0    50   Input ~ 0
+OE
+Text GLabel 2650 5550 2    50   Input ~ 0
+COL8
+Wire Wire Line
+	2150 5550 2650 5550
+Wire Wire Line
+	1350 6150 900  6150
+Wire Wire Line
+	900  5750 1350 5750
+Wire Wire Line
+	1350 5550 1100 5550
+Text GLabel 2650 5650 2    50   Input ~ 0
+COL9
+Wire Wire Line
+	2150 5650 2650 5650
+Text GLabel 2650 5750 2    50   Input ~ 0
+COL10
+Wire Wire Line
+	2150 5750 2650 5750
+Text GLabel 2650 5850 2    50   Input ~ 0
+COL11
+Wire Wire Line
+	2150 5850 2650 5850
+Text GLabel 2650 5950 2    50   Input ~ 0
+COL12
+Wire Wire Line
+	2150 5950 2650 5950
+Text GLabel 2650 6050 2    50   Input ~ 0
+COL13
+Wire Wire Line
+	2150 6050 2650 6050
+Text GLabel 2650 6150 2    50   Input ~ 0
+COL14
+Wire Wire Line
+	2150 6150 2650 6150
+Text GLabel 2650 6250 2    50   Input ~ 0
+COL15
+Wire Wire Line
+	2150 6250 2650 6250
+$Comp
+L power:VCC #PWR031
+U 1 1 64A55331
+P 1750 5250
+F 0 "#PWR031" H 1750 5100 50  0001 C CNN
+F 1 "VCC" H 1767 5423 50  0000 C CNN
+F 2 "" H 1750 5250 50  0001 C CNN
+F 3 "" H 1750 5250 50  0001 C CNN
+	1    1750 5250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1750 5250 1750 5350
+$Comp
+L power:VCC #PWR028
+U 1 1 64A55338
+P 2100 4900
+F 0 "#PWR028" H 2100 4750 50  0001 C CNN
+F 1 "VCC" H 2117 5073 50  0000 C CNN
+F 2 "" H 2100 4900 50  0001 C CNN
+F 3 "" H 2100 4900 50  0001 C CNN
+	1    2100 4900
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1750 6650 1750 6750
+$Comp
+L power:VCC #PWR033
+U 1 1 64A5533F
+P 1250 5850
+F 0 "#PWR033" H 1250 5700 50  0001 C CNN
+F 1 "VCC" H 1267 6023 50  0000 C CNN
+F 2 "" H 1250 5850 50  0001 C CNN
+F 3 "" H 1250 5850 50  0001 C CNN
+	1    1250 5850
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	1250 5850 1350 5850
+Text GLabel 950  6050 0    50   Input ~ 0
+CLR
+Wire Wire Line
+	950  6050 1350 6050
+$Comp
+L Device:C C3
+U 1 1 64A55348
+P 1750 4900
+F 0 "C3" V 1498 4900 50  0000 C CNN
+F 1 "C" V 1589 4900 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 1788 4750 50  0001 C CNN
+F 3 "~" H 1750 4900 50  0001 C CNN
+	1    1750 4900
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1900 4900 2100 4900
+Wire Wire Line
+	1400 4900 1600 4900
+Wire Wire Line
+	10850 3550 10700 3550
+Wire Wire Line
+	10400 3550 10200 3550
+Wire Wire Line
+	10200 3850 10600 3850
+$Comp
+L power:VCC #PWR038
+U 1 1 65DA5160
+P 9150 3550
+F 0 "#PWR038" H 9150 3400 50  0001 C CNN
+F 1 "VCC" H 9167 3723 50  0000 C CNN
+F 2 "" H 9150 3550 50  0001 C CNN
+F 3 "" H 9150 3550 50  0001 C CNN
+	1    9150 3550
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	10200 3550 10000 3550
+$Comp
+L Regulator_Linear:AMS1117-3.3 U5
+U 1 1 660F81D6
+P 9700 3550
+F 0 "U5" H 9700 3792 50  0000 C CNN
+F 1 "AMS1117-3.3" H 9700 3701 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-223-3_TabPin2" H 9700 3750 50  0001 C CNN
+F 3 "http://www.advanced-monolithic.com/pdf/ds1117.pdf" H 9800 3300 50  0001 C CNN
+	1    9700 3550
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	9400 3550 9300 3550
+$Comp
+L power:GND #PWR037
+U 1 1 66BF1B43
+P 9700 3100
+F 0 "#PWR037" H 9700 2850 50  0001 C CNN
+F 1 "GND" H 9705 2927 50  0000 C CNN
+F 2 "" H 9700 3100 50  0001 C CNN
+F 3 "" H 9700 3100 50  0001 C CNN
+	1    9700 3100
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	9700 3100 9700 3250
+$Comp
+L Transistor_FET:2N7002 Q16
+U 1 1 6813CD0F
+P 12450 -1300
+F 0 "Q16" H 12654 -1254 50  0000 L CNN
+F 1 "2N7002" H 12654 -1345 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 12650 -1375 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 12450 -1300 50  0001 L CNN
+	1    12450 -1300
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR024
+U 1 1 6B18B4E5
+P 12350 -1600
+F 0 "#PWR024" H 12350 -1850 50  0001 C CNN
+F 1 "GND" H 12355 -1773 50  0000 C CNN
+F 2 "" H 12350 -1600 50  0001 C CNN
+F 3 "" H 12350 -1600 50  0001 C CNN
+	1    12350 -1600
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	12350 -1500 12350 -1600
+Text GLabel 12750 -1300 2    50   Input ~ 0
+COL0
+Text GLabel 12350 -900 3    50   Input ~ 0
+DRIVE0
+Wire Wire Line
+	12350 -900 12350 -1100
+Wire Wire Line
+	12650 -1300 12750 -1300
+$Comp
+L Transistor_FET:2N7002 Q15
+U 1 1 6C6DD4E3
+P 11400 -1300
+F 0 "Q15" H 11604 -1254 50  0000 L CNN
+F 1 "2N7002" H 11604 -1345 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 11600 -1375 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 11400 -1300 50  0001 L CNN
+	1    11400 -1300
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR023
+U 1 1 6C6DD4E9
+P 11300 -1600
+F 0 "#PWR023" H 11300 -1850 50  0001 C CNN
+F 1 "GND" H 11305 -1773 50  0000 C CNN
+F 2 "" H 11300 -1600 50  0001 C CNN
+F 3 "" H 11300 -1600 50  0001 C CNN
+	1    11300 -1600
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	11300 -1500 11300 -1600
+Text GLabel 11700 -1300 2    50   Input ~ 0
+COL1
+Text GLabel 11300 -900 3    50   Input ~ 0
+DRIVE1
+Wire Wire Line
+	11300 -900 11300 -1100
+Wire Wire Line
+	11600 -1300 11700 -1300
+$Comp
+L Transistor_FET:2N7002 Q14
+U 1 1 6C851332
+P 10350 -1300
+F 0 "Q14" H 10554 -1254 50  0000 L CNN
+F 1 "2N7002" H 10554 -1345 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 10550 -1375 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 10350 -1300 50  0001 L CNN
+	1    10350 -1300
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR022
+U 1 1 6C851338
+P 10250 -1600
+F 0 "#PWR022" H 10250 -1850 50  0001 C CNN
+F 1 "GND" H 10255 -1773 50  0000 C CNN
+F 2 "" H 10250 -1600 50  0001 C CNN
+F 3 "" H 10250 -1600 50  0001 C CNN
+	1    10250 -1600
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	10250 -1500 10250 -1600
+Text GLabel 10650 -1300 2    50   Input ~ 0
+COL2
+Text GLabel 10250 -900 3    50   Input ~ 0
+DRIVE2
+Wire Wire Line
+	10250 -900 10250 -1100
+Wire Wire Line
+	10550 -1300 10650 -1300
+$Comp
+L Transistor_FET:2N7002 Q13
+U 1 1 6C851343
+P 9300 -1300
+F 0 "Q13" H 9504 -1254 50  0000 L CNN
+F 1 "2N7002" H 9504 -1345 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 9500 -1375 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 9300 -1300 50  0001 L CNN
+	1    9300 -1300
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR021
+U 1 1 6C851349
+P 9200 -1600
+F 0 "#PWR021" H 9200 -1850 50  0001 C CNN
+F 1 "GND" H 9205 -1773 50  0000 C CNN
+F 2 "" H 9200 -1600 50  0001 C CNN
+F 3 "" H 9200 -1600 50  0001 C CNN
+	1    9200 -1600
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	9200 -1500 9200 -1600
+Text GLabel 9600 -1300 2    50   Input ~ 0
+COL3
+Text GLabel 9200 -900 3    50   Input ~ 0
+DRIVE3
+Wire Wire Line
+	9200 -900 9200 -1100
+Wire Wire Line
+	9500 -1300 9600 -1300
+$Comp
+L Transistor_FET:2N7002 Q12
+U 1 1 6C9CAF99
+P 8200 -1300
+F 0 "Q12" H 8404 -1254 50  0000 L CNN
+F 1 "2N7002" H 8404 -1345 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 8400 -1375 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 8200 -1300 50  0001 L CNN
+	1    8200 -1300
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR020
+U 1 1 6C9CAF9F
+P 8100 -1600
+F 0 "#PWR020" H 8100 -1850 50  0001 C CNN
+F 1 "GND" H 8105 -1773 50  0000 C CNN
+F 2 "" H 8100 -1600 50  0001 C CNN
+F 3 "" H 8100 -1600 50  0001 C CNN
+	1    8100 -1600
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	8100 -1500 8100 -1600
+Text GLabel 8500 -1300 2    50   Input ~ 0
+COL4
+Text GLabel 8100 -900 3    50   Input ~ 0
+DRIVE4
+Wire Wire Line
+	8100 -900 8100 -1100
+Wire Wire Line
+	8400 -1300 8500 -1300
+$Comp
+L Transistor_FET:2N7002 Q11
+U 1 1 6C9CAFAA
+P 7150 -1300
+F 0 "Q11" H 7354 -1254 50  0000 L CNN
+F 1 "2N7002" H 7354 -1345 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 7350 -1375 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 7150 -1300 50  0001 L CNN
+	1    7150 -1300
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR019
+U 1 1 6C9CAFB0
+P 7050 -1600
+F 0 "#PWR019" H 7050 -1850 50  0001 C CNN
+F 1 "GND" H 7055 -1773 50  0000 C CNN
+F 2 "" H 7050 -1600 50  0001 C CNN
+F 3 "" H 7050 -1600 50  0001 C CNN
+	1    7050 -1600
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7050 -1500 7050 -1600
+Text GLabel 7450 -1300 2    50   Input ~ 0
+COL5
+Text GLabel 7050 -900 3    50   Input ~ 0
+DRIVE5
+Wire Wire Line
+	7050 -900 7050 -1100
+Wire Wire Line
+	7350 -1300 7450 -1300
+$Comp
+L Transistor_FET:2N7002 Q10
+U 1 1 6C9CAFBB
+P 6100 -1300
+F 0 "Q10" H 6304 -1254 50  0000 L CNN
+F 1 "2N7002" H 6304 -1345 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 6300 -1375 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 6100 -1300 50  0001 L CNN
+	1    6100 -1300
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR018
+U 1 1 6C9CAFC1
+P 6000 -1600
+F 0 "#PWR018" H 6000 -1850 50  0001 C CNN
+F 1 "GND" H 6005 -1773 50  0000 C CNN
+F 2 "" H 6000 -1600 50  0001 C CNN
+F 3 "" H 6000 -1600 50  0001 C CNN
+	1    6000 -1600
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6000 -1500 6000 -1600
+Text GLabel 6400 -1300 2    50   Input ~ 0
+COL6
+Text GLabel 6000 -900 3    50   Input ~ 0
+DRIVE6
+Wire Wire Line
+	6000 -900 6000 -1100
+Wire Wire Line
+	6300 -1300 6400 -1300
+$Comp
+L Transistor_FET:2N7002 Q9
+U 1 1 6C9CAFCC
+P 5050 -1300
+F 0 "Q9" H 5254 -1254 50  0000 L CNN
+F 1 "2N7002" H 5254 -1345 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 5250 -1375 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 5050 -1300 50  0001 L CNN
+	1    5050 -1300
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR017
+U 1 1 6C9CAFD2
+P 4950 -1600
+F 0 "#PWR017" H 4950 -1850 50  0001 C CNN
+F 1 "GND" H 4955 -1773 50  0000 C CNN
+F 2 "" H 4950 -1600 50  0001 C CNN
+F 3 "" H 4950 -1600 50  0001 C CNN
+	1    4950 -1600
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	4950 -1500 4950 -1600
+Text GLabel 5350 -1300 2    50   Input ~ 0
+COL7
+Text GLabel 4950 -900 3    50   Input ~ 0
+DRIVE7
+Wire Wire Line
+	4950 -900 4950 -1100
+Wire Wire Line
+	5250 -1300 5350 -1300
+$Comp
+L Transistor_FET:2N7002 Q8
+U 1 1 6CB4F1EC
+P 12450 -2600
+F 0 "Q8" H 12654 -2554 50  0000 L CNN
+F 1 "2N7002" H 12654 -2645 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 12650 -2675 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 12450 -2600 50  0001 L CNN
+	1    12450 -2600
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR012
+U 1 1 6CB4F1F2
+P 12350 -2900
+F 0 "#PWR012" H 12350 -3150 50  0001 C CNN
+F 1 "GND" H 12355 -3073 50  0000 C CNN
+F 2 "" H 12350 -2900 50  0001 C CNN
+F 3 "" H 12350 -2900 50  0001 C CNN
+	1    12350 -2900
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	12350 -2800 12350 -2900
+Text GLabel 12750 -2600 2    50   Input ~ 0
+COL8
+Text GLabel 12350 -2200 3    50   Input ~ 0
+DRIVE8
+Wire Wire Line
+	12350 -2200 12350 -2400
+Wire Wire Line
+	12650 -2600 12750 -2600
+$Comp
+L Transistor_FET:2N7002 Q7
+U 1 1 6CB4F1FD
+P 11400 -2600
+F 0 "Q7" H 11604 -2554 50  0000 L CNN
+F 1 "2N7002" H 11604 -2645 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 11600 -2675 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 11400 -2600 50  0001 L CNN
+	1    11400 -2600
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR011
+U 1 1 6CB4F203
+P 11300 -2900
+F 0 "#PWR011" H 11300 -3150 50  0001 C CNN
+F 1 "GND" H 11305 -3073 50  0000 C CNN
+F 2 "" H 11300 -2900 50  0001 C CNN
+F 3 "" H 11300 -2900 50  0001 C CNN
+	1    11300 -2900
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	11300 -2800 11300 -2900
+Text GLabel 11700 -2600 2    50   Input ~ 0
+COL9
+Text GLabel 11300 -2200 3    50   Input ~ 0
+DRIVE9
+Wire Wire Line
+	11300 -2200 11300 -2400
+Wire Wire Line
+	11600 -2600 11700 -2600
+$Comp
+L Transistor_FET:2N7002 Q6
+U 1 1 6CB4F20E
+P 10350 -2600
+F 0 "Q6" H 10554 -2554 50  0000 L CNN
+F 1 "2N7002" H 10554 -2645 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 10550 -2675 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 10350 -2600 50  0001 L CNN
+	1    10350 -2600
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR010
+U 1 1 6CB4F214
+P 10250 -2900
+F 0 "#PWR010" H 10250 -3150 50  0001 C CNN
+F 1 "GND" H 10255 -3073 50  0000 C CNN
+F 2 "" H 10250 -2900 50  0001 C CNN
+F 3 "" H 10250 -2900 50  0001 C CNN
+	1    10250 -2900
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	10250 -2800 10250 -2900
+Text GLabel 10650 -2600 2    50   Input ~ 0
+COL10
+Text GLabel 10250 -2200 3    50   Input ~ 0
+DRIVE10
+Wire Wire Line
+	10250 -2200 10250 -2400
+Wire Wire Line
+	10550 -2600 10650 -2600
+$Comp
+L Transistor_FET:2N7002 Q5
+U 1 1 6CB4F21F
+P 9300 -2600
+F 0 "Q5" H 9504 -2554 50  0000 L CNN
+F 1 "2N7002" H 9504 -2645 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 9500 -2675 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 9300 -2600 50  0001 L CNN
+	1    9300 -2600
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR09
+U 1 1 6CB4F225
+P 9200 -2900
+F 0 "#PWR09" H 9200 -3150 50  0001 C CNN
+F 1 "GND" H 9205 -3073 50  0000 C CNN
+F 2 "" H 9200 -2900 50  0001 C CNN
+F 3 "" H 9200 -2900 50  0001 C CNN
+	1    9200 -2900
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	9200 -2800 9200 -2900
+Text GLabel 9600 -2600 2    50   Input ~ 0
+COL11
+Text GLabel 9200 -2200 3    50   Input ~ 0
+DRIVE11
+Wire Wire Line
+	9200 -2200 9200 -2400
+Wire Wire Line
+	9500 -2600 9600 -2600
+$Comp
+L Transistor_FET:2N7002 Q4
+U 1 1 6CB4F230
+P 8200 -2600
+F 0 "Q4" H 8404 -2554 50  0000 L CNN
+F 1 "2N7002" H 8404 -2645 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 8400 -2675 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 8200 -2600 50  0001 L CNN
+	1    8200 -2600
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR08
+U 1 1 6CB4F236
+P 8100 -2900
+F 0 "#PWR08" H 8100 -3150 50  0001 C CNN
+F 1 "GND" H 8105 -3073 50  0000 C CNN
+F 2 "" H 8100 -2900 50  0001 C CNN
+F 3 "" H 8100 -2900 50  0001 C CNN
+	1    8100 -2900
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	8100 -2800 8100 -2900
+Text GLabel 8500 -2600 2    50   Input ~ 0
+COL12
+Text GLabel 8100 -2200 3    50   Input ~ 0
+DRIVE12
+Wire Wire Line
+	8100 -2200 8100 -2400
+Wire Wire Line
+	8400 -2600 8500 -2600
+$Comp
+L Transistor_FET:2N7002 Q3
+U 1 1 6CB4F241
+P 7150 -2600
+F 0 "Q3" H 7354 -2554 50  0000 L CNN
+F 1 "2N7002" H 7354 -2645 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 7350 -2675 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 7150 -2600 50  0001 L CNN
+	1    7150 -2600
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR07
+U 1 1 6CB4F247
+P 7050 -2900
+F 0 "#PWR07" H 7050 -3150 50  0001 C CNN
+F 1 "GND" H 7055 -3073 50  0000 C CNN
+F 2 "" H 7050 -2900 50  0001 C CNN
+F 3 "" H 7050 -2900 50  0001 C CNN
+	1    7050 -2900
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7050 -2800 7050 -2900
+Text GLabel 7450 -2600 2    50   Input ~ 0
+COL13
+Text GLabel 7050 -2200 3    50   Input ~ 0
+DRIVE13
+Wire Wire Line
+	7050 -2200 7050 -2400
+Wire Wire Line
+	7350 -2600 7450 -2600
+$Comp
+L Transistor_FET:2N7002 Q2
+U 1 1 6CB4F252
+P 6100 -2600
+F 0 "Q2" H 6304 -2554 50  0000 L CNN
+F 1 "2N7002" H 6304 -2645 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 6300 -2675 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 6100 -2600 50  0001 L CNN
+	1    6100 -2600
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR06
+U 1 1 6CB4F258
+P 6000 -2900
+F 0 "#PWR06" H 6000 -3150 50  0001 C CNN
+F 1 "GND" H 6005 -3073 50  0000 C CNN
+F 2 "" H 6000 -2900 50  0001 C CNN
+F 3 "" H 6000 -2900 50  0001 C CNN
+	1    6000 -2900
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6000 -2800 6000 -2900
+Text GLabel 6400 -2600 2    50   Input ~ 0
+COL14
+Text GLabel 6000 -2200 3    50   Input ~ 0
+DRIVE14
+Wire Wire Line
+	6000 -2200 6000 -2400
+Wire Wire Line
+	6300 -2600 6400 -2600
+$Comp
+L Transistor_FET:2N7002 Q1
+U 1 1 6CB4F263
+P 5050 -2600
+F 0 "Q1" H 5254 -2554 50  0000 L CNN
+F 1 "2N7002" H 5254 -2645 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 5250 -2675 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 5050 -2600 50  0001 L CNN
+	1    5050 -2600
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR05
+U 1 1 6CB4F269
+P 4950 -2900
+F 0 "#PWR05" H 4950 -3150 50  0001 C CNN
+F 1 "GND" H 4955 -3073 50  0000 C CNN
+F 2 "" H 4950 -2900 50  0001 C CNN
+F 3 "" H 4950 -2900 50  0001 C CNN
+	1    4950 -2900
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	4950 -2800 4950 -2900
+Text GLabel 5350 -2600 2    50   Input ~ 0
+COL15
+Text GLabel 4950 -2200 3    50   Input ~ 0
+DRIVE15
+Wire Wire Line
+	4950 -2200 4950 -2400
+Wire Wire Line
+	5250 -2600 5350 -2600
+Connection ~ 10200 3550
+$Comp
+L Connector_Generic:Conn_2Rows-05Pins J2
+U 1 1 613CB489
+P 8650 6050
+F 0 "J2" H 8700 6367 50  0000 C CNN
+F 1 "Conn_2Rows-05Pins" H 8700 6276 50  0000 C CNN
+F 2 "Connector_PinHeader_1.00mm:PinHeader_1x05_P1.00mm_Horizontal" H 8650 6050 50  0001 C CNN
+F 3 "~" H 8650 6050 50  0001 C CNN
+	1    8650 6050
+	1    0    0    -1  
+$EndComp
+Text GLabel 2550 6450 2    50   Input ~ 0
+COLNEXT
+Text GLabel 2500 3300 2    50   Input ~ 0
+ROWNEXT
+Text GLabel 8250 5950 0    50   Input ~ 0
+SERCOL
+Text GLabel 8250 6050 0    50   Input ~ 0
+SERROW
+Text GLabel 8200 6150 0    50   Input ~ 0
+SCK
+Text GLabel 9100 5950 2    50   Input ~ 0
+OE
+Text GLabel 9050 6050 2    50   Input ~ 0
+CLR
+Wire Wire Line
+	8450 5950 8250 5950
+Wire Wire Line
+	8450 6050 8250 6050
+Wire Wire Line
+	8450 6150 8200 6150
+Wire Wire Line
+	9100 5950 8950 5950
+Wire Wire Line
+	9050 6050 8950 6050
+$Comp
+L Device:C C5
+U 1 1 615B1C26
+P 9300 3250
+F 0 "C5" V 9048 3250 50  0000 C CNN
+F 1 "C" V 9139 3250 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 9338 3100 50  0001 C CNN
+F 3 "~" H 9300 3250 50  0001 C CNN
+	1    9300 3250
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	9300 2900 9300 3100
+$Comp
+L Device:C C6
+U 1 1 615B6C07
+P 10200 3250
+F 0 "C6" V 9948 3250 50  0000 C CNN
+F 1 "C" V 10039 3250 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 10238 3100 50  0001 C CNN
+F 3 "~" H 10200 3250 50  0001 C CNN
+	1    10200 3250
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	10200 2900 10200 3100
+Wire Wire Line
+	2500 3300 2350 3300
+Wire Wire Line
+	2550 6450 2150 6450
+Wire Wire Line
+	10200 3400 10200 3550
+Wire Wire Line
+	9300 3400 9300 3550
+Connection ~ 9300 3550
+Wire Wire Line
+	9300 3550 9150 3550
+$Comp
+L power:GND #PWR035
+U 1 1 6137481B
+P 10200 2900
+F 0 "#PWR035" H 10200 2650 50  0001 C CNN
+F 1 "GND" H 10205 2727 50  0000 C CNN
+F 2 "" H 10200 2900 50  0001 C CNN
+F 3 "" H 10200 2900 50  0001 C CNN
+	1    10200 2900
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR034
+U 1 1 61379DA3
+P 9300 2900
+F 0 "#PWR034" H 9300 2650 50  0001 C CNN
+F 1 "GND" H 9305 2727 50  0000 C CNN
+F 2 "" H 9300 2900 50  0001 C CNN
+F 3 "" H 9300 2900 50  0001 C CNN
+	1    9300 2900
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector_Generic:Conn_2Rows-05Pins J1
+U 1 1 613A2349
+P 8650 5550
+F 0 "J1" H 8700 5867 50  0000 C CNN
+F 1 "Conn_2Rows-05Pins" H 8700 5776 50  0000 C CNN
+F 2 "Connector_PinHeader_1.00mm:PinHeader_1x05_P1.00mm_Horizontal" H 8650 5550 50  0001 C CNN
+F 3 "~" H 8650 5550 50  0001 C CNN
+	1    8650 5550
+	1    0    0    -1  
+$EndComp
+Text GLabel 8200 5650 0    50   Input ~ 0
+SCK
+Wire Wire Line
+	8450 5650 8200 5650
+Text GLabel 9100 5450 2    50   Input ~ 0
+OE
+Text GLabel 9050 5550 2    50   Input ~ 0
+CLR
+Wire Wire Line
+	9100 5450 8950 5450
+Wire Wire Line
+	9050 5550 8950 5550
+Text GLabel 8300 5450 0    50   Input ~ 0
+COLNEXT
+Text GLabel 8350 5550 0    50   Input ~ 0
+ROWNEXT
+Wire Wire Line
+	8300 5450 8450 5450
+Wire Wire Line
+	8350 5550 8450 5550
+$Comp
+L Connector:USB_B_Micro J3
+U 1 1 613514B0
+P 9700 2150
+F 0 "J3" H 9470 2047 50  0000 R CNN
+F 1 "USB_B_Micro" H 9470 2138 50  0000 R CNN
+F 2 "Connector_USB:USB_Micro-B_Molex_47346-0001" H 9850 2100 50  0001 C CNN
+F 3 "~" H 9850 2100 50  0001 C CNN
+	1    9700 2150
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:+5V #PWR0101
+U 1 1 6135CD74
+P 9100 2350
+F 0 "#PWR0101" H 9100 2200 50  0001 C CNN
+F 1 "+5V" H 9115 2523 50  0000 C CNN
+F 2 "" H 9100 2350 50  0001 C CNN
+F 3 "" H 9100 2350 50  0001 C CNN
+	1    9100 2350
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	9700 1550 9700 1750
+$Comp
+L power:GND #PWR0102
+U 1 1 61363D8C
+P 9700 1550
+F 0 "#PWR0102" H 9700 1300 50  0001 C CNN
+F 1 "GND" H 9705 1377 50  0000 C CNN
+F 2 "" H 9700 1550 50  0001 C CNN
+F 3 "" H 9700 1550 50  0001 C CNN
+	1    9700 1550
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	9400 2350 9100 2350
+$Sheet
+S -150 -3550 4100 2850
+U 6341BE76
+F0 "led-matrix-config" 50
+F1 "led-matrix-config.sch" 50
+$EndSheet
+Text Notes 850  1200 0    129  ~ 0
+LED DRIVERS
+$Comp
+L power:VCC #PWR?
+U 1 1 6170D4AE
+P 9150 3550
+F 0 "#PWR?" H 9150 3400 50  0001 C CNN
+F 1 "VCC" H 9167 3723 50  0000 C CNN
+F 2 "" H 9150 3550 50  0001 C CNN
+F 3 "" H 9150 3550 50  0001 C CNN
+	1    9150 3550
+	0    -1   -1   0   
+$EndComp
+Connection ~ 9150 3550
+Wire Notes Line
+	700  1300 5850 1300
+Wire Notes Line
+	5850 7200 700  7200
+Wire Notes Line
+	5850 1300 5850 7200
+Wire Notes Line
+	700  1300 700  7200
+Wire Notes Line
+	11100 4250 11100 1300
+Wire Notes Line
+	11100 1300 8550 1300
+Wire Notes Line
+	8550 1300 8550 4250
+Wire Notes Line
+	8550 4250 11100 4250
+Text Notes 8700 1200 0    168  ~ 0
+Power Regulator
+Wire Notes Line
+	4400 -3300 4400 -350
+Wire Notes Line
+	4400 -350 13050 -350
+Wire Notes Line
+	13050 -350 13050 -3300
+Wire Notes Line
+	13050 -3300 4400 -3300
+Text Notes 4650 -3500 0    168  ~ 0
+SINK SWITCH
+Text Notes 2200 5250 0    89   ~ 0
+SINK Column Controller
+Text Notes 2450 3850 0    89   ~ 0
+Source Row Controller
+Wire Notes Line
+	7700 5000 7700 6400
+Wire Notes Line
+	7700 6400 9550 6400
+Wire Notes Line
+	9550 6400 9550 5000
+Wire Notes Line
+	9550 5000 7700 5000
+Text Notes 7900 4950 0    129  ~ 0
+In & Out
+$EndSCHEMATC
