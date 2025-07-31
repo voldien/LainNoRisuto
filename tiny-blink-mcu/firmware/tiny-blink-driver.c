@@ -1,4 +1,4 @@
-#include "driver.h"
+#include "tiny-blink-driver.h"
 #include "animation.h"
 #include <assert.h>
 #include <avr/cpufunc.h>
@@ -68,9 +68,9 @@ inline void write_bit(const uint8_t state) {
 inline void shift_oe_state(const uint8_t output_enabled) {
 
 	if (output_enabled) {
-		SHIFT_OE_REG |= (1 << SHIFT_OE_PIN);
-	} else {
 		SHIFT_OE_REG &= ~(1 << SHIFT_OE_PIN);
+	} else {
+		SHIFT_OE_REG |= (1 << SHIFT_OE_PIN);
 	}
 }
 
@@ -143,6 +143,8 @@ inline void init() {
 	/*	Set Prescular on the MCU to reduce power.	*/
 #ifdef __AVR_ATmega328P__
 	clock_prescale_set(clock_div_128);
+#else /*	Attiny13A	*/
+	clock_prescale_set(clock_div_8);
 #endif
 
 /*	*/
@@ -192,12 +194,7 @@ int main() {
 
 	/*	Init the controller.	*/
 	init();
-
-	const uint8_t delay_factor = 16;
-
-	// shift_latch_state(0);
-	// shift_clock_state(0);
-
+	const uint8_t delay_factor = 1;
 	while (1) {
 
 		/*	Reset WatchDog Counter.	*/
@@ -208,34 +205,34 @@ int main() {
 		/*	Next animation frame.	*/
 		const uint16_t current_frame = cc_get_curr_next_animation_keyframe();
 
-		/*	*/
-		for (uint8_t i = 0; i < 15; i++) {
+		/*	Latch Low to stop reading from the shift buffer.	*/
+		shift_latch_state(0);
+		_delay_loop_1(32 * delay_factor);
+		_delay_loop_1(128 * delay_factor);
 
-			const uint8_t bit = (current_frame) >> i;
+		/*	*/
+		uint8_t i;
+		for (i = 0; i < NRLED; i++) {
+
+			const uint8_t bit = ((current_frame) >> i) & 0xFF;
 
 			/*	Write Data Signal.	*/
 			write_bit(bit);
-			_delay_loop_2(64 * 1);
+			_delay_loop_1(64 * delay_factor);
 
-			/*	Shift Clock to shift the current BIts.	*/
+			/*	Shift Clock to shift the current Bits.	*/
 			shift_clock_state(1);
-			_delay_loop_2(32 * 1);
+			_delay_loop_1(48 * delay_factor);
 
-			/*	Shift Clock Low -> */
+			/*	Shift Clock Low -> Stop Shift Bites.	*/
 			shift_clock_state(0);
-			_delay_loop_2(32 * 1);
+			_delay_loop_1(48 * delay_factor);
 		}
-
-		/*	*/
-		_delay_loop_2(32 * delay_factor);
 
 		/*	Latch the current result in the shift buffer to the output buffer.	*/
 		shift_latch_state(1);
-		_delay_loop_2(128 * delay_factor);
-
-		/*	Latch Low to stop reading from the shift buffer.	*/
-		shift_latch_state(0);
-		_delay_loop_2(128 * delay_factor);
+		_delay_loop_1(128 * delay_factor);
+		write_bit(0);
 
 		continue;
 	}

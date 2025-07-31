@@ -47,6 +47,7 @@ inline void cc_init_time2ovf() {
 	*/
 }
 
+//TODO: set the shift registers to specific value.
 void cc_set_row(const uint8_t r) {
 
 	/*	Set all rows to sink.	 */

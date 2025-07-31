@@ -18,12 +18,16 @@
 */
 #ifndef _TINY_BLINK_H_
 #define _TINY_BLINK_H_ 1
-#include <avr/eeprom.h>
+
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <avr/sleep.h>
 #include <avr/wdt.h>
+
+#ifdef E2END
+#include <avr/eeprom.h>
+#endif
 
 /**
  * Push Button Registers and Pin
@@ -45,7 +49,7 @@
 
 /**
  * Shift Register Shift Clock Pin (SNx4HC595)
- * and Registers (SRCLR)
+ * and Registers  (RCLK)
  */
 #define SHIFT_RCLK_REG PORTB /*	 	*/
 #define SHIFT_RCLK_DREG DDRB /*	 	*/
@@ -61,7 +65,7 @@
 
 /**
  * Shift Registers Latch (Flush Data to Output) Pin (SNx4HC595)
- * and Register (RCLK)
+ * and Register  (SRCLR)
  */
 #define SHIFT_LATCH_REG PORTB
 #define SHIFT_LATCH_DREG DDRB

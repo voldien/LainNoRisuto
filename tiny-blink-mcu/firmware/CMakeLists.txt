@@ -2,16 +2,22 @@ cmake_minimum_required(VERSION 2.8)
 
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../cmake" )
 
-#SET(AVR_UPLOADTOOL avrdude)
-SET(AVR_PROGRAMMER usbasp)
-#SET(AVR_PROGRAMMER avrisp)
+SET(AVR_UPLOADTOOL avrdude)
+#SET(AVR_PROGRAMMER arduino) # Program Arduino Uno Board
+SET(AVR_PROGRAMMER usbasp) # USBASP Programmer
+#SET(AVR_PROGRAMMER avrisp) # Using Arduino Uno as Programmer
 SET(AVR_UPLOADTOOL_PORT /dev/ttyUSB0)
 #SET(AVR_UPLOADTOOL_BAUDRATE 125kHz)
-SET(AVR_UPLOADTOOL_OPTIONS -B 125kHz) 
-# AVR and fuses needs to be SET
-SET(AVR_MCU attiny13a) # atmega328p attiny13a attiny25
-#TODO: based on the source file
+#SET(AVR_UPLOADTOOL_OPTIONS -B 2000)
 
+
+#SET(AVR_MCU attiny11) #
+SET(AVR_MCU attiny13a) #
+#SET(AVR_MCU attiny212) #
+#SET(AVR_MCU attiny25) #
+#SET(AVR_MCU atmega328p) #
+
+# AVR and fuses needs to be SET
 # Atmega328P Fuses
 #SET(AVR_L_FUSE 0xc3)
 #SET(AVR_H_FUSE 0xd9)
@@ -22,11 +28,8 @@ SET(AVR_H_FUSE 0xFF)
 
 INCLUDE(generic-gcc-avr)
 avr_generate_fixed_targets()
- 
-##########################################################################
-# name your project
-##########################################################################
-project(TinyBlink)
+
+PROJECT(TinyBlink)
 
 ##################################################################################
 # status messages
@@ -49,7 +52,7 @@ ENDIF(NOT CMAKE_BUILD_TYPE)
 ##################################################################################
 # needs to be defined for AVR toolchain
 ##################################################################################
-SET(MCU_SPEED "9600000UL")
+SET(MCU_SPEED "1200000UL")
 
 ##################################################################################
 # some cmake cross-compile necessities
@@ -119,6 +122,6 @@ add_definitions("-std=gnu99")
 add_avr_executable(
    tiny-blink
    animation.c
-   driver.c
+   tiny-blink-driver.c
    fuse_lock.c
 )

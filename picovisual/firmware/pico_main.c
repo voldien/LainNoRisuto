@@ -108,7 +108,7 @@ void core1_entry() {
 void gpio_callback(uint gpio, uint32_t events) { gpio_get(GPIO_BUTTON0_PIN); }
 
 struct repeating_timer timer;
-void init_everything() {
+void init_system() {
 
 	/*	*/
 	set_sys_clock_khz(PLL_SYS_KHZ, true);
@@ -178,7 +178,7 @@ void welcome_screen() {
 int main() {
 
 	/*	Init Internal Console Backend.	*/
-	init_everything();
+	init_system();
 
 	/*	*/
 	welcome_screen();
