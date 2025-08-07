@@ -142,9 +142,11 @@ inline void init() {
 
 	/*	Set Prescular on the MCU to reduce power.	*/
 #ifdef __AVR_ATmega328P__
-	clock_prescale_set(clock_div_128);
-#else /*	Attiny13A	*/
-	clock_prescale_set(clock_div_8);
+	clock_prescale_set(clock_div_128); /* 16Mhz / 128 = 125 kHz	*/
+#elif defined(__AVR_ATtiny13A__)	   /*	Attiny13A	*/
+	clock_prescale_set(clock_div_8); /*		(9.6 / 8) / 8 = 150 kHz  */
+#elif defined(__AVR_ATtiny11A__)	   /*	Attiny11A	*/
+	clock_prescale_set(clock_div_8); /*		(9.6 / 8) / 8 = 150 kHz  */
 #endif
 
 /*	*/
