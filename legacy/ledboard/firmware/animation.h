@@ -20,6 +20,7 @@
 #define _LB_ANIMATION_H_ 1
 #include <avr/pgmspace.h>
 #include <stddef.h>
+#include <stdint.h>
 
 #define NRANIM 16	   /*	*/
 #define NRANIMENTRY 32 /*	*/

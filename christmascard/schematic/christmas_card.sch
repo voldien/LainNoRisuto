@@ -9637,6 +9637,11 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="457.2" y1="172.72" x2="457.2" y2="162.56" width="0.1524" layer="91"/>
 <label x="457.2" y="162.56" size="1.778" layer="95" rot="R270" xref="yes"/>
 </segment>
+<segment>
+<pinref part="U3" gate="&gt;NAME" pin="(PCINT0/AREF/ADC0)PA0"/>
+<wire x1="558.8" y1="111.76" x2="574.04" y2="111.76" width="0.1524" layer="91"/>
+<label x="574.04" y="111.76" size="1.778" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="RES" class="0">
 <segment>
@@ -10232,13 +10237,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="IC7" gate="A" pin="QH*"/>
 <wire x1="553.72" y1="198.12" x2="553.72" y2="185.42" width="0.1524" layer="91"/>
 <label x="553.72" y="185.42" size="1.778" layer="95" rot="R270" xref="yes"/>
-</segment>
-</net>
-<net name="LEDATA" class="0">
-<segment>
-<pinref part="U3" gate="&gt;NAME" pin="(PCINT0/AREF/ADC0)PA0"/>
-<wire x1="558.8" y1="111.76" x2="574.04" y2="111.76" width="0.1524" layer="91"/>
-<label x="574.04" y="111.76" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="BT0" class="0">

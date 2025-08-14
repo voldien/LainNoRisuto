@@ -1,6 +1,4 @@
-# The warnings below are disabled because they are too pedantic and not worth fixing.
-# Some of them will be enabled as part of the Clang-Tidy task, see T78535.
-
+---
 Checks:  >
   -*,
   readability-*,
@@ -12,36 +10,52 @@ Checks:  >
   -readability-avoid-const-params-in-decls,
   -readability-simplify-boolean-expr,
   -readability-make-member-function-const,
-
+  -readability-suspicious-call-argument,
+  -readability-redundant-member-init,
   -readability-misleading-indentation,
-
   -readability-use-anyofallof,
+  -readability-identifier-length,
+  -readability-redundant-access-specifiers,
 
   -readability-function-cognitive-complexity,
 
   bugprone-*,
-  -bugprone-narrowing-conversions,
-  -bugprone-unhandled-self-assignment,
-  -bugprone-branch-clone,
-  -bugprone-macro-parentheses,
-  -bugprone-reserved-identifier,
+  bugprone-misplaced-operator-in-strlen-in-alloc,
+  bugprone-narrowing-conversions,
+  bugprone-unhandled-self-assignment,
+  bugprone-branch-clone,
+  bugprone-macro-parentheses,
+  bugprone-reserved-identifier,
+  bugprone-easily-swappable-parameters,
+  bugprone-implicit-widening-of-multiplication-result,
+  bugprone-argument-comment,
+  bugprone-copy-constructor-init,
+  bugprone-inaccurate-erase,
+  bugprone-incorrect-enable-if,
 
-  -bugprone-sizeof-expression,
-  -bugprone-integer-division,
+  bugprone-sizeof-expression,
+  bugprone-integer-division,
+  bugprone-redundant-branch-condition,
 
-  -bugprone-redundant-branch-condition,
+  bugprone-suspicious-include,
+
+  cppcoreguidelines-*,
+  cppcoreguidelines-pro-type-cstyle-cast,
+  -cppcoreguidelines-non-private-member-variables-in-classes,
+  -cppcoreguidelines-no-malloc,
+  -cppcoreguidelines-owning-memory,
 
   modernize-*,
   -modernize-use-auto,
   -modernize-use-trailing-return-type,
   -modernize-avoid-c-arrays,
-  -modernize-use-equals-default,
   -modernize-use-nodiscard,
   -modernize-loop-convert,
   -modernize-pass-by-value,
-  -modernize-use-default-member-init,
   -modernize-raw-string-literal,
-  -modernize-avoid-bind,
-  -modernize-use-transparent-functors,
+  -modernize-return-braced-init-list,
 
+CheckOptions:
+  - key: modernize-use-default-member-init.UseAssignment
+    value: 1
 WarningsAsErrors: '*'

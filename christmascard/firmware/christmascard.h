@@ -1,6 +1,6 @@
 /**
 	Simple Christmascard MCU driver.
-	Copyright (C) 2017  Valdemar Lindberg
+	Copyright (C) 2017 Valdemar Lindberg
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -18,42 +18,123 @@
 */
 #ifndef _CHRISTMAS_CARD_H_
 #define _CHRISTMAS_CARD_H_ 1
-#include <stdio.h>
+
+#include <avr/interrupt.h>
+#include <avr/io.h>
+#include <avr/pgmspace.h>
+#include <avr/sleep.h>
+#include <avr/wdt.h>
 
 /**
- *	constant global attributes.
+ * Push Button Registers and Pin.
+ * Reset Button
  */
-#define ROW0 (1 << PA2)
-#define ROW1 (1 << PA1)
-#define ROW2 (1 << PA5)
-#define ROW3 (1 << PA4)
-#define ROWALL (ROW0 | ROW1 | ROW2 | ROW3)
-#define ROWPORT PORTA
-#define ROWDPORT DDRA
-#define NUMROWS 4
-#define NUMCOL 8
+#define PUSH_BUTTON0_REG PORTB
+#define PUSH_BUTTON0_DREG DDRB
+#define PUSH_BUTTON0_IREG PINB
+#define PUSH_BUTTON0_PIN PB0
+
+/**
+ * Push Button Registers and Pin
+ * Next Button
+ */
+#define PUSH_BUTTON1_REG PORTA
+#define PUSH_BUTTON1_DREG DDRA
+#define PUSH_BUTTON1_IREG PINA
+#define PUSH_BUTTON1_PIN PA1
+
+/**
+ * Shift Registers Output Enabled (SNx4HC595)
+ * Pin and Registers.
+ */
+#define SHIFT_OE_REG PORTA /*		*/
+#define SHIFT_OE_DREG DDRA /*		*/
+#define SHIFT_OE_PIN PA0   /*		*/
+#define SHIFT_OE_PWM_REG OCR0A
+
+/**
+ * Shift Register Shift Clock Pin (SNx4HC595)
+ * and Registers  (RCLK)
+ */
+#define SHIFT_RCLK_REG PORTB /*	 	*/
+#define SHIFT_RCLK_DREG DDRB /*	 	*/
+#define SHIFT_RCLK_PIN PB1	 /*	 	*/
+
+/**
+ * Shift Registers Serial Data Pin (SNx4HC595)
+ * and Registers
+ */
+#define SHIFT_DIO_REG PORTB /*		*/
+#define SHIFT_DIO_DREG DDRB /*		*/
+#define SHIFT_DIO_PIN PB2	/*		*/
+
+/**
+ * Shift Registers Latch (Flush Data to Output) Pin (SNx4HC595)
+ * and Register  (SRCLR)
+ */
+#define SHIFT_LATCH_REG PORTB
+#define SHIFT_LATCH_DREG DDRB
+#define SHIFT_LATCH_PIN PB3 /*	Shift clock.	*/
 
 /**
  *
  */
-#define BUTTON_NEXT (1 << PD2)
-#define WS2811_PIN PB3
+#define WS2811_DREG DDRA
+#define WS2811_REG PORTA
+#define WS2811_PIN PA3
+
 #define WS2811_IN (1 << WS2811_PIN)
+
+/**
+ *	constant global attributes.
+ */
+#define NUMROWS 4
+#define NUMCOL 8
+
+
+extern void init_system();
 
 /**
  *	Animation and LED.
  */
-extern void cc_set_row(const uint8_t r);	  /*	Set current enabled row.	*/
-extern void cc_set_col(const uint8_t *d);	  /*	Update LED driver with 8 bytes for current row.	*/
-extern void cc_display_next_keyframe();	  /*	Display next current key frame.	*/
-extern void cc_select_led_controller();	  /*	Select LED controller.	*/
-extern void cc_select_flash_controller(); /*	Select Flash Controller.	*/
+extern void cc_set_row(const uint8_t row_index); /*	Set current enabled row.	*/
+extern void cc_set_col(const uint8_t *d);		 /*	Update LED driver with 8 bytes for current row.	*/
+extern void cc_display_next_keyframe();			 /*	Display next current key frame.	*/
+extern void cc_select_led_controller();			 /*	Select LED controller.	*/
+extern void cc_select_flash_controller();		 /*	Select Flash Controller.	*/
 
 /**
  *	Button, controller and timers.
  */
-extern inline void cc_init_nextanibutton() __attribute__((always_inline));  /*	Initialize next animation button interrupt.	*/
+extern inline void cc_init_nextanibutton()
+	__attribute__((always_inline)); /*	Initialize next animation button interrupt.	*/
 extern inline void cc_init_ledcontrollers() __attribute__((always_inline)); /*	Initialize LED controller.	*/
-extern inline void cc_init_time2ovf() __attribute__((always_inline));		  /*	Enable timer overflow interrupt for update.	*/
+extern inline void cc_init_time2ovf() __attribute__((always_inline)); /*	Enable timer overflow interrupt for update.
+																	   */
+
+/**
+ * @brief true => Pressed, false => Not-Pressed
+ */
+extern inline uint8_t push_buton_pressed() __attribute__((always_inline));
+
+/**
+ * Set Latch Signal High (1) Low (0)
+ */
+extern inline void shift_latch_state(const uint8_t state) __attribute__((always_inline));
+
+/**
+ * Set Shift Clock Signal High (1) Low (0)
+ */
+extern inline void shift_clock_state(const uint8_t state) __attribute__((always_inline));
+
+/*
+ * Set Serial Data Signal High (1) Low (0)
+ */
+extern inline void write_bit(const uint8_t state_lsb) __attribute__((always_inline));
+
+/**
+ *	Set output. true => Enabled, false => Disabled
+ */
+extern inline void shift_oe_state(const uint8_t output_enabled) __attribute__((always_inline));
 
 #endif

@@ -1,5 +1,4 @@
-#include "animation.h"
-#include "christmascard.h"
+#include "clock-matrix-driver.h"
 #include "ws2811_8.h"
 #include <assert.h>
 #include <avr/boot.h>
@@ -10,31 +9,91 @@
 #include <avr/power.h>
 #include <avr/sleep.h>
 #include <avr/wdt.h>
+#include <cstdint>
 #include <util/delay.h>
+
+inline void shift_latch_state(const uint8_t state) {
+
+	if (state) {
+		/*
+		 *	Output source mode.
+		 */
+		SHIFT_LATCH_DREG |= (1 << SHIFT_LATCH_PIN);
+		SHIFT_LATCH_REG |= (1 << SHIFT_LATCH_PIN);
+	} else {
+		/*
+		 * Low output by high impedance.
+		 */
+		SHIFT_LATCH_DREG |= (1 << SHIFT_LATCH_PIN);
+		SHIFT_LATCH_REG &= ~(1 << SHIFT_LATCH_PIN);
+	}
+}
+
+inline void shift_clock_state(const uint8_t state) {
+
+	if (state) {
+		/*	Output source mode.
+		 */
+		SHIFT_RCLK_DREG |= (1 << SHIFT_RCLK_PIN);
+		SHIFT_RCLK_REG |= (1 << SHIFT_RCLK_PIN);
+	} else {
+		/*	Low output by high impedance.
+		 */
+		SHIFT_RCLK_DREG |= (1 << SHIFT_RCLK_PIN);
+		SHIFT_RCLK_REG &= ~(1 << SHIFT_RCLK_PIN);
+	}
+}
+
+inline void write_bit(const uint8_t state) {
+	const uint8_t bit = state & 0x1;
+
+	if (bit) {
+		/*
+		 * High - source output
+		 */
+		SHIFT_DIO_DREG |= (1 << SHIFT_DIO_PIN);
+		SHIFT_DIO_REG |= (1 << SHIFT_DIO_PIN);
+	} else {
+		/**
+		 *	Low - sink output.
+		 */
+		SHIFT_DIO_DREG |= (1 << SHIFT_DIO_PIN);
+		SHIFT_DIO_REG &= ~(1 << SHIFT_DIO_PIN);
+	}
+}
+
+inline void shift_oe_state(const uint8_t output_enabled) {
+
+	if (output_enabled) {
+		SHIFT_OE_REG &= ~(1 << SHIFT_OE_PIN);
+	} else {
+		SHIFT_OE_REG |= (1 << SHIFT_OE_PIN);
+	}
+}
 
 ISR(INT0_vect) { cc_reset_for_next_animation(); }
 
-inline void cc_init_nextanibutton() {
+void cc_init_buttons() {
 	/*	Output and enable pin for next button.	*/
-	//PORTB |= BUTTON_NEXT;
-	//DDRB |= BUTTON_NEXT;
+	PORTD |= BUTTON_NEXT;
+	DDRD |= BUTTON_NEXT;
 
 	/*	Enable interrupt.	*/
 	/*	External interrupt invoked on volt drop.	*/
-	//MCUCR |= (1 << ISC00) | (1 << ISC01);
-	//GICR |= (1 << INT0);
+	MCUCR |= (1 << ISC00) | (1 << ISC01);
+	GICR |= (1 << INT0);
 }
 
-inline void cc_init_ledcontrollers() {
+void cc_init_ledcontrollers() {
 
 	/*	Output and enable pin for ws2811.	*/
-	//DDRB |= WS2811_IN;
+	DDRB |= WS2811_IN;
 
 	/*	Output rows.	*/
-	//ROWDPORT |= ROWALL;
+	ROWDPORT |= ROWALL;
 }
 
-inline void cc_init_time2ovf() {
+void cc_init_time2ovf() {
 	/*
 	TIMSK |= ( 1 << TOIE2);
 	*/
@@ -47,7 +106,6 @@ inline void cc_init_time2ovf() {
 	*/
 }
 
-//TODO: set the shift registers to specific value.
 void cc_set_row(const uint8_t r) {
 
 	/*	Set all rows to sink.	 */
@@ -73,7 +131,7 @@ void cc_set_col(const uint8_t d[9]) {
 	sei();
 }
 
-void cc_display_next_keyframe() {
+void display_next_clock_state() {
 	uint8_t i, j;
 
 	/*	*/
@@ -95,11 +153,15 @@ void cc_display_next_keyframe() {
 }
 
 void cc_select_led_controller() {
-	DDRA |= (1 << PA6);
-	PORTA |= (1 << PA6);
+	DDRC |= (1 << PC6);
+	PORTC |= (1 << PC6);
 }
 
-void init() {
+void	init_i2c(){}
+
+void 	init_clock(){}
+
+void init_system() {
 	/*	Disable interrupt intill
 	 *	the initialization part is done.*/
 	cli();
@@ -112,16 +174,14 @@ void init() {
 	cc_init_ledcontrollers();
 
 	/*	*/
-	cc_init_nextanibutton();
-
-	/*	*/
-	cc_init_animation();
-
-	/*	*/
 	cc_init_time2ovf();
 
 	/*	*/
 	cc_select_led_controller();
+
+	init_i2c();
+
+	init_clock();
 
 	sleep_enable();
 	set_sleep_mode(SLEEP_MODE_IDLE);
@@ -131,7 +191,7 @@ void init() {
 
 int main() {
 
-	init();
+	init_system();
 
 	/*	main logic.	*/
 	while (1) {
@@ -140,17 +200,8 @@ int main() {
 
 		/*	Refresh the LED n number of times.	*/
 		for (i = 0; i < it; i++) {
-			cc_display_next_keyframe();
+			display_next_clock_state();
 		}
-
-		/*	Change to next animation.*/
-		if (cc_next_animation_ready()) {
-			cc_reset_for_next_animation();
-			continue;
-		}
-
-		/*	Next frame.	*/
-		cc_next_frame();
 	}
 
 	return 0;

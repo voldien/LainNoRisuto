@@ -49,8 +49,7 @@ void cc_next_frame() {
 
 const uint8_t cc_next_animation_ready() { return g_curkeyframe == (NRKEYFRAME - 1); }
 
-
-  void cc_reset_for_next_animation() {
+void cc_reset_for_next_animation() {
 	cli();
 	curanim = (curanim + 1) % NRANIM;
 	g_curkeyframe = 0;

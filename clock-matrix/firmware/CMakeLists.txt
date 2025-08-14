@@ -12,19 +12,26 @@ SET(AVR_UPLOADTOOL_PORT /dev/ttyUSB0)
 #SET(AVR_UPLOADTOOL_BAUDRATE 125kHz)
 SET(AVR_UPLOADTOOL_OPTIONS )
 
+
+#SET(AVR_MCU attiny11) #
+SET(AVR_MCU attiny13a) #
+#SET(AVR_MCU attiny212) #
+#SET(AVR_MCU attiny25) #
+#SET(AVR_MCU atmega328p) #
+
 # AVR and fuses needs to be SET
-SET(AVR_MCU attiny84a) # atmega328p attiny13a attiny25
-#TODO: based on the source file
-SET(AVR_H_FUSE 0xd9)
-SET(AVR_L_FUSE 0xc3)
+# Atmega328P Fuses
+#SET(AVR_L_FUSE 0xc3)
+#SET(AVR_H_FUSE 0xd9)
+
+# Attiny13A Fuses
+SET(AVR_L_FUSE 0x6A)
+SET(AVR_H_FUSE 0xFF)
 
 INCLUDE(generic-gcc-avr)
 avr_generate_fixed_targets()
 
-##########################################################################
-# name your project
-##########################################################################
-project(TinyBlink)
+PROJECT(TinyBlink)
 
 ##################################################################################
 # status messages
@@ -42,12 +49,12 @@ MESSAGE(STATUS "Current L_FUSE is SET to: ${AVR_L_FUSE}")
 ##################################################################################
 IF(NOT CMAKE_BUILD_TYPE)
    SET(CMAKE_BUILD_TYPE Release)
-endif(NOT CMAKE_BUILD_TYPE)
+ENDIF(NOT CMAKE_BUILD_TYPE)
 
 ##################################################################################
 # needs to be defined for AVR toolchain
 ##################################################################################
-SET(MCU_SPEED "9600000UL")
+SET(MCU_SPEED "1200000UL")
 
 ##################################################################################
 # some cmake cross-compile necessities
@@ -57,16 +64,16 @@ IF(DEFINED ENV{AVR_FIND_ROOT_PATH})
 else(DEFINED ENV{AVR_FIND_ROOT_PATH})
     IF(EXISTS "/opt/local/avr")
       SET(CMAKE_FIND_ROOT_PATH "/opt/local/avr")
-    elseif(EXISTS "/usr/avr")
+    ELSEIF(EXISTS "/usr/avr")
       SET(CMAKE_FIND_ROOT_PATH "/usr/avr")
-    elseif(EXISTS "/usr/lib/avr")
+    ELSEIF(EXISTS "/usr/lib/avr")
       SET(CMAKE_FIND_ROOT_PATH "/usr/lib/avr")
-    elseif(EXISTS "/usr/local/CrossPack-AVR")
+    ELSEIF(EXISTS "/usr/local/CrossPack-AVR")
       SET(CMAKE_FIND_ROOT_PATH "/usr/local/CrossPack-AVR")
     else(EXISTS "/opt/local/avr")
       MESSAGE(FATAL_ERROR "Please SET AVR_FIND_ROOT_PATH in your environment.")
-    endif(EXISTS "/opt/local/avr")
-endif(DEFINED ENV{AVR_FIND_ROOT_PATH})
+    ENDIF(EXISTS "/opt/local/avr")
+ENDIF(DEFINED ENV{AVR_FIND_ROOT_PATH})
 SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
@@ -87,17 +94,17 @@ MESSAGE(STATUS "Set CMAKE_SYSTEM_LIBRARY_PATH to ${CMAKE_SYSTEM_LIBRARY_PATH}")
 IF(CMAKE_BUILD_TYPE MATCHES Release)
    SET(CMAKE_C_FLAGS_RELEASE "-Os")
    SET(CMAKE_CXX_FLAGS_RELEASE "-Os")
-endif(CMAKE_BUILD_TYPE MATCHES Release)
+ENDIF(CMAKE_BUILD_TYPE MATCHES Release)
 
 IF(CMAKE_BUILD_TYPE MATCHES RelWithDebInfo)
-   SET(CMAKE_C_FLAGS_RELWITHDEBINFO "-Os -save-temps -g3  -gstabs")
-   SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-Os -save-temps -g3 -gstabs")
-endif(CMAKE_BUILD_TYPE MATCHES RelWithDebInfo)
+   SET(CMAKE_C_FLAGS_RELWITHDEBINFO "-Os -save-temps -g3 -gdwarf-3 -gstrict-dwarf")
+   SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-Os -save-temps -g3 -gdwarf-3 -gstrict-dwarf")
+ENDIF(CMAKE_BUILD_TYPE MATCHES RelWithDebInfo)
 
 IF(CMAKE_BUILD_TYPE MATCHES Debug)
    SET(CMAKE_C_FLAGS_DEBUG "-O0 -save-temps -g3 -gdwarf-3 -gstrict-dwarf")
    SET(CMAKE_CXX_FLAGS_DEBUG "-O0 -save-temps -g3 -gdwarf-3 -gstrict-dwarf")
-endif(CMAKE_BUILD_TYPE MATCHES Debug)
+ENDIF(CMAKE_BUILD_TYPE MATCHES Debug)
 
 ##################################################################################
 # compiler options for all build types
@@ -115,9 +122,9 @@ add_definitions("-c")
 add_definitions("-std=gnu99")
 
 add_avr_executable(
-   christmas_card
+   clock-matrix
    ws2811/ws2811_8.c
-   animation.c
-   christmas_driver.c
+   i2c.c
+   clock-matrix-driver.c
    fuse_lock.c
 )

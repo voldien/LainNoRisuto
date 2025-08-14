@@ -138,7 +138,7 @@ ISR(TIM0_OVF_vect) {
 // const uint16_t MAX_PWM_VALUE = 65535U;
 // void set_pwm(const uint8_t pwm) { SHIFT_OE_PWM_REG = 0xFFFF - 0x10ff; }
 
-inline void init() {
+inline void init_system() {
 
 	/*	Set Prescular on the MCU to reduce power.	*/
 #ifdef __AVR_ATmega328P__
@@ -195,7 +195,7 @@ inline void init() {
 int main() {
 
 	/*	Init the controller.	*/
-	init();
+	init_system();
 	const uint8_t delay_factor = 1;
 	while (1) {
 
