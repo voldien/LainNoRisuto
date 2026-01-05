@@ -502,3 +502,6 @@ fp-info-cache
 *.log
 *.raw
 .svg2shenzhen-cache
+
+*.pdf
+Makefile
